@@ -1228,7 +1228,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               label="비밀번호"
               withAsterisk
               minLength={4}
-              maxLength={8}
+              maxLength={12}
               sx={{ width: 160 }}
               {...editPwForm.getInputProps("password")}
             />
