@@ -7,7 +7,7 @@ export default class _Document extends Document {
         <Head>
           <script defer src="https://developers.kakao.com/sdk/js/kakao.js" />
           <meta property="og:url" content="https://github.com/changsol" />
-          <meta property="og:title" content="창솔루션❣️시니천사 결혼합니다" />
+          <meta property="og:title" content="창주❣️신희 결혼합니다" />
           <meta property="og:type" content="website" />
           <meta
             property="og:image"

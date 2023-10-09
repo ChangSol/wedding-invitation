@@ -45,6 +45,7 @@ import {
   IconWriting,
   IconX,
 } from "@tabler/icons";
+import styled from 'styled-components';
 import type { GetStaticProps, NextPage } from "next";
 import KakaoMap from "../components/KakaoMap";
 import heroImage from "../public/images/main.jpg";
@@ -374,6 +375,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           getCongratulationsInfinityQuery.fetchNextPage();
         }}
       ></div>
+
+
+      <Main>
+        <MainImage/>
+          <TextWrap>
+            <p>adf</p>
+            <span>sdf</span>
+          </TextWrap>
+      </Main>
+
       <BackgroundImage src={heroImage.src}>
         <Stack
           id="hero"
@@ -740,7 +751,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           color: theme.colors.dark[4],
         }}
       >
-        <Grid grow gutter={3}>
+        <Grid grow gutter={6}>
           {imagesGrid}
         </Grid>
       </Paper>
@@ -1228,7 +1239,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               label="비밀번호"
               withAsterisk
               minLength={4}
-              maxLength={12}
+              maxLength={8}
               sx={{ width: 160 }}
               {...editPwForm.getInputProps("password")}
             />
@@ -1350,5 +1361,28 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     </Stack>
   );
 };
+
+const Main = styled.div`
+  position: relative;
+  background-color: #FFFAEB;
+  padding: 3rem 1rem 1rem 1rem;
+`
+
+
+const MainImage = styled.div`
+  position: relative;
+  background-image: url('/images/main-img.jpg');
+  background-repeat: no-repeat;
+  width: 270px;
+  height: 380px;
+  margin: 0 auto;
+  border-top-left-radius: 135px;
+  border-top-right-radius: 135px;
+`
+const TextWrap = styled.div`
+  position: relative;
+  margin-top:30px;
+`
+
 
 export default Home;
