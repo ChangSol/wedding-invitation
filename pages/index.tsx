@@ -378,11 +378,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
 
       <Main>
-        <MainImage/>
-          <TextWrap>
-            <p>adf</p>
-            <span>sdf</span>
-          </TextWrap>
+        <Day>24.02.24</Day>
+        <MainWrap>
+          <MainImage />
+          <TextName>Changju and Shinhee</TextName>
+          <TextDay>sss</TextDay>
+        </MainWrap>
       </Main>
 
       <BackgroundImage src={heroImage.src}>
@@ -1366,22 +1367,58 @@ const Main = styled.div`
   position: relative;
   background-color: #FFFAEB;
   padding: 3rem 1rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  &::before {
+    content: "INVITE YOU TO THE WEDDING";
+    display: block;
+    position: absolute;
+    left: -57px;
+    transform: rotate(270deg);
+    font-size: 12px;
+  }
+  &::after {
+    content: "IT’S THE WEDDING DAY";
+    display: block;
+    position: absolute;
+    right: -40px;
+    transform: rotate(90deg);
+    font-size: 12px;
+  }
+`
+const Day = styled.p`
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+`
+const MainWrap = styled.div`
+  position: relative;
+  width: 60%;
 `
 
-
-const MainImage = styled.div`
+const MainImage = styled.img`
   position: relative;
-  background-image: url('/images/main-img.jpg');
+  background-image: url('/images/main2.jpg');
   background-repeat: no-repeat;
-  width: 270px;
+  background-size: 150%;
+  background-position: center;
+  width: 100%;
   height: 380px;
   margin: 0 auto;
-  border-top-left-radius: 135px;
-  border-top-right-radius: 135px;
 `
-const TextWrap = styled.div`
+const TextName = styled.p`
   position: relative;
-  margin-top:30px;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  width: 290px;
+  margin: 0 auto;
+  font-size: 28px;
+`
+const TextDay = styled.p`
 `
 
 
