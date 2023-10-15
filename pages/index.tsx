@@ -378,12 +378,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
 
       <Main>
-        <Day>24.02.24</Day>
+        <Day>2024 02 24</Day>
         <MainWrap>
           <MainImage />
-          <TextName>Changju and Shinhee</TextName>
-          <TextDay>sss</TextDay>
         </MainWrap>
+        <TextName>Changju and Shinhee</TextName>
+        <TextDay>2024 2 24 SAT 1PM</TextDay>
+        <TextHall>부천채림웨딩홀</TextHall>
       </Main>
 
       <BackgroundImage src={heroImage.src}>
@@ -542,13 +543,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           sx={{ flexWrap: "nowrap" }}
         >
           <Stack align="center" spacing="xs">
-            <Avatar
+            {/* <Avatar
               // src={geonyAvatar.src}
               size="lg"
               sx={{ borderRadius: "50%" }}
               alt="geony"
-            />
-
+            /> */}
+            
+            <CjFace/>
+            {/* <img className="phoneImage" alt="iPhone_01" src="/images/changju.png'" /> */}
             <Group id="name" spacing={5} align="flex-end">
               <Text size="xs">장남</Text>
               <Text size="sm">{process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
@@ -640,12 +643,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             <IconHeart size={25} opacity={0.3} />
           </Box>
           <Stack align="center" spacing="xs">
-            <Avatar
+            {/* <Avatar
               // src={boraAvatar.src}
               size="lg"
               sx={{ borderRadius: "50%" }}
               alt="geony"
-            />
+            /> */}
+            <ShFace/>
             <Group id="name" spacing={5} align="flex-end">
               <Text size="xs">장녀</Text>
               <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
@@ -1390,9 +1394,13 @@ const Main = styled.div`
   }
 `
 const Day = styled.p`
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   display: flex;
   justify-content: center;
+  border: 1px solid #03652B;
+  margin-bottom: 20px;
+  padding: 0 5px;
+  border-radius: 25px;
 `
 const MainWrap = styled.div`
   position: relative;
@@ -1411,15 +1419,38 @@ const MainImage = styled.img`
 `
 const TextName = styled.p`
   position: relative;
-  bottom: 30px;
+  bottom: 20px;
+  font-family: 'Hankc';
   display: flex;
   justify-content: center;
   width: 290px;
   margin: 0 auto;
-  font-size: 28px;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #03652B;
 `
 const TextDay = styled.p`
 `
+const TextHall = styled.span`
+`
 
+const CjFace = styled.img`
+  background-image: url('/images/changju.png');
+  border-image-source: none;
+  width: 60px;
+  height: 72px;
+  background-repeat: no-repeat;
+  background-size: cover;
+`
+const ShFace = styled.img`
+  background-image: url('/images/shinhee.png');
+  border-image-source: none;
+  width: 60px;
+  height: 72px;
+  background-repeat: no-repeat;
+  background-size: cover;
+`
 
 export default Home;

@@ -378,3 +378,11 @@
   pointer-events: none;
   position: absolute;
 }
+
+/* 폰트 */
+@font-face {
+  font-family: 'Hankc';
+  font-style: normal;
+  font-weight: 400;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/hani/Hankc/Hankc.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/hani/Hankc/Hankc.woff') format('woff');
+}

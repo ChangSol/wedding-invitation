@@ -23,6 +23,10 @@ export default function GlobalStyles() {
         a: {
           all: "unset",
         },
+        p: {
+          margin: 0,
+          padding: 0
+        }
       })}
     />
   );
