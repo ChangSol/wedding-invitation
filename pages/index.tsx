@@ -1032,7 +1032,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   <ActionIcon
                     color="blue"
                     onClick={() => {
-                      setSelectedComment(comment);
+                      // setSelectedComment(comment);
                       setCommentPwModalOpened(true);
                     }}
                   >
