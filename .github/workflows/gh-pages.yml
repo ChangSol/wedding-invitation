@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main # 빌드할 브랜치
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -11,23 +12,28 @@ jobs:
       - name: 🛎️ Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: setup node
+      - name: setup node 18.x
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
 
-      - run: npm install
-      - run: npm run build # 빌드 스크립트
-      - run: npm run export
+      - name: access to secrets
+        run: |
+          echo "MAP_API_KEY : $MAP_API_KEY" >> .env
         env:
-          CI: true
-          DEPLOY_TARGET: gh-pages
-      - run: touch out/.nojekyll
+          MAP_API_KEY: ${{secrets.MAP_API_KEY}}
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - run: npm ci
+
+      - run: npm run build # 빌드 스크립트
+
+      - run: npm run export
+
+      - run: touch ./out/.nojekyll
+
+      - name: 🚀 Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           GITHUB_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
-          BRANCH: gh-pages  # 배포될 브랜치
-          FOLDER: out # 이 폴더에 있는 파일을 배포
-          CLEAN: true # 배포 브랜치에 있는 파일들을 자동으로 삭제
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: out # The folder the action should deploy.
