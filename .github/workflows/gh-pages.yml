@@ -1,0 +1,33 @@
+name: Build and Deploy # Github Action 이름
+
+on:
+  push:
+    branches:
+      - main # 빌드할 브랜치
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - run: npm install
+      - run: npm run build # 빌드 스크립트
+      - run: npm run export
+        env:
+          CI: true
+          DEPLOY_TARGET: gh-pages
+      - run: touch out/.nojekyll
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+          BRANCH: gh-pages  # 배포될 브랜치
+          FOLDER: out # 이 폴더에 있는 파일을 배포
+          CLEAN: true # 배포 브랜치에 있는 파일들을 자동으로 삭제
