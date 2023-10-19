@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_HOST: ${{ secrets.API_HOST }}
     steps:
       - name: 🛎️ Checkout 🛎️
         uses: actions/checkout@v3
@@ -17,19 +19,13 @@ jobs:
         with:
           node-version: "18.x"
 
-      - name: access to secrets
-        run: |
-          echo "MAP_API_KEY : $MAP_API_KEY" >> .env
-        env:
-          MAP_API_KEY: ${{secrets.MAP_API_KEY}}
-
       - run: npm ci
 
       - run: npm run build # 빌드 스크립트
 
 #      - run: npm run export
 
-      - run: touch ./out/.nojekyll
+#      - run: touch ./out/.nojekyll
 
       - name: 🚀 Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
