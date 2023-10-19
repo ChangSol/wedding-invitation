@@ -2,14 +2,14 @@
   "name": "wedding-invitation",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://changsol.github.io/wdding-invitation",
+  "homepage": "https://changsol.github.io/wedding-invitation/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d public"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -29,7 +29,8 @@
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
