@@ -27,7 +27,7 @@ jobs:
 
       - run: npm run build # 빌드 스크립트
 
-      - run: npm run export
+#      - run: npm run export
 
       - run: touch ./out/.nojekyll
 
