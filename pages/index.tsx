@@ -387,6 +387,32 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <TextHall>부천채림웨딩홀</TextHall>
       </Main>
 
+      <Dday>
+        <DdayWrap>
+          00일 00시 00분 00초
+        </DdayWrap>
+      </Dday>
+
+      <Greetings>
+        <Text
+          align="center"
+          sx={(theme) => ({
+            fontSize: theme.fontSizes.sm,
+          })}
+        >
+          평생을 함께 할 사람을 만났습니다. <br />
+          지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
+          바라보며 함께 걸아가고 싶습니다. <br />
+          <br />
+          손을 맞잡은 이 순간부터 <br />
+          아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요.{" "}
+          <br />
+          <br />
+          언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
+          말할 수 있도록 함께 노력하며 살겠습니다.
+        </Text>
+      </Greetings>
+      
       <BackgroundImage src={heroImage.src}>
         <Stack
           id="hero"
@@ -1370,7 +1396,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 const Main = styled.div`
   position: relative;
   background-color: #FFFAEB;
-  padding: 3rem 1rem 1rem 1rem;
+  padding: 3rem 1rem 3rem 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -1416,6 +1442,7 @@ const MainImage = styled.img`
   width: 100%;
   height: 380px;
   margin: 0 auto;
+  // filter: grayscale(100%);
 `
 const TextName = styled.p`
   position: relative;
@@ -1424,7 +1451,6 @@ const TextName = styled.p`
   display: flex;
   justify-content: center;
   width: 290px;
-  margin: 0 auto;
   font-size: 30px;
   font-style: italic;
   font-weight: 600;
@@ -1451,6 +1477,23 @@ const ShFace = styled.img`
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
+`
+
+const Dday = styled.div`
+  width:100%;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  background-color: #05652c;
+`
+const DdayWrap = styled.div`
+  background-color: #fff;
+  padding: .5rem;
+  border-radius: .3rem;
+`
+
+const Greetings = styled.div`
+
 `
 
 export default Home;
