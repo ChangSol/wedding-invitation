@@ -149,7 +149,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       }}
     >
       <Image
-        src={`/pictures/${image}`}
+        src={`/wedding-invitation/pictures/${image}`}
         alt="wedding"
         width={600}
         sx={{ objectFit: "cover" }}
@@ -160,7 +160,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const imagesGrid = images.map((image, i) => {
     const IMAGE = (
       <Image
-        src={`/pictures/${image}`}
+        src={`/wedding-invitation/pictures/${image}`}
         alt="wedding"
         sx={{ width: "100%", cursor: "pointer" }}
         radius="sm"
