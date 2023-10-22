@@ -1,12 +1,15 @@
 {
+  "homepage": "https://changsol.github.io/wedding-invitation",
   "name": "wedding-invitation",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "rm -rf node_modules/.cache && npm run build",
+    "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -27,6 +30,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "^3.39.3",
+    "react-scripts": "^5.0.1",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
@@ -36,6 +40,7 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0",
+    "gh-pages": "^6.0.0",
     "pretier": "^0.0.1",
     "prettier": "^3.0.3",
     "typescript": "4.8.3"

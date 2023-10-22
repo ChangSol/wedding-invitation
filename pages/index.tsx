@@ -150,7 +150,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       }}
     >
       <Image
-        src={`/pictures/${image}`}
+        src={`/wedding-invitation/pictures/${image}`}
         alt="wedding"
         width={600}
         sx={{ objectFit: "cover" }}
@@ -161,7 +161,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const imagesGrid = images.map((image, i) => {
     const IMAGE = (
       <Image
-        src={`/pictures/${image}`}
+        src={`/wedding-invitation/pictures/${image}`}
         alt="wedding"
         sx={{ width: "100%", cursor: "pointer" }}
         radius="sm"
@@ -541,7 +541,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           color: theme.colors.dark[4],
         }}
       >
-        <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" />
+        <Image src="/wedding-invitation/flower.svg" alt="flower" width={250} mx="auto" mb="xl" />
         <Text
           align="center"
           sx={(theme) => ({
@@ -764,7 +764,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Group>
-        <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
+        <Image src="/wedding-invitation/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
       </Paper>
 
       <Divider variant="dotted" mx={10} />
@@ -1074,7 +1074,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   <ActionIcon
                     color="blue"
                     onClick={() => {
-                      setSelectedComment(comment);
+                      // setSelectedComment(comment);
                       setCommentPwModalOpened(true);
                     }}
                   >
@@ -1111,7 +1111,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <Group position="center" spacing="xl">
           <ActionIcon sx={{ width: 50 }}>
             <Image
-              src="/kakaomap.png"
+              src="/wedding-invitation/kakaomap.png"
               width={50}
               alt="kakaomap"
               onClick={() =>
@@ -1123,7 +1123,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </ActionIcon>
           <ActionIcon sx={{ width: 50 }}>
             <Image
-              src="/navermap.png"
+              src="/wedding-invitation/navermap.png"
               width={50}
               alt="navermap"
               onClick={() =>
@@ -1175,7 +1175,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <Group position="center" spacing="xl">
           <ActionIcon sx={{ width: 50 }} onClick={() => kakaoShare()}>
             <Image
-              src="/kakaotalk.png"
+              src="/wedding-invitation/kakaotalk.png"
               width={50}
               alt="kakaotalk"
               onClick={() => router.push("/")}
