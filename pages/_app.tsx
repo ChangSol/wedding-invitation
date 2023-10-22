@@ -7,9 +7,36 @@ import { useEffect, useState } from "react";
 import GlobalStyles from "../styles/GlobalStyles";
 import dotenv from "dotenv";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { DefaultSeo } from "next-seo";
 require("dotenv").config();
 
 const client = new QueryClient();
+
+const DEFAULT_SEO = {
+  title: "test title",
+  description: "test description",
+  canonical: "https://www.changsol.io/wedding-invitation",
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "https://www.changsol.io/wedding-invitation",
+    title: "test title",
+    site_name: "test site",
+    images: [
+      {
+        url: "https://changsol.github.io/wedding-invitation/pictures/main.jpg",
+        width: 285,
+        height: 167,
+        alt: "img",
+      },
+    ],
+  },
+  twitter: {
+    handle: "@handle",
+    site: "@site",
+    cardType: "summary_large_image",
+  },
+};
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
@@ -33,38 +60,41 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <QueryClientProvider client={client}>
-      <Head>
-        <title>창솔루션❤️시니천사</title>
-      </Head>
+    <>
+      <DefaultSeo {...DEFAULT_SEO} />
+      <QueryClientProvider client={client}>
+        <Head>
+          <title>창솔루션❤️시니천사</title>
+        </Head>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          breakpoints: {
-            xs: 400,
-            sm: 500,
-            md: 800,
-            lg: 1000,
-            xl: 1200,
-          },
-          fontFamily: "Noto Sans KR",
-        }}
-      >
-        <GlobalStyles />
-
-        <div
-          id="main"
-          style={{
-            overflow: "hidden",
-            position: "relative",
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            breakpoints: {
+              xs: 400,
+              sm: 500,
+              md: 800,
+              lg: 1000,
+              xl: 1200,
+            },
+            fontFamily: "Noto Sans KR",
           }}
         >
-          {loading ? <>Loading...</> : <Component {...pageProps} />}
-        </div>
-      </MantineProvider>
-    </QueryClientProvider>
+          <GlobalStyles />
+
+          <div
+            id="main"
+            style={{
+              overflow: "hidden",
+              position: "relative",
+            }}
+          >
+            {loading ? <>Loading...</> : <Component {...pageProps} />}
+          </div>
+        </MantineProvider>
+      </QueryClientProvider>
+    </>
   );
 }
 
