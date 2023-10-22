@@ -23,11 +23,6 @@ jobs:
 
       - run: npm run build # 빌드 스크립트
 
-      - run: npm run export
-        env:
-          CI: true
-          DEPLOY_TARGET: gh-pages
-
       - run: touch out/.nojekyll
 
       - name: 🚀 Deploy 🚀
