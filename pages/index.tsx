@@ -722,7 +722,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Group>
-        <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
+        <Image src="/wedding-invitation/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
       </Paper>
 
       <Divider variant="dotted" mx={10} />
