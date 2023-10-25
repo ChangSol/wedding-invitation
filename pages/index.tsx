@@ -394,23 +394,35 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Dday>
 
       <Greetings>
-        <Text
-          align="center"
-          sx={(theme) => ({
-            fontSize: theme.fontSizes.sm,
-          })}
-        >
-          평생을 함께 할 사람을 만났습니다. <br />
-          지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
-          바라보며 함께 걸아가고 싶습니다. <br />
-          <br />
-          손을 맞잡은 이 순간부터 <br />
-          아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요.{" "}
-          <br />
-          <br />
-          언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
-          말할 수 있도록 함께 노력하며 살겠습니다.
-        </Text>
+        <TextWrap>
+          <TitleEng>
+            wedding day
+          </TitleEng>
+          <TitleKor>
+            02<br />24
+          </TitleKor>
+          <Text
+            align="center"
+            sx={(theme) => ({
+              fontSize: theme.fontSizes.sm,
+            })}
+          >
+            평생을 함께 할 사람을 만났습니다. <br />
+            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
+            바라보며 함께 걸아가고 싶습니다. <br />
+            <br />
+            손을 맞잡은 이 순간부터 <br />
+            아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요.{" "}
+            <br />
+            <br />
+            언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
+            말할 수 있도록 함께 노력하며 살겠습니다.
+          </Text>
+        </TextWrap>
+        <Line></Line>
+        <>
+            
+        </>
       </Greetings>
       
       <BackgroundImage src={heroImage.src}>
@@ -1435,7 +1447,7 @@ const MainWrap = styled.div`
 
 const MainImage = styled.img`
   position: relative;
-  background-image: url('/images/main2.jpg');
+  background-image: url('/images/mobilemain.jpg');
   background-repeat: no-repeat;
   background-size: 150%;
   background-position: center;
@@ -1451,7 +1463,7 @@ const TextName = styled.p`
   display: flex;
   justify-content: center;
   width: 290px;
-  font-size: 30px;
+  font-size: 28px;
   font-style: italic;
   font-weight: 600;
   letter-spacing: 1px;
@@ -1493,7 +1505,45 @@ const DdayWrap = styled.div`
 `
 
 const Greetings = styled.div`
+  padding: 2.6rem 1rem;
+  background-color: #FFFAEB;
+  //background-image: url('/images/main.jpg');
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  // &::before {
+  //   position: absolute;
+  //   content: "";
+  //   top:0px;
+  //   left:0px;
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: rgba(0,0,0,0.4);
+}
+`
+const TextWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const TitleEng = styled.h3`
+  font-size: 0.5rem;
+  color: #05652c;
+`
+const TitleKor = styled.p`
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-bottom: 40px;
+  font-weight: bold;
+  color: #05652c;
+`
 
+const Line = styled.div`
+  width:1px;
+  height: 40px;
+  margin: 40px auto;
+  background-color: #05652c;
+  //transform: rotate(45deg);
 `
 
 export default Home;
