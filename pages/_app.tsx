@@ -71,6 +71,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           withGlobalStyles
           withNormalizeCSS
           theme={{
+            spacing: 0,
             breakpoints: {
               xs: 400,
               sm: 500,
