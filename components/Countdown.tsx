@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import './Countdown.css';
 
 interface CountdownProps {
   targetDate: string; // D-day 날짜를 문자열로 받음
