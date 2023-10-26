@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const debug = process.env.NODE_ENV !== "production";
-const repository = "/wedding-invitation";
+const repository = "";
 
 const nextConfig = {
   // distDir: 'build',
