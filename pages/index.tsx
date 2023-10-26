@@ -1500,8 +1500,6 @@ const Dday = styled.div`
   background-color: #05652c;
 `
 const DdayWrap = styled.div`
-  background-color: #fff;
-  padding: .5rem;
   border-radius: .3rem;
 `
 
