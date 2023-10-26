@@ -72,6 +72,7 @@ import {
   useGetCongratulationsQuery,
 } from "../queries";
 import ClipboardJS from "clipboard";
+import Countdown from "../components/Countdown";
 
 interface CommentFormValues {
   name: string;
@@ -389,7 +390,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
       <Dday>
         <DdayWrap>
-          00일 00시 00분 00초
+          <Countdown targetDate="2024-02-24T13:00:00" />
         </DdayWrap>
       </Dday>
 
