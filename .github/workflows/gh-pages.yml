@@ -10,6 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_API_HOST: ${{ secrets.API_HOST }}
+      NEXT_PUBLIC_KAKAO_JS_KEY: ${{ secrets.KAKAO_JS_KEY }}
+      NEXT_PUBLIC_GROOM_NAME: ${{ secrets.GROOM_NAME }}
+      NEXT_PUBLIC_GROOM_PHONE: ${{ secrets.GROOM_PHONE }}
+      NEXT_PUBLIC_GROOM_KAKAO_QR: ${{ secrets.GROOM_KAKAO_QR }}
+      NEXT_PUBLIC_GROOM_ACCOUNT: ${{ secrets.GROOM_ACCOUNT }}
+      NEXT_PUBLIC_GROOM_BANK_NAME: ${{ secrets.GROOM_BANK_NAME }}
+      NEXT_PUBLIC_GROOM_DAD_NAME: ${{ secrets.GROOM_DAD_NAME }}
+      NEXT_PUBLIC_GROOM_MOM_NAME: ${{ secrets.GROOM_MOM_NAME }}
+      NEXT_PUBLIC_BRIDE_NAME: ${{ secrets.BRIDE_NAME }}
+      NEXT_PUBLIC_BRIDE_PHONE: ${{ secrets.BRIDE_PHONE }}
+      NEXT_PUBLIC_BRIDE_KAKAO_QR: ${{ secrets.BRIDE_KAKAO_QR }}
+      NEXT_PUBLIC_BRIDE_ACCOUNT: ${{ secrets.BRIDE_ACCOUNT }}
+      NEXT_PUBLIC_BRIDE_BANK_NAME: ${{ secrets.BRIDE_BANK_NAME }}
+      NEXT_PUBLIC_BRIDE_DAD_NAME: ${{ secrets.BRIDE_DAD_NAME }}
+      NEXT_PUBLIC_BRIDE_MOM_NAME: ${{ secrets.BRIDE_MOM_NAME }}
+
     steps:
       - name: 🛎️ Checkout 🛎️
         uses: actions/checkout@v3
