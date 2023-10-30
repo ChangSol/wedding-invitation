@@ -1532,7 +1532,7 @@ const TitleEng = styled.h3`
 const TitleKor = styled.p`
   font-size: 1.2rem;
   line-height: 1;
-  margin-bottom: 40px;
+  margin: 5px 0 40px 0;
   font-weight: bold;
   color: #05652c;
 `

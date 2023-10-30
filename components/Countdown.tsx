@@ -33,10 +33,25 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
 
   return (
       <div className="countdown">
-        <p> {days} <span>DAYS</span> </p>
-        <p> {hours.toString().padStart(2,'0')} <span>HOURS</span> </p>
-        <p> {minutes.toString().padStart(2,'0')} <span>MINUTES</span> </p>
-        <p> {seconds.toString().padStart(2,'0')} <span>SECONDS</span> </p>
+        <h3>WEDDING DAY</h3>
+        <ul>
+          <li>
+            <p>{days}</p>
+            <span>DAYS</span>
+          </li>
+          <li>
+            <p>{hours.toString().padStart(2,'0')} </p>
+            <span>HOURS</span>
+          </li>
+          <li>
+            <p>{minutes.toString().padStart(2,'0')} </p>
+            <span>MINUTES</span>
+          </li>
+          <li>
+            <p>{seconds.toString().padStart(2,'0')}</p>
+            <span>SECONDS</span>
+          </li>
+        </ul>
       </div>
   );
 };
