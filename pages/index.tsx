@@ -48,6 +48,7 @@ import {
 import styled from 'styled-components';
 import type { GetStaticProps, NextPage } from "next";
 import KakaoMap from "../components/KakaoMap";
+import Sms from '../components/Sms';
 import heroImage from "../public/images/main.jpg";
 import geonyAvatar from "../public/images/geony-profile.jpeg";
 import boraAvatar from "../public/images/bora-edit.jpeg";
@@ -127,8 +128,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     sortType: "NEW",
     limit: 10,
   });
-  const getCongratulationsInfinityQuery =
-    useGetCongratulationsInfinityQuery(params);
+
+  const getCongratulationsInfinityQuery = [];
+//     useGetCongratulationsInfinityQuery(params);
 
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
@@ -377,6 +379,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         }}
       ></div>
 
+      <Sms />
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
       <Main>
         <Day>2024 02 24</Day>
