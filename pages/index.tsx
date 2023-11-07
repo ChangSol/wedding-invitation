@@ -45,10 +45,10 @@ import {
   IconWriting,
   IconX,
 } from "@tabler/icons";
-import styled from 'styled-components';
+import styled from "styled-components";
 import type { GetStaticProps, NextPage } from "next";
 import KakaoMap from "../components/KakaoMap";
-import Sms from '../components/Sms';
+import Sms from "../components/Sms";
 import heroImage from "../public/images/main.jpg";
 import geonyAvatar from "../public/images/geony-profile.jpeg";
 import boraAvatar from "../public/images/bora-edit.jpeg";
@@ -130,7 +130,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   });
 
   const getCongratulationsInfinityQuery = [];
-//     useGetCongratulationsInfinityQuery(params);
+  //     useGetCongratulationsInfinityQuery(params);
 
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
@@ -380,9 +380,60 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       ></div>
 
       <Sms />
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
       <Main>
         <Day>2024 02 24</Day>
@@ -402,11 +453,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
       <Greetings>
         <TextWrap>
-          <TitleEng>
-            wedding day
-          </TitleEng>
+          <TitleEng>wedding day</TitleEng>
           <TitleKor>
-            02<br />24
+            02
+            <br />
+            24
           </TitleKor>
           <Text
             align="center"
@@ -427,11 +478,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </Text>
         </TextWrap>
         <Line></Line>
-        <>
-            
-        </>
+        <></>
       </Greetings>
-      
+
       <BackgroundImage src={heroImage.src}>
         <Stack
           id="hero"
@@ -594,8 +643,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               sx={{ borderRadius: "50%" }}
               alt="geony"
             /> */}
-            
-            <CjFace/>
+
+            <CjFace />
             {/* <img className="phoneImage" alt="iPhone_01" src="/images/changju.png'" /> */}
             <Group id="name" spacing={5} align="flex-end">
               <Text size="xs">장남</Text>
@@ -694,7 +743,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               sx={{ borderRadius: "50%" }}
               alt="geony"
             /> */}
-            <ShFace/>
+            <ShFace />
             <Group id="name" spacing={5} align="flex-end">
               <Text size="xs">장녀</Text>
               <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
@@ -1101,7 +1150,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   </ActionIcon>
                 </Group>
               </Box>
-            ),
+            )
           )}
         </Stack>
       </Paper>
@@ -1135,7 +1184,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alt="kakaomap"
               onClick={() =>
                 router.push(
-                  "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874",
+                  "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874"
                 )
               }
             />
@@ -1147,7 +1196,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alt="navermap"
               onClick={() =>
                 router.push(
-                  "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000",
+                  "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000"
                 )
               }
             />
@@ -1414,7 +1463,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
 const Main = styled.div`
   position: relative;
-  background-color: #FFFAEB;
+  background-color: #fffaeb;
   padding: 3rem 1rem 3rem 1rem;
   display: flex;
   align-items: center;
@@ -1437,24 +1486,24 @@ const Main = styled.div`
     transform: rotate(90deg);
     font-size: 12px;
   }
-`
+`;
 const Day = styled.p`
   font-size: 0.8rem;
   display: flex;
   justify-content: center;
-  border: 1px solid #03652B;
+  border: 1px solid #03652b;
   margin-bottom: 20px;
   padding: 0 5px;
   border-radius: 25px;
-`
+`;
 const MainWrap = styled.div`
   position: relative;
   width: 60%;
-`
+`;
 
 const MainImage = styled.img`
   position: relative;
-  background-image: url('/images/mobilemain.jpg');
+  background-image: url("/images/mobilemain.jpg");
   background-repeat: no-repeat;
   background-size: 150%;
   background-position: center;
@@ -1462,11 +1511,11 @@ const MainImage = styled.img`
   height: 380px;
   margin: 0 auto;
   // filter: grayscale(100%);
-`
+`;
 const TextName = styled.p`
   position: relative;
   bottom: 20px;
-  font-family: 'Hankc';
+  font-family: "Hankc";
   display: flex;
   justify-content: center;
   width: 290px;
@@ -1474,42 +1523,40 @@ const TextName = styled.p`
   font-style: italic;
   font-weight: 600;
   letter-spacing: 1px;
-  color: #03652B;
-`
-const TextDay = styled.p`
-`
-const TextHall = styled.span`
-`
+  color: #03652b;
+`;
+const TextDay = styled.p``;
+const TextHall = styled.span``;
 
 const CjFace = styled.img`
-  background-image: url('/images/changju.png');
+  background-image: url("/images/changju.png");
   border-image-source: none;
   width: 60px;
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
-`
+`;
 const ShFace = styled.img`
-  background-image: url('/images/shinhee.png');
+  background-image: url("/images/shinhee.png");
   border-image-source: none;
   width: 60px;
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
-`
+`;
 
 const Dday = styled.div`
-  width:100%;
+  width: 100%;
   padding: 2rem 0;
   display: flex;
   justify-content: center;
   background-color: #05652c;
-`
+`;
 const DdayWrap = styled.div`
   background-color: #fff;
-  padding: .5rem;
-  border-radius: .3rem;
-`
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+`;
 
 const Greetings = styled.div`
   padding: 2.6rem 1rem;
@@ -1527,30 +1574,30 @@ const Greetings = styled.div`
   //   height: 100%;
   //   background-color: rgba(0,0,0,0.4);
 }
-`
+`;
 const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 const TitleEng = styled.h3`
   font-size: 0.5rem;
   color: #05652c;
-`
+`;
 const TitleKor = styled.p`
   font-size: 1.2rem;
   line-height: 1;
   margin-bottom: 40px;
   font-weight: bold;
   color: #05652c;
-`
+`;
 
 const Line = styled.div`
-  width:1px;
+  width: 1px;
   height: 40px;
   margin: 40px auto;
   background-color: #05652c;
   //transform: rotate(45deg);
-`
+`;
 
 export default Home;
