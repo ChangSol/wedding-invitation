@@ -395,6 +395,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </DdayWrap>
       </Dday>
 
+      {/* 인사문구, 연락처 */}
       <Greetings>
         <TextWrap>
           <TitleEng>
@@ -628,7 +629,39 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </>
       </Greetings>
       
-      <BackgroundImage src={heroImage.src}>
+      {/* 지도 */}
+      <Location>
+        <KakaoMap />
+        <Navigation>
+          <Button
+              color="green.5"
+              sx={{ width: "40%" }}
+              onClick={() => setNavigation(true)}
+            >
+              🚘 네비게이션
+            </Button>
+        </Navigation>
+        <Parking>
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            px={15}
+            py={7}
+            title="주차 안내"
+            sx={{ width: "90%" }}
+          >
+            <Text
+              sx={(theme) => ({
+                fontSize: theme.fontSizes.xs,
+              })}
+            >
+              전용 주차장에 주차 가능 (무료 3시간) <br />
+              만차 시 이마트 주차 가능 (5000원 제공) <br />
+              안내원의 유도에 따라주시면 감사하겠습니다.
+            </Text>
+          </Alert>
+        </Parking>
+      </Location>
+      {/* <BackgroundImage src={heroImage.src}>
         <Stack
           id="hero"
           m={0}
@@ -738,7 +771,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Stack>
-      </BackgroundImage>
+      </BackgroundImage> */}
 
       <Divider variant="dotted" mx={10} ref={targetRef} />
 
@@ -756,27 +789,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           color: theme.colors.dark[4],
         }}
       >
-        <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" />
-        <Text
-          align="center"
-          sx={(theme) => ({
-            fontSize: theme.fontSizes.sm,
-          })}
-        >
-          평생을 함께 할 사람을 만났습니다. <br />
-          지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
-          바라보며 함께 걸아가고 싶습니다. <br />
-          <br />
-          손을 맞잡은 이 순간부터 <br />
-          아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요.{" "}
-          <br />
-          <br />
-          언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
-          말할 수 있도록 함께 노력하며 살겠습니다.
-        </Text>
-        <Space h="md" />
-        <Divider variant="dashed" />
-        <Space h="md" />
+        {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
+        
         
         <Group
           id="avatarWrapper"
@@ -980,7 +994,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Group>
-        <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
+        {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
       </Paper>
 
       <Divider variant="dotted" mx={10} />
@@ -1746,6 +1760,20 @@ const Line = styled.div`
   margin: 40px auto;
   background-color: #05652c;
   //transform: rotate(45deg);
+`
+
+const Location = styled.div`
+  background-color: #F4EEE7;
+  
+`
+const Navigation = styled.div`
+  padding: 1.5rem;
+`
+const Parking = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem 0;
 `
 
 export default Home;
