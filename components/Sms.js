@@ -25,11 +25,14 @@ export default function Sms() {
           setCountdown(countdown - 1);
         } else {
           clearInterval(interval);
+          window.location.reload(); // 페이지 새로 고침
+          alert('인증 오류 발생. ChangSol에게 문의해 주세요.');
         }
       }, 1000);
 
       return () => {
         clearInterval(interval);
+        window.location.reload(); // 페이지 새로 고침
       };
     }
   }, [countdown, isCounting]);
@@ -38,7 +41,7 @@ export default function Sms() {
   const seconds = countdown % 60;
 
   const startCountdown = () => {
-    setCountdown(180); // 3 minutes in seconds
+    setCountdown(10); // 3 minutes in seconds
     setIsCounting(true);
   };
 
@@ -54,6 +57,7 @@ export default function Sms() {
       alert('휴대폰번호 형식이 맞지 않습니다. ex) 01012344321');
       return;
     }
+
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier(
         'sign-in-button',
@@ -66,16 +70,15 @@ export default function Sms() {
     }
     window.recaptchaVerifier.render();
 
-    signInWithPhoneNumber(auth, '1' + phoneNumberWithCountryCode + phoneNumber.slice(1), window.recaptchaVerifier)
+    signInWithPhoneNumber(auth, phoneNumberWithCountryCode + phoneNumber.slice(1), window.recaptchaVerifier)
       .then((confirmationResult) => {
-        console.log('789', confirmationResult);
         window.confirmationResult = confirmationResult; // window
         startCountdown();
       })
       .catch((error) => {
         console.log(error);
-        alert('인증 오류 발생. ChangSol에게 문의해 주세요.');
         window.location.reload(); // 페이지 새로 고침
+        alert('인증번호 요청 실패. ChangSol에게 문의해 주세요.');
       });
   };
 
@@ -84,37 +87,47 @@ export default function Sms() {
       .confirm(verificationCode)
       .then((result) => {
         // User signed in successfully.
-        const user = result.user;
-        console.log('hey YOU ARE IN SUCCESS => ', user);
+        alert('인증번호 확인완료');
         // ...
       })
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
-        console.log('fail Verify => ', error);
+        console.log(error);
+        window.location.reload(); // 페이지 새로 고침
+        alert('인증번호 확인 실패. ChangSol에게 문의해 주세요.');
       });
   };
   return (
     <>
-      <div id="sign-in-button"></div>
-      <input
-        type="text"
-        placeholder="휴대폰번호(01012341234)"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      />
-      <button onClick={onClickHandleSendCode}>인증번호 요청</button>
-      <p>
-        {minutes < 10 ? '0' : ''}
-        {minutes}:{seconds < 10 ? '0' : ''}
-        {seconds}
-      </p>
-      <input
-        type="text"
-        placeholder="인증번호 입력"
-        value={verificationCode}
-        onChange={(e) => setVerificationCode(e.target.value)}
-      />
-      <button onClick={onClickHandleVerifyCode}>인증번호 확인</button>
+      <div id="sign-in-button" />
+      <div>
+        {!isCounting ? (
+          <div>
+            <input
+              type="text"
+              placeholder="휴대폰번호(01012341234)"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <button onClick={onClickHandleSendCode}>인증번호 요청</button>
+          </div>
+        ) : (
+          <div>
+            <p>
+              {minutes < 10 ? '0' : ''}
+              {minutes}:{seconds < 10 ? '0' : ''}
+              {seconds}
+            </p>
+            <input
+              type="text"
+              placeholder="인증번호 입력"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
+            />
+            <button onClick={onClickHandleVerifyCode}>인증번호 확인</button>
+          </div>
+        )}
+      </div>
     </>
   );
 }
