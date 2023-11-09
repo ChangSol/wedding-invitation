@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useState, useEffect } from 'react';
-import firebaseConfig from '../firebaseConfig.js';
+import firebaseConfig from '../../firebaseConfig.js';
+import Link from 'next/link.js';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -11,8 +12,8 @@ auth.languageCode = 'ko';
 // 국가 코드를 추가한 전화번호를 설정
 const phoneNumberWithCountryCode = '+82 '; // 국가 코드
 
-export default function Sms() {
-  const [phoneNumber, setPhoneNumber] = useState('');
+const Sms = () => {
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [verificationCode, setVerificationCode] = useState('');
 
   const [countdown, setCountdown] = useState(180); // 3 minutes in seconds
@@ -32,7 +33,6 @@ export default function Sms() {
 
       return () => {
         clearInterval(interval);
-        window.location.reload(); // 페이지 새로 고침
       };
     }
   }, [countdown, isCounting]);
@@ -41,7 +41,7 @@ export default function Sms() {
   const seconds = countdown % 60;
 
   const startCountdown = () => {
-    setCountdown(10); // 3 minutes in seconds
+    setCountdown(180); // 3 minutes in seconds
     setIsCounting(true);
   };
 
@@ -63,7 +63,7 @@ export default function Sms() {
         'sign-in-button',
         {
           size: 'invisible',
-          callback: (response) => {},
+          callback: (response: any) => {},
         },
         auth
       );
@@ -85,12 +85,12 @@ export default function Sms() {
   const onClickHandleVerifyCode = () => {
     window.confirmationResult
       .confirm(verificationCode)
-      .then((result) => {
+      .then((result: any) => {
         // User signed in successfully.
+        const user = result.user;
         alert('인증번호 확인완료');
-        // ...
       })
-      .catch((error) => {
+      .catch((error: any) => {
         // User couldn't sign in (bad verification code?)
         console.log(error);
         window.location.reload(); // 페이지 새로 고침
@@ -124,10 +124,20 @@ export default function Sms() {
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
             />
-            <button onClick={onClickHandleVerifyCode}>인증번호 확인</button>
+
+            <Link
+              href={{
+                pathname: '/events/sucess',
+                query: { phone: '123' },
+              }}
+            >
+              <button onClick={onClickHandleVerifyCode}>인증번호 확인</button>
+            </Link>
           </div>
         )}
       </div>
     </>
   );
-}
+};
+
+export default Sms;
