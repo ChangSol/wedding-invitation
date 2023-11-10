@@ -126,8 +126,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     limit: 10,
   });
 
-  const getCongratulationsInfinityQuery = [];
-  //     useGetCongratulationsInfinityQuery(params);
+  const getCongratulationsInfinityQuery = //[];
+       useGetCongratulationsInfinityQuery(params);
 
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
