@@ -126,8 +126,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     limit: 10,
   });
 
-  const getCongratulationsInfinityQuery = //[];
-       useGetCongratulationsInfinityQuery(params);
+  const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params); //[];
 
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
@@ -341,7 +340,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     return () => {
       document.removeEventListener('scroll', listener);
     };
-  }, []);
+  }, [getCongratulationsInfinityQuery]);
 
   return (
     <Stack
