@@ -31,7 +31,6 @@ jobs:
       FB_STORAGE_BUCKET_1: ${{ secrets.FB_STORAGE_BUCKET_1 }}
       FB_MESSAGING_SENDER_ID_1: ${{ secrets.FB_MESSAGING_SENDER_ID_1 }}
       FB_APP_ID_1: ${{ secrets.FB_APP_ID_1 }}
-      FB_API_KEY_1: ${{ secrets.FB_API_KEY_1 }}
       
     steps:
       - name: 🛎️ Checkout 🛎️
