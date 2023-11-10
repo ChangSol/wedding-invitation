@@ -13,7 +13,6 @@ auth.languageCode = 'ko';
 const phoneNumberWithCountryCode = '+82 '; // 국가 코드
 
 const Sms = () => {
-  console.log(firebaseConfig);
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [verificationCode, setVerificationCode] = useState('');
 

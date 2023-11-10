@@ -10,6 +10,8 @@ const Success = () => {
   useEffect(() => {
     if (query?.phone) {
       console.log(query.phone);
+    } else {
+      router.push('/events')
     }
   }, [query?.phone]);
 
