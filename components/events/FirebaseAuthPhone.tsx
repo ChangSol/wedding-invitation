@@ -102,9 +102,10 @@ const Sms = () => {
     <>
       <Link
         href={{
-          pathname: '/events/sucess',
-          query: { phone: '123' },
+          pathname: '/events/success',
+          query: { phone: `${phoneNumber}` },
         }}
+        as={`/events/success`}
       >
         <button>인증번호 확인</button>
       </Link>
@@ -136,9 +137,10 @@ const Sms = () => {
 
             <Link
               href={{
-                pathname: '/events/sucess',
-                query: { phone: '123' },
+                pathname: '/events/success',
+                query: { phone: `${phoneNumber}` },
               }}
+              as={`/events/success`}
             >
               <button onClick={onClickHandleVerifyCode}>인증번호 확인</button>
             </Link>
