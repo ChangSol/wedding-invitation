@@ -25,12 +25,12 @@ jobs:
       NEXT_PUBLIC_BRIDE_BANK_NAME: ${{ secrets.BRIDE_BANK_NAME }}
       NEXT_PUBLIC_BRIDE_DAD_NAME: ${{ secrets.BRIDE_DAD_NAME }}
       NEXT_PUBLIC_BRIDE_MOM_NAME: ${{ secrets.BRIDE_MOM_NAME }}
-      FB_API_KEY_1: ${{ secrets.FB_API_KEY_1 }}
-      FB_AUTH_DOMAIN_1: ${{ secrets.FB_AUTH_DOMAIN_1 }}
-      FB_PROJECT_ID_1: ${{ secrets.FB_PROJECT_ID_1 }}
-      FB_STORAGE_BUCKET_1: ${{ secrets.FB_STORAGE_BUCKET_1 }}
-      FB_MESSAGING_SENDER_ID_1: ${{ secrets.FB_MESSAGING_SENDER_ID_1 }}
-      FB_APP_ID_1: ${{ secrets.FB_APP_ID_1 }}
+      NEXT_PUBLIC_FB_API_KEY_1: ${{ secrets.FB_API_KEY_1 }}
+      NEXT_PUBLIC_FB_AUTH_DOMAIN_1: ${{ secrets.FB_AUTH_DOMAIN_1 }}
+      NEXT_PUBLIC_FB_PROJECT_ID_1: ${{ secrets.FB_PROJECT_ID_1 }}
+      NEXT_PUBLIC_FB_STORAGE_BUCKET_1: ${{ secrets.FB_STORAGE_BUCKET_1 }}
+      NEXT_PUBLIC_FB_MESSAGING_SENDER_ID_1: ${{ secrets.FB_MESSAGING_SENDER_ID_1 }}
+      NEXT_PUBLIC_FB_APP_ID_1: ${{ secrets.FB_APP_ID_1 }}
       
     steps:
       - name: 🛎️ Checkout 🛎️
