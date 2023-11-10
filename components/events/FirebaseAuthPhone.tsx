@@ -99,6 +99,14 @@ const Sms = () => {
   };
   return (
     <>
+      <Link
+        href={{
+          pathname: '/events/sucess',
+          query: { phone: '123' },
+        }}
+      >
+        <button>인증번호 확인</button>
+      </Link>
       <div id="sign-in-button" />
       <div>
         {!isCounting ? (
