@@ -60,23 +60,12 @@ import {
 } from "../queries";
 import Countdown from "../components/Countdown";
 
-interface EditPwFormValues {
-  password: string;
-}
-
 export const getStaticProps: GetStaticProps = () => {
   const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
   return {
     props: { images },
   };
 };
-
-// const isMatchCommentPassword = (password: string, comment: IComment) => {
-//   if (comment.password === password) {
-//     return true;
-//   }
-//   return false;
-// };
 
 const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const theme = useMantineTheme();
@@ -240,7 +229,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     },
   });
 
-  const onDeleteComment = async (password: string) => {
+  const onDeleteComment = async (password: any) => {
     if (!selectedCongratulation) return;
     const ok = window.confirm("정말 삭제하시겠습니까? ");
     if (ok) {
