@@ -74,6 +74,7 @@ import {
 import ClipboardJS from 'clipboard';
 import Countdown from '../components/Countdown';
 
+
 interface CommentFormValues {
   name: string;
   password: string;
@@ -380,6 +381,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </DdayWrap>
       </Dday>
 
+      {/* 인사문구, 연락처 */}
       <Greetings>
         <TextWrap>
           <TitleEng>wedding day</TitleEng>
@@ -395,7 +397,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             })}
           >
             평생을 함께 할 사람을 만났습니다. <br />
-            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을 바라보며 함께 걸아가고 싶습니다. <br />
+            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
+            바라보며 함께 걸어가고 싶습니다. <br />
             <br />
             손을 맞잡은 이 순간부터 <br />
             아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요. <br />
@@ -405,8 +408,246 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </Text>
         </TextWrap>
         <Line></Line>
+        <>
+        <Group
+          id="avatarWrapper"
+          position="center"
+          spacing={8}
+          sx={{ flexWrap: "nowrap" }}
+        >
+          <Stack align="center" spacing="xs">
+            {/* <Avatar
+              // src={geonyAvatar.src}
+              size="lg"
+              sx={{ borderRadius: "50%" }}
+              alt="geony"
+            /> */}
+
+            <CjFace/>
+            {/* <img className="phoneImage" alt="iPhone_01" src="/images/changju.png'" /> */}
+            <Group id="name" spacing={5} align="flex-end">
+              <Text size="xs">장남</Text>
+              <Text size="sm">{process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
+            </Group>
+            <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
+              <ActionIcon
+                component={NextLink}
+                href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
+              >
+                <IconPhone size={20} />
+              </ActionIcon>
+              <ActionIcon
+                component="a"
+                href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`}
+                target="_blank"
+              >
+                <IconBrandMessenger size={20} />
+              </ActionIcon>
+              <Popover
+                width={140}
+                position="bottom"
+                withArrow
+                shadow="md"
+                radius="md"
+              >
+                <Popover.Target>
+                  <ActionIcon>
+                    <IconCurrencyWon size={20} />
+                  </ActionIcon>
+                </Popover.Target>
+                <Popover.Dropdown p={5} px={10}>
+                  <Stack
+                    spacing={2}
+                    sx={{ position: "relative" }}
+                    align="flex-end"
+                  >
+                    <Text size={theme.fontSizes.xs}>
+                      {process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
+                    </Text>
+                    <Text size={theme.fontSizes.xs}>
+                      {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}{" "}
+                      {process.env.NEXT_PUBLIC_GROOM_NAME}
+                    </Text>
+                  </Stack>
+                  <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                    <CopyButton
+                      value={
+                        `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
+                        " " +
+                        `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
+                      }
+                    >
+                      {({ copied, copy }) =>
+                        copied ? (
+                          <ActionIcon onClick={copy} color="teal">
+                            <IconClipboardCheck size={20} />
+                          </ActionIcon>
+                        ) : (
+                          <ActionIcon onClick={copy} color="blue">
+                            <IconClipboard size={20} />
+                          </ActionIcon>
+                        )
+                      }
+                    </CopyButton>
+                  </Box>
+                </Popover.Dropdown>
+              </Popover>
+            </Group>
+            <Stack spacing={0}>
+              <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
+                <Text size="xs">
+                  아버지 : {process.env.NEXT_PUBLIC_GROOM_DAD_NAME}
+                </Text>
+                <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                  <IconPhone size={15} />
+                </ActionIcon>
+              </Group>
+              <Group spacing={5}>
+                <Text size="xs">
+                  어머니 : {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
+                </Text>
+                <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                  <IconPhone size={15} />
+                </ActionIcon>
+              </Group>
+            </Stack>
+          </Stack>
+          <Box>
+            <IconHeart size={25} opacity={0.3} />
+          </Box>
+          <Stack align="center" spacing="xs">
+            {/* <Avatar
+              // src={boraAvatar.src}
+              size="lg"
+              sx={{ borderRadius: "50%" }}
+              alt="geony"
+            /> */}
+            <ShFace/>
+            <Group id="name" spacing={5} align="flex-end">
+              <Text size="xs">장녀</Text>
+              <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
+            </Group>
+            <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
+              <ActionIcon
+                component={NextLink}
+                href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
+              >
+                <IconPhone size={20} />
+              </ActionIcon>
+              <ActionIcon
+                component="a"
+                href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`}
+                target="_blank"
+              >
+                <IconBrandMessenger size={20} />
+              </ActionIcon>
+              <Popover
+                width={140}
+                position="bottom"
+                withArrow
+                shadow="md"
+                radius="md"
+              >
+                <Popover.Target>
+                  <ActionIcon>
+                    <IconCurrencyWon size={20} />
+                  </ActionIcon>
+                </Popover.Target>
+                <Popover.Dropdown p={5} px={10}>
+                  <Stack
+                    spacing={2}
+                    sx={{ position: "relative" }}
+                    align="flex-end"
+                  >
+                    <Text size={theme.fontSizes.xs}>
+                      {process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
+                    </Text>
+                    <Text size={theme.fontSizes.xs}>
+                      {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}{" "}
+                      {process.env.NEXT_PUBLIC_BRIDE_NAME}
+                    </Text>
+                  </Stack>
+                  <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                    <CopyButton
+                      value={
+                        `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
+                        " " +
+                        `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
+                      }
+                    >
+                      {({ copied, copy }) =>
+                        copied ? (
+                          <ActionIcon onClick={copy} color="teal">
+                            <IconClipboardCheck size={20} />
+                          </ActionIcon>
+                        ) : (
+                          <ActionIcon onClick={copy} color="blue">
+                            <IconClipboard size={20} />
+                          </ActionIcon>
+                        )
+                      }
+                    </CopyButton>
+                  </Box>
+                </Popover.Dropdown>
+              </Popover>
+            </Group>
+            <Stack spacing={0}>
+              <Group spacing={5}>
+                <Text size="xs">
+                  아버지 : {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}
+                </Text>
+                <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                  <IconPhone size={15} />
+                </ActionIcon>
+              </Group>
+              <Group spacing={5}>
+                <Text size="xs">
+                  어머니 : {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
+                </Text>
+                <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                  <IconPhone size={15} />
+                </ActionIcon>
+              </Group>
+            </Stack>
+          </Stack>
+        </Group>
+        </>
         <></>
       </Greetings>
+
+      {/* 지도 */}
+      <Location>
+        <KakaoMap />
+        <Navigation>
+          <Button
+              color="green.5"
+              sx={{ width: "40%" }}
+              onClick={() => setNavigation(true)}
+            >
+              🚘 네비게이션
+            </Button>
+        </Navigation>
+        <Parking>
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            px={15}
+            py={7}
+            title="주차 안내"
+            sx={{ width: "90%" }}
+          >
+            <Text
+              sx={(theme) => ({
+                fontSize: theme.fontSizes.xs,
+              })}
+            >
+              전용 주차장에 주차 가능 (무료 3시간) <br />
+              만차 시 이마트 주차 가능 (5000원 제공) <br />
+              안내원의 유도에 따라주시면 감사하겠습니다.
+            </Text>
+          </Alert>
+        </Parking>
+      </Location>
+      {/* <BackgroundImage src={heroImage.src}>
 
       <BackgroundImage src={heroImage.src}>
         <Stack
@@ -516,7 +757,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Stack>
-      </BackgroundImage>
+      </BackgroundImage> */}
 
       <Divider variant="dotted" mx={10} ref={targetRef} />
 
@@ -534,26 +775,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           color: theme.colors.dark[4],
         }}
       >
-        <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" />
-        <Text
-          align="center"
-          sx={(theme) => ({
-            fontSize: theme.fontSizes.sm,
-          })}
+        {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
+
+
+        <Group
+          id="avatarWrapper"
+          position="center"
+          spacing={8}
+          sx={{ flexWrap: "nowrap" }}
         >
-          평생을 함께 할 사람을 만났습니다. <br />
-          지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을 바라보며 함께 걸아가고 싶습니다. <br />
-          <br />
-          손을 맞잡은 이 순간부터 <br />
-          아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요. <br />
-          <br />
-          언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
-          말할 수 있도록 함께 노력하며 살겠습니다.
-        </Text>
-        <Space h="md" />
-        <Divider variant="dashed" />
-        <Space h="md" />
-        <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: 'nowrap' }}>
           <Stack align="center" spacing="xs">
             {/* <Avatar
               // src={geonyAvatar.src}
@@ -698,7 +928,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Group>
-        <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
+        {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
       </Paper>
 
       <Divider variant="dotted" mx={10} />
@@ -1361,10 +1591,8 @@ const Dday = styled.div`
   background-color: #05652c;
 `;
 const DdayWrap = styled.div`
-  background-color: #fff;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-`;
+  border-radius: .3rem;
+`
 
 const Greetings = styled.div`
   padding: 2.6rem 1rem;
@@ -1395,7 +1623,7 @@ const TitleEng = styled.h3`
 const TitleKor = styled.p`
   font-size: 1.2rem;
   line-height: 1;
-  margin-bottom: 40px;
+  margin: 5px 0 40px 0;
   font-weight: bold;
   color: #05652c;
 `;
@@ -1407,5 +1635,19 @@ const Line = styled.div`
   background-color: #05652c;
   //transform: rotate(45deg);
 `;
+
+const Location = styled.div`
+  background-color: #F4EEE7;
+  
+`
+const Navigation = styled.div`
+  padding: 1.5rem;
+`
+const Parking = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem 0;
+`
 
 export default Home;
