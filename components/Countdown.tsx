@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import './Countdown.css';
 
 interface CountdownProps {
   targetDate: string; // D-day 날짜를 문자열로 받음
@@ -34,7 +33,25 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
 
   return (
       <div className="countdown">
-        {days}일 {hours.toString().padStart(2,'0')}시 {minutes.toString().padStart(2,'0')}분 {seconds.toString().padStart(2,'0')}초
+        <h3>WEDDING DAY</h3>
+        <ul>
+          <li>
+            <p>{days}</p>
+            <span>DAYS</span>
+          </li>
+          <li>
+            <p>{hours.toString().padStart(2,'0')} </p>
+            <span>HOURS</span>
+          </li>
+          <li>
+            <p>{minutes.toString().padStart(2,'0')} </p>
+            <span>MINUTES</span>
+          </li>
+          <li>
+            <p>{seconds.toString().padStart(2,'0')}</p>
+            <span>SECONDS</span>
+          </li>
+        </ul>
       </div>
   );
 };

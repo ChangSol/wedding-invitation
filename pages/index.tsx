@@ -2,13 +2,10 @@ import {
   ActionIcon,
   Alert,
   Anchor,
-  Avatar,
-  BackgroundImage,
   Box,
   Button,
-  CopyButton,
-  Center,
   CloseButton,
+  CopyButton,
   Divider,
   Grid,
   Group,
@@ -19,18 +16,15 @@ import {
   Paper,
   PasswordInput,
   Popover,
-  Space,
   Stack,
   Text,
   Textarea,
   TextInput,
   Transition,
-  UnstyledButton,
   useMantineTheme,
-} from '@mantine/core';
+} from "@mantine/core";
 import {
   IconAlertCircle,
-  IconArrowDownCircle,
   IconBrandMessenger,
   IconCheck,
   IconClipboard,
@@ -41,69 +35,37 @@ import {
   IconLink,
   IconPhone,
   IconShare,
-  IconUser,
   IconWriting,
-  IconX,
-} from '@tabler/icons';
-import styled from 'styled-components';
-import type { GetStaticProps, NextPage } from 'next';
-import KakaoMap from '../components/KakaoMap';
-import heroImage from '../public/images/main.jpg';
-import geonyAvatar from '../public/images/geony-profile.jpeg';
-import boraAvatar from '../public/images/bora-edit.jpeg';
-import Fs from 'fs';
-import path from 'path';
-import React, { useEffect, useRef, useState } from 'react';
-import { useClipboard, useScrollIntoView } from '@mantine/hooks';
-import { useRouter } from 'next/router';
-import LocationModal from '../components/LocationModal';
-import { NextLink } from '@mantine/next';
-import { kakaoShare } from '../lib/KakaoShare';
-import { useForm } from '@mantine/form';
-import getRandomEmoji from '../lib/randomEmojis';
-import { Carousel } from '@mantine/carousel';
-import { api } from '../apis';
-import { useQuery, useQueryClient } from 'react-query';
+} from "@tabler/icons";
+import styled from "styled-components";
+import type { GetStaticProps, NextPage } from "next";
+import KakaoMap from "../components/KakaoMap";
+import Fs from "fs";
+import path from "path";
+import React, { useState } from "react";
+import { useScrollIntoView } from "@mantine/hooks";
+import { useRouter } from "next/router";
+import LocationModal from "../components/LocationModal";
+import { NextLink } from "@mantine/next";
+import { kakaoShare } from "../lib/KakaoShare";
+import { useForm } from "@mantine/form";
+import { Carousel } from "@mantine/carousel";
 import {
-  CONGRATULATION_QUERY_KEY,
+  ICongratulationCreate,
   ICongratulationData,
   ICongratulationParams,
+  useDeleteCongratulationMutation,
   useGetCongratulationsInfinityQuery,
-  useGetCongratulationsQuery,
-} from '../queries';
-import ClipboardJS from 'clipboard';
-import Countdown from '../components/Countdown';
-
-interface CommentFormValues {
-  name: string;
-  password: string;
-  payload: string;
-}
-interface IComment extends CommentFormValues {
-  id: string;
-  createdAt: number;
-  avatar: string;
-}
-
-interface EditPwFormValues {
-  password: string;
-}
+  usePostCongratulationMutation,
+} from "../queries";
+import Countdown from "../components/Countdown";
 
 export const getStaticProps: GetStaticProps = () => {
-  const images = Fs.readdirSync(path.join(process.cwd(), 'public/pictures'));
+  const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
   return {
     props: { images },
   };
 };
-
-const isMatchCommentPassword = (password: string, comment: IComment) => {
-  if (comment.password === password) {
-    return true;
-  }
-  return false;
-};
-
-const COMMENT = 'comment';
 
 const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const theme = useMantineTheme();
@@ -115,18 +77,22 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const [share, setShare] = useState(false);
   const [commentInputOpened, setCommentInputOpened] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ICongratulationData[] | null>(null);
-  const [selectedComment, setSelectedComment] = useState<IComment | null>(null);
+  const [commentsArray, setCommentsArray] = useState<
+    ICongratulationData[] | null
+  >(null);
+  const [selectedCongratulation, setSelectedCongratulation] =
+    useState<ICongratulationData | null>(null);
   const [commentPasswordError, setCommentPasswordError] = useState(false);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
   const [commentEditModalOpened, setCommentEditModalOpened] = useState(false);
   const [imagesArray, setImagesArray] = useState<string[]>(images);
   const [params, setParams] = React.useState<ICongratulationParams>({
-    sortType: 'NEW',
+    sortType: "NEW",
     limit: 10,
   });
 
-  const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params); //[];
+  const getCongratulationsInfinityQuery = //[];
+    useGetCongratulationsInfinityQuery(params);
 
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
@@ -143,12 +109,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     <Carousel.Slide
       key={i}
       sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <Image src={`/pictures/${image}`} alt="wedding" width={600} sx={{ objectFit: 'cover' }} />
+      <Image
+        src={`/pictures/${image}`}
+        alt="wedding"
+        width={600}
+        sx={{ objectFit: "cover" }}
+      />
     </Carousel.Slide>
   ));
 
@@ -157,7 +128,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       <Image
         src={`/pictures/${image}`}
         alt="wedding"
-        sx={{ width: '100%', cursor: 'pointer' }}
+        sx={{ width: "100%", cursor: "pointer" }}
         radius="sm"
         onClick={() => {
           selectImage(image);
@@ -172,9 +143,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       );
     }
 
-    if (image.includes('wide')) {
+    if (image.includes("wide")) {
       return (
-        <Grid.Col key={i} span={6} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid.Col
+          key={i}
+          span={6}
+          sx={{ display: "flex", alignItems: "center" }}
+        >
           {IMAGE}
         </Grid.Col>
       );
@@ -187,58 +162,62 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     );
   });
 
-  const form = useForm<CommentFormValues>({
+  const form = useForm<ICongratulationCreate>({
     initialValues: {
-      name: '',
-      password: '',
-      payload: '',
+      name: "",
+      password: "",
+      contents: "",
     },
     validate: {
       name: (value) => {
         if (!value) {
-          return '이름을 입력해주세요.';
+          return "이름을 입력해주세요.";
         }
         if (value.length < 2) {
-          return '이름을 2자 이상 입력해주세요.';
+          return "이름을 2자 이상 입력해주세요.";
         }
         if (value.length > 10) {
-          return '이름은 10자 이하만 가능합니다.';
+          return "이름은 10자 이하만 가능합니다.";
         }
         return null;
       },
       password: (value) => {
         if (!value) {
-          return '비밀번호를 입력해주세요. ';
+          return "비밀번호를 입력해주세요. ";
         }
         if (value.length < 4) {
-          return '비밀번호는 4자 이상 입력해주세요.';
+          return "비밀번호는 4자 이상 입력해주세요.";
         }
-        if (value.length > 8) {
-          return '비밀번호는 8자 이하로 입력해주세요.';
+        if (value.length > 12) {
+          return "비밀번호는 12자 이하로 입력해주세요.";
         }
         return null;
       },
-      payload: (value) => {
+      contents: (value) => {
         if (!value) {
-          return '내용을 입력해주세요.';
+          return "축하글을 입력해주세요.";
         }
-        if (value.length > 100) {
-          return '100자 이하까지 작성 가능합니다.';
+        if (value.length > 1000) {
+          return "1000자 이하까지 작성 가능합니다.";
         }
         return null;
       },
     },
   });
 
-  const commentOnSubmit = async (data: CommentFormValues) => {
-    const currentDate = Date.now();
-    const commentData = {
-      ...data,
-      createdAt: currentDate,
-      avatar: getRandomEmoji(),
-    };
+  const postCongratulationMutation = usePostCongratulationMutation();
+  const deleteCongratulationMutation = useDeleteCongratulationMutation();
+  const commentOnSubmit = async (data: ICongratulationCreate) => {
     setLoading(true);
-    // await addDoc(collection(db, COMMENT), commentData)
+
+    postCongratulationMutation.mutate(data, {
+      onSuccess: () => alert("등록되었습니다."),
+      onError: (error: any) =>
+        alert(
+          error?.response?.data?.message ??
+            "서버에 문제가 발생헀습니다. 다시 시도해주세요.",
+        ),
+    });
 
     setLoading(false);
     setCommentInputOpened(false);
@@ -246,99 +225,48 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   const editPwForm = useForm({
     initialValues: {
-      password: '',
+      password: "",
     },
   });
 
-  const editPwFormOnSubmit = ({ password }: EditPwFormValues) => {
-    if (!commentsArray || !selectedComment) return;
-    if (!isMatchCommentPassword(password, selectedComment)) {
-      setCommentPasswordError(true);
-      return;
-    }
-    setCommentPwModalOpened(false);
-    setCommentEditModalOpened(true);
-    editForm.setValues({
-      ...selectedComment,
-    });
-  };
-
-  const editForm = useForm<CommentFormValues>({
-    initialValues: {
-      name: selectedComment?.name || '',
-      password: selectedComment?.password || '',
-      payload: selectedComment?.payload || '',
-    },
-    validate: {
-      name: (value) => {
-        if (!value) {
-          return '이름을 입력해주세요.';
-        }
-        if (value.length < 2) {
-          return '이름을 2자 이상 입력해주세요.';
-        }
-        if (value.length > 10) {
-          return '이름은 10자 이하만 가능합니다.';
-        }
-        return null;
-      },
-      password: (value) => {
-        if (!value) {
-          return '비밀번호를 입력해주세요. ';
-        }
-        if (value.length < 4) {
-          return '비밀번호는 4자 이상 입력해주세요.';
-        }
-        if (value.length > 8) {
-          return '비밀번호는 8자 이하로 입력해주세요.';
-        }
-        return null;
-      },
-      payload: (value) => {
-        if (!value) {
-          return '내용을 입력해주세요.';
-        }
-        if (value.length > 100) {
-          return '100자 이하까지 작성 가능합니다.';
-        }
-        return null;
-      },
-    },
-  });
-
-  const editFormOnSubmit = async (data: CommentFormValues) => {
-    if (!selectedComment) return;
-    setLoading(true);
-    // await updateDoc(doc(db, COMMENT, selectedComment.id), {
-    //   selectedComment,
-    //   ...data,
-    //   avatar: getRandomEmoji(),
-    // })
-    setLoading(false);
-    setCommentEditModalOpened(false);
-  };
-
-  const onDeleteComment = async (id?: string) => {
-    if (!id) return;
-    const ok = window.confirm('정말 삭제하시겠습니까? ');
+  const onDeleteComment = async (password: any) => {
+    if (!selectedCongratulation) return;
+    const ok = window.confirm("정말 삭제하시겠습니까? ");
     if (ok) {
       setLoading(true);
-      // await deleteDoc(doc(db, COMMENT, id))
+
+      deleteCongratulationMutation.mutate(
+        { id: selectedCongratulation.id, password: password },
+        {
+          onSuccess: () => alert("삭제되었습니다."),
+          onError: (error: any) =>
+            alert(
+              error?.response?.data?.message ??
+                "서버에 문제가 발생헀습니다. 다시 시도해주세요.",
+            ),
+        },
+      );
+
       setLoading(false);
       setCommentEditModalOpened(false);
-      setCommentInputOpened(true);
+      setCommentInputOpened(false);
+      setCommentPwModalOpened(false);
+      editPwForm.reset();
     }
   };
 
   React.useEffect(() => {
-    function listener(event: DocumentEventMap['scroll']) {
-      if (Math.ceil(window.scrollY + window.innerHeight + 30) > document.body.offsetHeight) {
+    function listener(event: DocumentEventMap["scroll"]) {
+      if (
+        Math.ceil(window.scrollY + window.innerHeight + 30) >
+        document.body.offsetHeight
+      ) {
         getCongratulationsInfinityQuery.fetchNextPage();
       }
     }
-    document.addEventListener('scroll', listener);
+    document.addEventListener("scroll", listener);
     return () => {
-      document.removeEventListener('scroll', listener);
+      document.removeEventListener("scroll", listener);
     };
   }, [getCongratulationsInfinityQuery]);
 
@@ -348,16 +276,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       justify="center"
       spacing="sm"
       sx={{
-        margin: '0 auto',
+        margin: "0 auto",
         maxWidth: theme.breakpoints.xs,
-        width: '100%',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
+        width: "100%",
+        overflowY: "scroll",
+        overflowX: "hidden",
       }}
     >
       {/* Hero */}
       <div
-        style={{ zIndex: 5000, position: 'fixed', top: 0, left: 0 }}
+        style={{ zIndex: 5000, position: "fixed", top: 0, left: 0 }}
         onClick={() => {
           getCongratulationsInfinityQuery.fetchNextPage();
         }}
@@ -379,6 +307,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </DdayWrap>
       </Dday>
 
+      {/* 인사문구, 연락처 */}
       <Greetings>
         <TextWrap>
           <TitleEng>wedding day</TitleEng>
@@ -394,18 +323,258 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             })}
           >
             평생을 함께 할 사람을 만났습니다. <br />
-            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을 바라보며 함께 걸아가고 싶습니다. <br />
+            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
+            바라보며 함께 걸어가고 싶습니다. <br />
             <br />
             손을 맞잡은 이 순간부터 <br />
-            아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요. <br />
+            아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요.{" "}
+            <br />
             <br />
             언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
             말할 수 있도록 함께 노력하며 살겠습니다.
           </Text>
         </TextWrap>
         <Line></Line>
+        <>
+          <Group
+            id="avatarWrapper"
+            position="center"
+            spacing={8}
+            sx={{ flexWrap: "nowrap" }}
+          >
+            <Stack align="center" spacing="xs">
+              {/* <Avatar
+              // src={geonyAvatar.src}
+              size="lg"
+              sx={{ borderRadius: "50%" }}
+              alt="geony"
+            /> */}
+
+              <CjFace />
+              {/* <img className="phoneImage" alt="iPhone_01" src="/images/changju.png'" /> */}
+              <Group id="name" spacing={5} align="flex-end">
+                <Text size="xs">장남</Text>
+                <Text size="sm">{process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
+              </Group>
+              <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
+                <ActionIcon
+                  component={NextLink}
+                  href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
+                >
+                  <IconPhone size={20} />
+                </ActionIcon>
+                <ActionIcon
+                  component="a"
+                  href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`}
+                  target="_blank"
+                >
+                  <IconBrandMessenger size={20} />
+                </ActionIcon>
+                <Popover
+                  width={140}
+                  position="bottom"
+                  withArrow
+                  shadow="md"
+                  radius="md"
+                >
+                  <Popover.Target>
+                    <ActionIcon>
+                      <IconCurrencyWon size={20} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown p={5} px={10}>
+                    <Stack
+                      spacing={2}
+                      sx={{ position: "relative" }}
+                      align="flex-end"
+                    >
+                      <Text size={theme.fontSizes.xs}>
+                        {process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
+                      </Text>
+                      <Text size={theme.fontSizes.xs}>
+                        {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}{" "}
+                        {process.env.NEXT_PUBLIC_GROOM_NAME}
+                      </Text>
+                    </Stack>
+                    <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                      <CopyButton
+                        value={
+                          `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
+                          " " +
+                          `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
+                        }
+                      >
+                        {({ copied, copy }) =>
+                          copied ? (
+                            <ActionIcon onClick={copy} color="teal">
+                              <IconClipboardCheck size={20} />
+                            </ActionIcon>
+                          ) : (
+                            <ActionIcon onClick={copy} color="blue">
+                              <IconClipboard size={20} />
+                            </ActionIcon>
+                          )
+                        }
+                      </CopyButton>
+                    </Box>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
+              <Stack spacing={0}>
+                <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
+                  <Text size="xs">
+                    아버지 : {process.env.NEXT_PUBLIC_GROOM_DAD_NAME}
+                  </Text>
+                  <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                    <IconPhone size={15} />
+                  </ActionIcon>
+                </Group>
+                <Group spacing={5}>
+                  <Text size="xs">
+                    어머니 : {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
+                  </Text>
+                  <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                    <IconPhone size={15} />
+                  </ActionIcon>
+                </Group>
+              </Stack>
+            </Stack>
+            <Box>
+              <IconHeart size={25} opacity={0.3} />
+            </Box>
+            <Stack align="center" spacing="xs">
+              {/* <Avatar
+              // src={boraAvatar.src}
+              size="lg"
+              sx={{ borderRadius: "50%" }}
+              alt="geony"
+            /> */}
+              <ShFace />
+              <Group id="name" spacing={5} align="flex-end">
+                <Text size="xs">장녀</Text>
+                <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
+              </Group>
+              <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
+                <ActionIcon
+                  component={NextLink}
+                  href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
+                >
+                  <IconPhone size={20} />
+                </ActionIcon>
+                <ActionIcon
+                  component="a"
+                  href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`}
+                  target="_blank"
+                >
+                  <IconBrandMessenger size={20} />
+                </ActionIcon>
+                <Popover
+                  width={140}
+                  position="bottom"
+                  withArrow
+                  shadow="md"
+                  radius="md"
+                >
+                  <Popover.Target>
+                    <ActionIcon>
+                      <IconCurrencyWon size={20} />
+                    </ActionIcon>
+                  </Popover.Target>
+                  <Popover.Dropdown p={5} px={10}>
+                    <Stack
+                      spacing={2}
+                      sx={{ position: "relative" }}
+                      align="flex-end"
+                    >
+                      <Text size={theme.fontSizes.xs}>
+                        {process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
+                      </Text>
+                      <Text size={theme.fontSizes.xs}>
+                        {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}{" "}
+                        {process.env.NEXT_PUBLIC_BRIDE_NAME}
+                      </Text>
+                    </Stack>
+                    <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                      <CopyButton
+                        value={
+                          `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
+                          " " +
+                          `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
+                        }
+                      >
+                        {({ copied, copy }) =>
+                          copied ? (
+                            <ActionIcon onClick={copy} color="teal">
+                              <IconClipboardCheck size={20} />
+                            </ActionIcon>
+                          ) : (
+                            <ActionIcon onClick={copy} color="blue">
+                              <IconClipboard size={20} />
+                            </ActionIcon>
+                          )
+                        }
+                      </CopyButton>
+                    </Box>
+                  </Popover.Dropdown>
+                </Popover>
+              </Group>
+              <Stack spacing={0}>
+                <Group spacing={5}>
+                  <Text size="xs">
+                    아버지 : {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}
+                  </Text>
+                  <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                    <IconPhone size={15} />
+                  </ActionIcon>
+                </Group>
+                <Group spacing={5}>
+                  <Text size="xs">
+                    어머니 : {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
+                  </Text>
+                  <ActionIcon component={NextLink} href="tel:010-1234-1234">
+                    <IconPhone size={15} />
+                  </ActionIcon>
+                </Group>
+              </Stack>
+            </Stack>
+          </Group>
+        </>
         <></>
       </Greetings>
+
+      {/* 지도 */}
+      <Location>
+        <KakaoMap />
+        <Navigation>
+          <Button
+            color="green.5"
+            sx={{ width: "40%" }}
+            onClick={() => setNavigation(true)}
+          >
+            🚘 네비게이션
+          </Button>
+        </Navigation>
+        <Parking>
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            px={15}
+            py={7}
+            title="주차 안내"
+            sx={{ width: "90%" }}
+          >
+            <Text
+              sx={(theme) => ({
+                fontSize: theme.fontSizes.xs,
+              })}
+            >
+              전용 주차장에 주차 가능 (무료 3시간) <br />
+              만차 시 이마트 주차 가능 (5000원 제공) <br />
+              안내원의 유도에 따라주시면 감사하겠습니다.
+            </Text>
+          </Alert>
+        </Parking>
+      </Location>
+      {/* <BackgroundImage src={heroImage.src}>
 
       <BackgroundImage src={heroImage.src}>
         <Stack
@@ -515,7 +684,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Stack>
-      </BackgroundImage>
+      </BackgroundImage> */}
 
       <Divider variant="dotted" mx={10} ref={targetRef} />
 
@@ -528,31 +697,19 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         radius="md"
         withBorder
         sx={{
-          height: '100%',
+          height: "100%",
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
         }}
       >
-        <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" />
-        <Text
-          align="center"
-          sx={(theme) => ({
-            fontSize: theme.fontSizes.sm,
-          })}
+        {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
+
+        <Group
+          id="avatarWrapper"
+          position="center"
+          spacing={8}
+          sx={{ flexWrap: "nowrap" }}
         >
-          평생을 함께 할 사람을 만났습니다. <br />
-          지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을 바라보며 함께 걸아가고 싶습니다. <br />
-          <br />
-          손을 맞잡은 이 순간부터 <br />
-          아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요. <br />
-          <br />
-          언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
-          말할 수 있도록 함께 노력하며 살겠습니다.
-        </Text>
-        <Space h="md" />
-        <Divider variant="dashed" />
-        <Space h="md" />
-        <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: 'nowrap' }}>
           <Stack align="center" spacing="xs">
             {/* <Avatar
               // src={geonyAvatar.src}
@@ -567,30 +724,52 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               <Text size="xs">장남</Text>
               <Text size="sm">{process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
             </Group>
-            <Group spacing={7} sx={{ flexWrap: 'nowrap' }}>
-              <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
+            <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
+              <ActionIcon
+                component={NextLink}
+                href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
+              >
                 <IconPhone size={20} />
               </ActionIcon>
-              <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
+              <ActionIcon
+                component="a"
+                href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`}
+                target="_blank"
+              >
                 <IconBrandMessenger size={20} />
               </ActionIcon>
-              <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+              <Popover
+                width={140}
+                position="bottom"
+                withArrow
+                shadow="md"
+                radius="md"
+              >
                 <Popover.Target>
                   <ActionIcon>
                     <IconCurrencyWon size={20} />
                   </ActionIcon>
                 </Popover.Target>
                 <Popover.Dropdown p={5} px={10}>
-                  <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
-                    <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
+                  <Stack
+                    spacing={2}
+                    sx={{ position: "relative" }}
+                    align="flex-end"
+                  >
                     <Text size={theme.fontSizes.xs}>
-                      {process.env.NEXT_PUBLIC_GROOM_BANK_NAME} {process.env.NEXT_PUBLIC_GROOM_NAME}
+                      {process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
+                    </Text>
+                    <Text size={theme.fontSizes.xs}>
+                      {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}{" "}
+                      {process.env.NEXT_PUBLIC_GROOM_NAME}
                     </Text>
                   </Stack>
-                  <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+                  <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                     <CopyButton
                       value={
-                        `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` + ' ' + `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
+                        `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
+                        " " +
+                        `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
                       }
                     >
                       {({ copied, copy }) =>
@@ -610,14 +789,18 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               </Popover>
             </Group>
             <Stack spacing={0}>
-              <Group spacing={5} sx={{ flexWrap: 'nowrap' }}>
-                <Text size="xs">아버지 : {process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</Text>
+              <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
+                <Text size="xs">
+                  아버지 : {process.env.NEXT_PUBLIC_GROOM_DAD_NAME}
+                </Text>
                 <ActionIcon component={NextLink} href="tel:010-1234-1234">
                   <IconPhone size={15} />
                 </ActionIcon>
               </Group>
               <Group spacing={5}>
-                <Text size="xs">어머니 : {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</Text>
+                <Text size="xs">
+                  어머니 : {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
+                </Text>
                 <ActionIcon component={NextLink} href="tel:010-1234-1234">
                   <IconPhone size={15} />
                 </ActionIcon>
@@ -639,30 +822,52 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               <Text size="xs">장녀</Text>
               <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
             </Group>
-            <Group spacing={7} sx={{ flexWrap: 'nowrap' }}>
-              <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}>
+            <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
+              <ActionIcon
+                component={NextLink}
+                href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
+              >
                 <IconPhone size={20} />
               </ActionIcon>
-              <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`} target="_blank">
+              <ActionIcon
+                component="a"
+                href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`}
+                target="_blank"
+              >
                 <IconBrandMessenger size={20} />
               </ActionIcon>
-              <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+              <Popover
+                width={140}
+                position="bottom"
+                withArrow
+                shadow="md"
+                radius="md"
+              >
                 <Popover.Target>
                   <ActionIcon>
                     <IconCurrencyWon size={20} />
                   </ActionIcon>
                 </Popover.Target>
                 <Popover.Dropdown p={5} px={10}>
-                  <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
-                    <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}</Text>
+                  <Stack
+                    spacing={2}
+                    sx={{ position: "relative" }}
+                    align="flex-end"
+                  >
                     <Text size={theme.fontSizes.xs}>
-                      {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME} {process.env.NEXT_PUBLIC_BRIDE_NAME}
+                      {process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
+                    </Text>
+                    <Text size={theme.fontSizes.xs}>
+                      {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}{" "}
+                      {process.env.NEXT_PUBLIC_BRIDE_NAME}
                     </Text>
                   </Stack>
-                  <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+                  <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                     <CopyButton
                       value={
-                        `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` + ' ' + `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
+                        `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
+                        " " +
+                        `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
                       }
                     >
                       {({ copied, copy }) =>
@@ -683,13 +888,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Group>
             <Stack spacing={0}>
               <Group spacing={5}>
-                <Text size="xs">아버지 : {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</Text>
+                <Text size="xs">
+                  아버지 : {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}
+                </Text>
                 <ActionIcon component={NextLink} href="tel:010-1234-1234">
                   <IconPhone size={15} />
                 </ActionIcon>
               </Group>
               <Group spacing={5}>
-                <Text size="xs">어머니 : {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</Text>
+                <Text size="xs">
+                  어머니 : {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
+                </Text>
                 <ActionIcon component={NextLink} href="tel:010-1234-1234">
                   <IconPhone size={15} />
                 </ActionIcon>
@@ -697,7 +906,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Stack>
           </Stack>
         </Group>
-        <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} />
+        {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
       </Paper>
 
       <Divider variant="dotted" mx={10} />
@@ -726,35 +935,35 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       {photoModalOpened && (
         <div
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
+            width: "100vw",
+            height: "100vh",
             zIndex: 990,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <CloseButton
             size={35}
             p={5}
             sx={{
-              position: 'absolute',
+              position: "absolute",
               top: 30,
               right: 30,
               zIndex: 999,
               backgroundColor: theme.fn.rgba(theme.white, 0.5),
-              borderRadius: '50%',
-              cursor: 'pointer',
+              borderRadius: "50%",
+              cursor: "pointer",
             }}
             onClick={() => setPhotoModalOpened(false)}
           />
           <Carousel
             loop
             sx={{
-              width: '100%',
+              width: "100%",
               zIndex: 998,
             }}
             styles={{
@@ -790,13 +999,27 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         }}
       >
         <Stack align="center">
-          <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>2023 . 02 . 24 (토) PM 01 : 00</Text>
-          <Text align="center" id="location" sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>
+          <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>
+            2023 . 02 . 24 (토) PM 01 : 00
+          </Text>
+          <Text
+            align="center"
+            id="location"
+            sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}
+          >
             부천채림웨딩홀
-            <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>(경기 부천시 부천로 3-1)</Text>
+            <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>
+              (경기 부천시 부천로 3-1)
+            </Text>
           </Text>
           <KakaoMap />
-          <Alert icon={<IconAlertCircle size={16} />} px={15} py={7} title="주차 안내" sx={{ width: '90%' }}>
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            px={15}
+            py={7}
+            title="주차 안내"
+            sx={{ width: "90%" }}
+          >
             <Text
               sx={(theme) => ({
                 fontSize: theme.fontSizes.xs,
@@ -807,15 +1030,27 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               안내원의 유도에 따라주시면 감사하겠습니다.
             </Text>
           </Alert>
-          <Group sx={{ width: '100%' }} position="center">
-            <Button color="blue.5" sx={{ width: '40%' }} onClick={() => setLocationInfo(true)}>
+          <Group sx={{ width: "100%" }} position="center">
+            <Button
+              color="blue.5"
+              sx={{ width: "40%" }}
+              onClick={() => setLocationInfo(true)}
+            >
               🚍 오시는길
             </Button>
-            <Button color="green.5" sx={{ width: '40%' }} onClick={() => setNavigation(true)}>
+            <Button
+              color="green.5"
+              sx={{ width: "40%" }}
+              onClick={() => setNavigation(true)}
+            >
               🚘 네비게이션
             </Button>
           </Group>
-          <Button color="yellow.5" sx={{ width: '84%' }} onClick={() => setShare(true)}>
+          <Button
+            color="yellow.5"
+            sx={{ width: "84%" }}
+            onClick={() => setShare(true)}
+          >
             <IconShare size={15} /> <Text ml={5}>공유하기</Text>
           </Button>
         </Stack>
@@ -830,27 +1065,31 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         radius="md"
         withBorder
         sx={{
-          height: '100%',
+          height: "100%",
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
-          position: 'relative',
+          position: "relative",
         }}
       >
         <ActionIcon
           hidden={commentInputOpened}
           color="blue"
-          sx={{ position: 'absolute', top: 10, right: 20 }}
+          sx={{ position: "absolute", top: 10, right: 20 }}
           onClick={() => setCommentInputOpened(true)}
         >
           <IconWriting size={30} />
         </ActionIcon>
         <Text my={10} size="md" align="center" sx={{ fontWeight: 300 }}>
           😊 Celebrations 😊 <br />
-          축하글을 남기면 추첨을 통해 기프티콘을 드립니다. <br />
-          (로그인 필수)
+          따뜻한 축하글을 남겨주세요 :)
         </Text>
         <Stack spacing={10} mb={5}>
-          <Transition mounted={commentInputOpened} transition="fade" duration={500} timingFunction="ease">
+          <Transition
+            mounted={commentInputOpened}
+            transition="fade"
+            duration={500}
+            timingFunction="ease"
+          >
             {(styles) => (
               <Box
                 style={styles}
@@ -859,7 +1098,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 sx={{
                   backgroundColor: theme.colors.gray[2],
                   borderRadius: theme.radius.md,
-                  position: 'relative',
+                  position: "relative",
                 }}
               >
                 <form onSubmit={form.onSubmit(commentOnSubmit)}>
@@ -871,7 +1110,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         minLength={2}
                         maxLength={10}
                         withAsterisk
-                        {...form.getInputProps('name')}
+                        {...form.getInputProps("name")}
                         sx={{
                           width: 180,
                         }}
@@ -881,26 +1120,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         withAsterisk
                         ml={10}
                         minLength={4}
-                        maxLength={8}
+                        maxLength={12}
                         sx={{ width: 98 }}
-                        {...form.getInputProps('password')}
+                        {...form.getInputProps("password")}
                       />
                       <CloseButton
                         size="lg"
-                        sx={{ position: 'absolute', top: 5, right: 5 }}
+                        sx={{ position: "absolute", top: 5, right: 5 }}
                         onClick={() => setCommentInputOpened(false)}
-                      />
-                    </Group>
-                    <Group spacing={0} position="center">
-                      <TextInput
-                        placeholder="휴대폰번호(전화번호)를 입력해주세요."
-                        label="전화번호"
-                        minLength={6}
-                        maxLength={10}
-                        {...form.getInputProps('name')}
-                        sx={{
-                          width: 290,
-                        }}
                       />
                     </Group>
                     <Stack align="center" spacing={10}>
@@ -908,7 +1135,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         placeholder="축하 인사말을 작성해주세요."
                         label="인사말"
                         withAsterisk
-                        {...form.getInputProps('payload')}
+                        {...form.getInputProps("contents")}
                         sx={{
                           width: 290,
                         }}
@@ -920,7 +1147,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         type="submit"
                         mr={20}
                         sx={{
-                          alignSelf: 'flex-end',
+                          alignSelf: "flex-end",
                           width: 90,
                           height: 35,
                         }}
@@ -934,53 +1161,54 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             )}
           </Transition>
 
-          {[...(getCongratulationsInfinityQuery.data?.pages.flat() ?? [])].map((comment, i) => (
-            <Box
-              key={i}
-              id="aComment"
-              p={5}
-              style={{
-                height: '100%',
-                position: 'relative',
-                backgroundColor: theme.colors.gray[2],
-                borderRadius: theme.radius.md,
-              }}
-            >
-              <Group noWrap>
-                {/*<Avatar color="blue" radius="xl">*/}
-                {/*  {comment.avatar ? (*/}
-                {/*    <Text size="xl">{comment.avatar}</Text>*/}
-                {/*  ) : (*/}
-                {/*    <IconUser size={25} />*/}
-                {/*  )}*/}
-                {/*</Avatar>*/}
-                <Stack spacing={0}>
-                  <Group>
-                    <Text size="sm" sx={{ fontWeight: 500 }}>
-                      {comment.name}
+          {[...(getCongratulationsInfinityQuery.data?.pages.flat() ?? [])].map(
+            (data, i) => (
+              <Box
+                key={i}
+                id="aComment"
+                p={5}
+                style={{
+                  height: "100%",
+                  position: "relative",
+                  backgroundColor: theme.colors.gray[2],
+                  borderRadius: theme.radius.md,
+                }}
+              >
+                <Group noWrap>
+                  <Stack spacing={0}>
+                    <Group>
+                      작성자명 :
+                      <Text size="sm" sx={{ fontWeight: 500 }}>
+                        {data.name}
+                      </Text>
+                      작성일시 :
+                      <Text size={10} color="dimmed">
+                        {new Date(data.createdAt).toLocaleDateString("ko")}
+                      </Text>
+                    </Group>
+                    작성내용
+                    <Text size="sm" mt={5} sx={{ lineBreak: "anywhere" }}>
+                      {data.contents}
                     </Text>
-                    <Text size={10} color="dimmed">
-                      {new Date(comment.createdAt).toLocaleDateString('ko')}
-                    </Text>
-                  </Group>
-                  <Text size="sm" mt={5} sx={{ lineBreak: 'anywhere' }}>
-                    {comment.contents}
-                  </Text>
-                </Stack>
-              </Group>
-              <Group sx={{ position: 'absolute', top: 5, right: 5 }} spacing="xs">
-                <ActionIcon
-                  color="blue"
-                  onClick={() => {
-                    // setSelectedComment(comment);
-                    setCommentPwModalOpened(true);
-                  }}
+                  </Stack>
+                </Group>
+                <Group
+                  sx={{ position: "absolute", top: 5, right: 5 }}
+                  spacing="xs"
                 >
-                  <IconEdit size={20} />
-                </ActionIcon>
-              </Group>
-            </Box>
-          ))}
+                  <ActionIcon
+                    color="blue"
+                    onClick={() => {
+                      setSelectedCongratulation(data);
+                      setCommentPwModalOpened(true);
+                    }}
+                  >
+                    <IconEdit size={20} />
+                  </ActionIcon>
+                </Group>
+              </Box>
+            ),
+          )}
         </Stack>
       </Paper>
 
@@ -998,10 +1226,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           close: {
             backgroundColor: theme.fn.rgba(theme.white, 0.5),
             color: theme.colors.dark[4],
-            borderRadius: '50%',
+            borderRadius: "50%",
           },
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
@@ -1011,7 +1239,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               src="/kakaomap.png"
               width={50}
               alt="kakaomap"
-              onClick={() => router.push('https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874')}
+              onClick={() =>
+                router.push(
+                  "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874",
+                )
+              }
             />
           </ActionIcon>
           <ActionIcon sx={{ width: 50 }}>
@@ -1021,7 +1253,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alt="navermap"
               onClick={() =>
                 router.push(
-                  'nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000'
+                  "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000",
                 )
               }
             />
@@ -1038,7 +1270,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         overflow="inside"
         styles={{
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
@@ -1058,16 +1290,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           close: {
             backgroundColor: theme.fn.rgba(theme.white, 0.5),
             color: theme.colors.dark[4],
-            borderRadius: '50%',
+            borderRadius: "50%",
           },
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
         <Group position="center" spacing="xl">
           <ActionIcon sx={{ width: 50 }} onClick={() => kakaoShare()}>
-            <Image src="/kakaotalk.png" width={50} alt="kakaotalk" onClick={() => router.push('/')} />
+            <Image
+              src="/kakaotalk.png"
+              width={50}
+              alt="kakaotalk"
+              onClick={() => router.push("/")}
+            />
           </ActionIcon>
 
           <CopyButton value="https://github.com/changsol/">
@@ -1080,11 +1317,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                       color="teal"
                       sx={{
                         width: 200,
-                        position: 'absolute',
+                        position: "absolute",
                         top: -60,
                         left: 0,
                         right: 0,
-                        margin: '0 auto',
+                        margin: "0 auto",
                         zIndex: 999,
                       }}
                     >
@@ -1110,11 +1347,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                       color="teal"
                       sx={{
                         width: 200,
-                        position: 'absolute',
+                        position: "absolute",
                         top: -60,
                         left: 0,
                         right: 0,
-                        margin: '0 auto',
+                        margin: "0 auto",
                         zIndex: 999,
                       }}
                     >
@@ -1151,7 +1388,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           },
         }}
       >
-        <form onSubmit={editPwForm.onSubmit(editPwFormOnSubmit)}>
+        <form onSubmit={editPwForm.onSubmit(onDeleteComment)}>
           <Group spacing={5} align="flex-end">
             <PasswordInput
               data-autofocus
@@ -1160,7 +1397,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               minLength={4}
               maxLength={8}
               sx={{ width: 160 }}
-              {...editPwForm.getInputProps('password')}
+              {...editPwForm.getInputProps("password")}
             />
             <Button
               type="submit"
@@ -1170,98 +1407,19 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 height: 35,
               }}
             >
-              입력
+              삭제
             </Button>
           </Group>
-        </form>
-        {commentPasswordError && (
-          <Notification icon={<IconX size={18} />} color="red" onClose={() => setCommentPasswordError(false)}>
-            비밀번호가 틀렸습니다.
-          </Notification>
-        )}
-      </Modal>
-
-      {/* Comment Edit Modal */}
-      <Modal
-        centered
-        size={340}
-        opened={commentEditModalOpened}
-        onClose={() => {
-          setCommentEditModalOpened(false);
-          setSelectedComment(null);
-        }}
-        styles={{
-          header: {
-            height: 0,
-          },
-        }}
-      >
-        <form onSubmit={editForm.onSubmit(editFormOnSubmit)}>
-          <Stack spacing={0} align="center">
-            <Group sx={{ width: 350, height: 80 }} spacing={0} position="center">
-              <TextInput
-                placeholder="성함을 입력해주세요."
-                label="성함"
-                minLength={2}
-                maxLength={10}
-                withAsterisk
-                {...editForm.getInputProps('name')}
-                sx={{
-                  width: 140,
-                }}
-              />
-              <PasswordInput
-                label="비밀번호"
-                withAsterisk
-                ml={10}
-                minLength={4}
-                maxLength={8}
-                sx={{ width: 98 }}
-                {...editForm.getInputProps('password')}
-              />
-            </Group>
-            <Stack spacing={10}>
-              <Textarea
-                placeholder="축하 인사말을 작성해주세요."
-                withAsterisk
-                {...editForm.getInputProps('payload')}
-                sx={{
-                  width: 250,
-                }}
-                m={0}
-              />
-              <Group position="apart" px={20}>
-                <Button
-                  color="red"
-                  disabled={loading}
-                  p={0}
-                  sx={{
-                    width: 90,
-                    height: 35,
-                  }}
-                  onClick={() => onDeleteComment(selectedComment?.id)}
-                >
-                  삭제 하기
-                </Button>
-                <Button
-                  disabled={loading}
-                  type="submit"
-                  p={0}
-                  sx={{
-                    width: 90,
-                    height: 35,
-                  }}
-                >
-                  수정 완료
-                </Button>
-              </Group>
-            </Stack>
-          </Stack>
         </form>
       </Modal>
 
       {/* Footer */}
-      <Anchor align="center" href="https://github.com/changsol" mb={30} color="gray">
+      <Anchor
+        align="center"
+        href="https://github.com/changsol"
+        mb={30}
+        color="gray"
+      >
         Made by ChangSol
       </Anchor>
     </Stack>
@@ -1278,7 +1436,7 @@ const Main = styled.div`
   justify-content: center;
 
   &::before {
-    content: 'INVITE YOU TO THE WEDDING';
+    content: "INVITE YOU TO THE WEDDING";
     display: block;
     position: absolute;
     left: -57px;
@@ -1286,7 +1444,7 @@ const Main = styled.div`
     font-size: 12px;
   }
   &::after {
-    content: 'IT’S THE WEDDING DAY';
+    content: "IT’S THE WEDDING DAY";
     display: block;
     position: absolute;
     right: -40px;
@@ -1310,7 +1468,7 @@ const MainWrap = styled.div`
 
 const MainImage = styled.img`
   position: relative;
-  background-image: url('/images/mobilemain.jpg');
+  background-image: url("/images/mobilemain.jpg");
   background-repeat: no-repeat;
   background-size: 150%;
   background-position: center;
@@ -1322,7 +1480,7 @@ const MainImage = styled.img`
 const TextName = styled.p`
   position: relative;
   bottom: 20px;
-  font-family: 'Hankc';
+  font-family: "Hankc";
   display: flex;
   justify-content: center;
   width: 290px;
@@ -1336,7 +1494,7 @@ const TextDay = styled.p``;
 const TextHall = styled.span``;
 
 const CjFace = styled.img`
-  background-image: url('/images/changju.png');
+  background-image: url("/images/changju.png");
   border-image-source: none;
   width: 60px;
   height: 72px;
@@ -1344,7 +1502,7 @@ const CjFace = styled.img`
   background-size: cover;
 `;
 const ShFace = styled.img`
-  background-image: url('/images/shinhee.png');
+  background-image: url("/images/shinhee.png");
   border-image-source: none;
   width: 60px;
   height: 72px;
@@ -1360,14 +1518,12 @@ const Dday = styled.div`
   background-color: #05652c;
 `;
 const DdayWrap = styled.div`
-  background-color: #fff;
-  padding: 0.5rem;
   border-radius: 0.3rem;
 `;
 
 const Greetings = styled.div`
   padding: 2.6rem 1rem;
-  background-color: #FFFAEB;
+  background-color: #fffaeb;
   //background-image: url('/images/main.jpg');
   position: relative;
   background-repeat: no-repeat;
@@ -1380,7 +1536,6 @@ const Greetings = styled.div`
   //   width: 100%;
   //   height: 100%;
   //   background-color: rgba(0,0,0,0.4);
-}
 `;
 const TextWrap = styled.div`
   display: flex;
@@ -1394,7 +1549,7 @@ const TitleEng = styled.h3`
 const TitleKor = styled.p`
   font-size: 1.2rem;
   line-height: 1;
-  margin-bottom: 40px;
+  margin: 5px 0 40px 0;
   font-weight: bold;
   color: #05652c;
 `;
@@ -1405,6 +1560,19 @@ const Line = styled.div`
   margin: 40px auto;
   background-color: #05652c;
   //transform: rotate(45deg);
+`;
+
+const Location = styled.div`
+  background-color: #f4eee7;
+`;
+const Navigation = styled.div`
+  padding: 1.5rem;
+`;
+const Parking = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem 0;
 `;
 
 export default Home;
