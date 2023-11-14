@@ -336,27 +336,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </Text>
         </TextWrap>
         <Line></Line>
-        <>
+        <FaceWrap>
           <Group
             id="avatarWrapper"
             position="center"
-            spacing={8}
+            spacing={10}
             sx={{ flexWrap: "nowrap" }}
           >
-            <Stack align="center" spacing="xs">
-              {/* <Avatar
-              // src={geonyAvatar.src}
-              size="lg"
-              sx={{ borderRadius: "50%" }}
-              alt="geony"
-            /> */}
-
-              {/* <CjFace /> */}
-              {/* <img alt="iPhone_01" src="../images/changju.png'" /> */}
-              {/* <Group id="name" spacing={5} align="flex-end">
-                <Text size="xs">장남</Text>
-                <Text size="sm">{process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
-              </Group> */}
+            <Stack align="center" spacing="xs" className='face'>
               
               <Stack spacing={0}>
                 <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
@@ -366,7 +353,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 </Group>
               </Stack>
 
-              <Text size="xs">장남 {process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
+              <Text>장남 {process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
               <CjFace />
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon
@@ -433,21 +420,18 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 </Popover>
               </Group>
             </Stack>
-            {/* <Box>
-              <IconHeart size={25} opacity={0.3} />
-            </Box> */}
+            
             <Stack align="center" spacing="xs">
-              {/* <Avatar
-              // src={boraAvatar.src}
-              size="lg"
-              sx={{ borderRadius: "50%" }}
-              alt="geony"
-            /> */}
+              <Stack spacing={0}>
+                <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
+                  <Text>
+                    {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME} • {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
+                  </Text>
+                </Group>
+              </Stack>
+
+              <Text>장녀 {process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
               <ShFace />
-              <Group id="name" spacing={5} align="flex-end">
-                <Text size="xs">장녀</Text>
-                <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
-              </Group>
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon
                   component={NextLink}
@@ -512,27 +496,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   </Popover.Dropdown>
                 </Popover>
               </Group>
-              <Stack spacing={0}>
-                <Group spacing={5}>
-                  <Text size="xs">
-                    {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME} &nbsp; •  &nbsp; {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
-                  </Text>
-                  {/* <ActionIcon component={NextLink} href="tel:010-1234-1234">
-                    <IconPhone size={15} />
-                  </ActionIcon> */}
-                </Group>
-                {/* <Group spacing={5}>
-                  <Text size="xs">
-                    어머니 : {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
-                  </Text>
-                  <ActionIcon component={NextLink} href="tel:010-1234-1234">
-                    <IconPhone size={15} />
-                  </ActionIcon>
-                </Group> */}
-              </Stack>
+              
             </Stack>
           </Group>
-        </>
+        </FaceWrap>
         <></>
       </Greetings>
 
@@ -711,201 +678,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           spacing={8}
           sx={{ flexWrap: "nowrap" }}
         >
-          <Stack align="center" spacing="xs">
-            {/* <Avatar
-              // src={geonyAvatar.src}
-              size="lg"
-              sx={{ borderRadius: "50%" }}
-              alt="geony"
-            /> */}
-
-            <CjFace />
-            {/* <img className="phoneImage" alt="iPhone_01" src="/images/changju.png'" /> */}
-            <Group id="name" spacing={5} align="flex-end">
-              <Text size="xs">장남</Text>
-              <Text size="sm">{process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
-            </Group>
-            <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
-              <ActionIcon
-                component={NextLink}
-                href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
-              >
-                <IconPhone size={20} />
-              </ActionIcon>
-              <ActionIcon
-                component="a"
-                href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`}
-                target="_blank"
-              >
-                <IconBrandMessenger size={20} />
-              </ActionIcon>
-              <Popover
-                width={140}
-                position="bottom"
-                withArrow
-                shadow="md"
-                radius="md"
-              >
-                <Popover.Target>
-                  <ActionIcon>
-                    <IconCurrencyWon size={20} />
-                  </ActionIcon>
-                </Popover.Target>
-                <Popover.Dropdown p={5} px={10}>
-                  <Stack
-                    spacing={2}
-                    sx={{ position: "relative" }}
-                    align="flex-end"
-                  >
-                    <Text size={theme.fontSizes.xs}>
-                      {process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
-                    </Text>
-                    <Text size={theme.fontSizes.xs}>
-                      {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}{" "}
-                      {process.env.NEXT_PUBLIC_GROOM_NAME}
-                    </Text>
-                  </Stack>
-                  <Box sx={{ position: "absolute", top: 10, left: 5 }}>
-                    <CopyButton
-                      value={
-                        `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
-                        " " +
-                        `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
-                      }
-                    >
-                      {({ copied, copy }) =>
-                        copied ? (
-                          <ActionIcon onClick={copy} color="teal">
-                            <IconClipboardCheck size={20} />
-                          </ActionIcon>
-                        ) : (
-                          <ActionIcon onClick={copy} color="blue">
-                            <IconClipboard size={20} />
-                          </ActionIcon>
-                        )
-                      }
-                    </CopyButton>
-                  </Box>
-                </Popover.Dropdown>
-              </Popover>
-            </Group>
-            <Stack spacing={0}>
-              <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
-                <Text size="xs">
-                  아버지 : {process.env.NEXT_PUBLIC_GROOM_DAD_NAME}
-                </Text>
-                <ActionIcon component={NextLink} href="tel:010-1234-1234">
-                  <IconPhone size={15} />
-                </ActionIcon>
-              </Group>
-              <Group spacing={5}>
-                <Text size="xs">
-                  어머니 : {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
-                </Text>
-                <ActionIcon component={NextLink} href="tel:010-1234-1234">
-                  <IconPhone size={15} />
-                </ActionIcon>
-              </Group>
-            </Stack>
-          </Stack>
+        
           <Box>
             <IconHeart size={25} opacity={0.3} />
           </Box>
-          <Stack align="center" spacing="xs">
-            {/* <Avatar
-              // src={boraAvatar.src}
-              size="lg"
-              sx={{ borderRadius: "50%" }}
-              alt="geony"
-            /> */}
-            <ShFace />
-            <Group id="name" spacing={5} align="flex-end">
-              <Text size="xs">장녀</Text>
-              <Text size="sm">{process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
-            </Group>
-            <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
-              <ActionIcon
-                component={NextLink}
-                href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
-              >
-                <IconPhone size={20} />
-              </ActionIcon>
-              <ActionIcon
-                component="a"
-                href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`}
-                target="_blank"
-              >
-                <IconBrandMessenger size={20} />
-              </ActionIcon>
-              <Popover
-                width={140}
-                position="bottom"
-                withArrow
-                shadow="md"
-                radius="md"
-              >
-                <Popover.Target>
-                  <ActionIcon>
-                    <IconCurrencyWon size={20} />
-                  </ActionIcon>
-                </Popover.Target>
-                <Popover.Dropdown p={5} px={10}>
-                  <Stack
-                    spacing={2}
-                    sx={{ position: "relative" }}
-                    align="flex-end"
-                  >
-                    <Text size={theme.fontSizes.xs}>
-                      {process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
-                    </Text>
-                    <Text size={theme.fontSizes.xs}>
-                      {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}{" "}
-                      {process.env.NEXT_PUBLIC_BRIDE_NAME}
-                    </Text>
-                  </Stack>
-                  <Box sx={{ position: "absolute", top: 10, left: 5 }}>
-                    <CopyButton
-                      value={
-                        `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
-                        " " +
-                        `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
-                      }
-                    >
-                      {({ copied, copy }) =>
-                        copied ? (
-                          <ActionIcon onClick={copy} color="teal">
-                            <IconClipboardCheck size={20} />
-                          </ActionIcon>
-                        ) : (
-                          <ActionIcon onClick={copy} color="blue">
-                            <IconClipboard size={20} />
-                          </ActionIcon>
-                        )
-                      }
-                    </CopyButton>
-                  </Box>
-                </Popover.Dropdown>
-              </Popover>
-            </Group>
-            <Stack spacing={0}>
-              <Group spacing={5}>
-                <Text size="xs">
-                  아버지 : {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}
-                </Text>
-                <ActionIcon component={NextLink} href="tel:010-1234-1234">
-                  <IconPhone size={15} />
-                </ActionIcon>
-              </Group>
-              <Group spacing={5}>
-                <Text size="xs">
-                  어머니 : {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
-                </Text>
-                <ActionIcon component={NextLink} href="tel:010-1234-1234">
-                  <IconPhone size={15} />
-                </ActionIcon>
-              </Group>
-            </Stack>
-          </Stack>
         </Group>
         {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
       </Paper>
@@ -1502,6 +1278,7 @@ const CjFace = styled.img`
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
+  margin-top: 12px;
 `;
 const ShFace = styled.img`
   background-image: url("/images/shinhee.png");
@@ -1510,6 +1287,7 @@ const ShFace = styled.img`
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
+  margin-top: 12px;
 `;
 
 const Dday = styled.div`
@@ -1596,5 +1374,11 @@ const ParkingInfoText = styled.p`
   margin-top: 8px;
   line-height: 1.2;
 `
-
+const FaceWrap = styled.div`
+  display:flex;
+  justify-content: center;
+  & > #avatarWrapper {
+    gap: 40px;
+  }
+`
 export default Home;
