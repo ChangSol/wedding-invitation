@@ -353,7 +353,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 </Group>
               </Stack>
 
-              <Text>장남 {process.env.NEXT_PUBLIC_GROOM_NAME}</Text>
+              <Text>장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b></Text>
               <CjFace />
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon
@@ -430,7 +430,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 </Group>
               </Stack>
 
-              <Text>장녀 {process.env.NEXT_PUBLIC_BRIDE_NAME}</Text>
+              <Text>장녀  <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b></Text>
               <ShFace />
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon
@@ -1043,13 +1043,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         title="채림웨딩홀 오시는 길"
         opened={locationInfo}
         onClose={() => setLocationInfo(false)}
-        // size="sm"
-        // overflow="inside"
-        // styles={{
-        //   title: {
-        //     margin: "0 auto",
-        //   },
-        // }}
+        size="sm"
+        overflow="inside"
+        styles={{
+          title: {
+            margin: "0 auto",
+          },
+        }}
       >
         <LocationModal />
       </Modal>
@@ -1381,4 +1381,9 @@ const FaceWrap = styled.div`
     gap: 40px;
   }
 `
+
+// const Modal = styled.div`
+//   padding: 10px;
+// `
+
 export default Home;
