@@ -507,9 +507,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       <Location>
         <KakaoMap />
         <Navigation>
+            <Button
+              color="blue.5"
+              sx={{ width: "40%", marginRight: '5%' }}
+              onClick={() => setLocationInfo(true)}
+            >
+              🚍 오시는길
+            </Button>
           <Button
             color="green.5"
-            sx={{ width: "40%" }}
+            sx={{ width: "40%", marginRight: '5%' }}
             onClick={() => setNavigation(true)}
           >
             🚘 네비게이션
