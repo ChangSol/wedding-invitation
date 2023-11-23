@@ -42,7 +42,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import KakaoMap from '../components/KakaoMap';
 import Fs from 'fs';
 import path from 'path';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useScrollIntoView } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import LocationModal from '../components/LocationModal';
@@ -83,6 +83,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const [commentPasswordError, setCommentPasswordError] = useState(false);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
   const [commentEditModalOpened, setCommentEditModalOpened] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   // const [imagesArray, setImagesArray] = useState<string[]>(images);
   const [params, setParams] = React.useState<ICongratulationParams>({
     sortType: 'NEW',
@@ -108,6 +109,18 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       original: `/pictures/${image}`,
       thumbnail: `/pictures/${image}`,
     }));
+
+  const imageGalleryRef = useRef<ImageGallery | null>(null);
+
+  const onClickHandlerImageGallery = () => {
+    if (isFullScreen) {
+      imageGalleryRef.current!.exitFullScreen();
+      setIsFullScreen(false);
+    } else {
+      imageGalleryRef.current?.fullScreen();
+      setIsFullScreen(true);
+    }
+  };
 
   // const slides = imagesArray.map((image, i) => (
   //   <Carousel.Slide
@@ -786,6 +799,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           showIndex={true}
           showBullets={false}
           lazyLoad={false}
+          ref={imageGalleryRef}
+          onClick={onClickHandlerImageGallery}
         />
       </ImageGalleryWrapper>
 
