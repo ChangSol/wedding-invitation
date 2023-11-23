@@ -779,11 +779,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <ImageGallery
           items={imageObjects}
           autoPlay={false}
+          infinite={false}
           showPlayButton={false}
           showFullscreenButton={false}
           showThumbnails={true}
           showIndex={true}
           showBullets={false}
+          lazyLoad={false}
         />
       </ImageGalleryWrapper>
 
