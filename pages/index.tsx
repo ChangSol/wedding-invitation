@@ -781,7 +781,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           autoPlay={false}
           infinite={false}
           showPlayButton={false}
-          showFullscreenButton={false}
+          showFullscreenButton={true}
           showThumbnails={true}
           showIndex={true}
           showBullets={false}
