@@ -668,7 +668,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           showThumbnails={true}
           showIndex={true}
           showBullets={false}
-          lazyLoad={false}
+          lazyLoad={true}
           ref={imageGalleryRef}
           onClick={onClickHandlerImageGallery}
         />
@@ -1345,6 +1345,10 @@ const ImageGalleryWrapper = styled.div`
     object-fit: contain;
     overflow: hidden;
     object-position: center center;
+  }
+  
+  .fullscreen  {
+    overflow: hidden;
   }
 `;
 
