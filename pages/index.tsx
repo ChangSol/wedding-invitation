@@ -1326,8 +1326,9 @@ const ImageGalleryWrapper = styled.div`
   .image-gallery {
     width: 100%;
     height: auto;
+    overflow: hidden;
   }
-
+  
   .image-gallery-thumbnails {
     background-color: #fffaeb;
     // height: 100%;
@@ -1345,10 +1346,6 @@ const ImageGalleryWrapper = styled.div`
     object-fit: contain;
     overflow: hidden;
     object-position: center center;
-  }
-  
-  .fullscreen .image-gallery-slide img {
-    overflow: hidden;
   }
 `;
 
