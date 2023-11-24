@@ -1,19 +1,19 @@
 import { NextPageContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import React from 'react';
 
 const Success = () => {
   const router = useRouter();
   const query = router.query;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (query?.phone) {
       console.log(query.phone);
     } else {
-      router.push('/events')
+      router.push('/events');
     }
-  }, [query?.phone]);
+  }, [query?.phone, router]);
 
   return (
     <div>
