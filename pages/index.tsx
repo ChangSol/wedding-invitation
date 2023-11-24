@@ -1347,7 +1347,7 @@ const ImageGalleryWrapper = styled.div`
     object-position: center center;
   }
   
-  .fullscreen  {
+  .fullscreen .image-gallery-slide img {
     overflow: hidden;
   }
 `;
