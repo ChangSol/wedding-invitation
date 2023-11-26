@@ -14,20 +14,24 @@ require("dotenv").config();
 const client = new QueryClient();
 
 const DEFAULT_SEO = {
-  title: "test title",
-  description: "test description",
-  canonical: "https://www.changsol.io/wedding-invitation",
+  title:
+      `${process.env.NEXT_PUBLIC_GROOM_NAME}` +
+      " ❤️ " +
+      `${process.env.NEXT_PUBLIC_BRIDE_NAME}` +
+      " 우리 결혼합니다!",
+  description: "24년 02월 24일 (토) 오후 1시 \n채림웨딩홀 6층 컨벤션홀",
+  canonical: "https://wedding-invitation.chang-ju.shin-hee.com",
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://www.changsol.io/wedding-invitation",
+    url: "https://wedding-invitation.chang-ju.shin-hee.com",
     title: "test title",
     site_name: "test site",
     images: [
       {
-        url: "https://changsol.github.io/wedding-invitation/pictures/main.jpg",
-        width: 285,
-        height: 167,
+        url: "https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg",
+        // width: 285,
+        // height: 167,
         alt: "img",
       },
     ],
