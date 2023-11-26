@@ -25,8 +25,12 @@ const DEFAULT_SEO = {
     type: "website",
     locale: "ko_KR",
     url: "https://wedding-invitation.chang-ju.shin-hee.com",
-    title: "test title",
-    site_name: "test site",
+    title:
+        `${process.env.NEXT_PUBLIC_GROOM_NAME}` +
+        " ❤️ " +
+        `${process.env.NEXT_PUBLIC_BRIDE_NAME}` +
+        " 우리 결혼합니다!",
+    // site_name: "test site",
     images: [
       {
         url: "https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg",
