@@ -564,13 +564,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             🚘 네비게이션
           </Button>
 
-          <Button
-            color="yellow.5"
-            sx={{ width: "84%" }}
-            onClick={() => setShare(true)}
-          >
-            <IconShare size={15} /> <Text ml={5}>공유하기</Text>
-          </Button>
+          {/*<Button*/}
+          {/*  color="yellow.5"*/}
+          {/*  sx={{ width: "84%" }}*/}
+          {/*  onClick={() => setShare(true)}*/}
+          {/*>*/}
+          {/*  <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
+          {/*</Button>*/}
         </Navigation>
         <Parking>
           <ParkingInfo>
@@ -1066,18 +1066,19 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         opened={navigation}
         onClose={() => setNavigation(false)}
         centered
-        withCloseButton={false}
+        withCloseButton={true}
         styles={{
           modal: {
             width: "200px",
             height: "auto",
             background: theme.fn.rgba(theme.white, 0.5),
           },
-          // close: {
-          //   backgroundColor: theme.fn.rgba(theme.white, 0.5),
-          //   color: theme.colors.dark[4],
-          //   borderRadius: "50%",
-          // },
+          close: {
+            margin: "0px 10px 0px 0px",
+            // backgroundColor: theme.fn.rgba(theme.white, 0.5),
+            color: theme.colors.dark[4],
+            // borderRadius: "50%",
+          },
           // title: {
           //   margin: "0 auto",
           // },
@@ -1099,7 +1100,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             sx={{ width: 200 }}
             onClick={() =>
               router.push(
-                "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000",
+                "https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh",
               )
             }
           >
@@ -1128,6 +1129,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         onClose={() => setLocationInfo(false)}
         size="md"
         overflow="outside"
+        withCloseButton={true}
         centered
         styles={{
           title: {
