@@ -276,16 +276,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       justify="center"
       spacing="sm"
       sx={{
-        margin: '0 auto',
+        margin: "0 auto",
         maxWidth: theme.breakpoints.xs,
-        width: '100%',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
+        width: "100%",
+        overflowY: "scroll",
+        overflowX: "hidden",
       }}
     >
       {/* Hero */}
       <div
-        style={{ zIndex: 5000, position: 'fixed', top: 0, left: 0 }}
+        style={{ zIndex: 5000, position: "fixed", top: 0, left: 0 }}
         onClick={() => {
           getCongratulationsInfinityQuery.fetchNextPage();
         }}
@@ -323,10 +323,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             })}
           >
             평생을 함께 할 사람을 만났습니다. <br />
-            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을 바라보며 함께 걸어가고 싶습니다. <br />
+            지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을
+            바라보며 함께 걸어가고 싶습니다. <br />
             <br />
             손을 맞잡은 이 순간부터 <br />
-            아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요. <br />
+            아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요.{" "}
+            <br />
             <br />
             언젠가 &apos;서로 사랑하며 살아도 너무 짧은 삶이었다&apos;고 <br />
             말할 수 있도록 함께 노력하며 살겠습니다.
@@ -340,17 +342,19 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             spacing={10}
             sx={{ flexWrap: "nowrap" }}
           >
-            <Stack align="center" spacing="xs" className='face'>
-
+            <Stack align="center" spacing="xs" className="face">
               <Stack spacing={0}>
                 <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
                   <Text>
-                    {process.env.NEXT_PUBLIC_GROOM_DAD_NAME} • {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
+                    {process.env.NEXT_PUBLIC_GROOM_DAD_NAME} •{" "}
+                    {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
                   </Text>
                 </Group>
               </Stack>
 
-              <Text>장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b></Text>
+              <Text>
+                장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b>
+              </Text>
               <CjFace />
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon
@@ -359,27 +363,57 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 >
                   <IconPhone size={20} />
                 </ActionIcon>
-                <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
+                <ActionIcon
+                  component="a"
+                  href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`}
+                  target="_blank"
+                >
                   <IconBrandMessenger size={20} />
                 </ActionIcon>
-                <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+                <Popover
+                  width={140}
+                  position="bottom"
+                  withArrow
+                  shadow="md"
+                  radius="md"
+                >
                   <Popover.Target>
                     <ActionIcon>
                       <IconCurrencyWon size={20} />
                     </ActionIcon>
                   </Popover.Target>
                   <Popover.Dropdown p={5} px={10}>
-                    <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
-                      <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
+                    <Stack
+                      spacing={3}
+                      sx={{ position: "relative" }}
+                      align="flex-end"
+                    >
                       <Text size={theme.fontSizes.xs}>
+                        {process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
+                      </Text>
+                      <Text
+                        size={theme.fontSizes.xs}
+                        style={{
+                          margin: "2px 9px 0px 0px",
+                        }}
+                      >
+                        <Image
+                          style={{
+                            float: "left",
+                            margin: "2px 5px 0px 0px",
+                          }}
+                          src="/kakaobank.jpg"
+                          width={15}
+                          alt="kakaobank"
+                        />
                         {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
                       </Text>
                     </Stack>
-                    <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+                    <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                       <CopyButton
                         value={
                           `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
-                          ' ' +
+                          " " +
                           `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
                         }
                       >
@@ -405,12 +439,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               <Stack spacing={0}>
                 <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
                   <Text>
-                    {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME} • {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
+                    {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME} •{" "}
+                    {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
                   </Text>
                 </Group>
               </Stack>
 
-              <Text>장녀  <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b></Text>
+              <Text>
+                장녀 <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b>
+              </Text>
               <ShFace />
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon
@@ -419,27 +456,57 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 >
                   <IconPhone size={20} />
                 </ActionIcon>
-                <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`} target="_blank">
+                <ActionIcon
+                  component="a"
+                  href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`}
+                  target="_blank"
+                >
                   <IconBrandMessenger size={20} />
                 </ActionIcon>
-                <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+                <Popover
+                  width={140}
+                  position="bottom"
+                  withArrow
+                  shadow="md"
+                  radius="md"
+                >
                   <Popover.Target>
                     <ActionIcon>
                       <IconCurrencyWon size={20} />
                     </ActionIcon>
                   </Popover.Target>
                   <Popover.Dropdown p={5} px={10}>
-                    <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
-                      <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}</Text>
+                    <Stack
+                      spacing={2}
+                      sx={{ position: "relative" }}
+                      align="flex-end"
+                    >
                       <Text size={theme.fontSizes.xs}>
+                        {process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
+                      </Text>
+                      <Text
+                          size={theme.fontSizes.xs}
+                          style={{
+                            margin: "2px 9px 0px 0px",
+                          }}
+                      >
+                        <Image
+                            style={{
+                              float: "left",
+                              margin: "2px 5px 0px 0px",
+                            }}
+                            src="/kakaobank.jpg"
+                            width={15}
+                            alt="kakaobank"
+                        />
                         {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
                       </Text>
                     </Stack>
-                    <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+                    <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                       <CopyButton
                         value={
                           `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
-                          ' ' +
+                          " " +
                           `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
                         }
                       >
@@ -459,7 +526,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   </Popover.Dropdown>
                 </Popover>
               </Group>
-
             </Stack>
           </Group>
         </FaceWrap>
@@ -470,16 +536,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       <Location>
         <KakaoMap />
         <Navigation>
-            <Button
-              color="blue.5"
-              sx={{ width: "40%", marginRight: '5%' }}
-              onClick={() => setLocationInfo(true)}
-            >
-              🚍 오시는길
-            </Button>
+          <Button
+            color="blue.5"
+            sx={{ width: "40%", marginRight: "5%" }}
+            onClick={() => setLocationInfo(true)}
+          >
+            🚍 오시는길
+          </Button>
           <Button
             color="green.5"
-            sx={{ width: "40%", marginRight: '5%' }}
+            sx={{ width: "40%", marginRight: "5%" }}
             onClick={() => setNavigation(true)}
           >
             🚘 네비게이션
@@ -635,7 +701,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         radius="md"
         withBorder
         sx={{
-          height: '100%',
+          height: "100%",
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
         }}
@@ -648,7 +714,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           spacing={8}
           sx={{ flexWrap: "nowrap" }}
         >
-
           <Box>
             <IconHeart size={25} opacity={0.3} />
           </Box>
@@ -762,13 +827,27 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         }}
       >
         <Stack align="center">
-          <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>2023 . 02 . 24 (토) PM 01 : 00</Text>
-          <Text align="center" id="location" sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>
+          <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>
+            2023 . 02 . 24 (토) PM 01 : 00
+          </Text>
+          <Text
+            align="center"
+            id="location"
+            sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}
+          >
             부천채림웨딩홀
-            <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>(경기 부천시 부천로 3-1)</Text>
+            <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>
+              (경기 부천시 부천로 3-1)
+            </Text>
           </Text>
           <KakaoMap />
-          <Alert icon={<IconAlertCircle size={16} />} px={15} py={7} title="주차 안내" sx={{ width: '90%' }}>
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            px={15}
+            py={7}
+            title="주차 안내"
+            sx={{ width: "90%" }}
+          >
             <Text
               sx={(theme) => ({
                 fontSize: theme.fontSizes.xs,
@@ -779,15 +858,27 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               안내원의 유도에 따라주시면 감사하겠습니다.
             </Text>
           </Alert>
-          <Group sx={{ width: '100%' }} position="center">
-            <Button color="blue.5" sx={{ width: '40%' }} onClick={() => setLocationInfo(true)}>
+          <Group sx={{ width: "100%" }} position="center">
+            <Button
+              color="blue.5"
+              sx={{ width: "40%" }}
+              onClick={() => setLocationInfo(true)}
+            >
               🚍 오시는길
             </Button>
-            <Button color="green.5" sx={{ width: '40%' }} onClick={() => setNavigation(true)}>
+            <Button
+              color="green.5"
+              sx={{ width: "40%" }}
+              onClick={() => setNavigation(true)}
+            >
               🚘 네비게이션
             </Button>
           </Group>
-          <Button color="yellow.5" sx={{ width: '84%' }} onClick={() => setShare(true)}>
+          <Button
+            color="yellow.5"
+            sx={{ width: "84%" }}
+            onClick={() => setShare(true)}
+          >
             <IconShare size={15} /> <Text ml={5}>공유하기</Text>
           </Button>
         </Stack>
@@ -802,16 +893,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         radius="md"
         withBorder
         sx={{
-          height: '100%',
+          height: "100%",
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
-          position: 'relative',
+          position: "relative",
         }}
       >
         <ActionIcon
           hidden={commentInputOpened}
           color="blue"
-          sx={{ position: 'absolute', top: 10, right: 20 }}
+          sx={{ position: "absolute", top: 10, right: 20 }}
           onClick={() => setCommentInputOpened(true)}
         >
           <IconWriting size={30} />
@@ -821,7 +912,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           따뜻한 축하글을 남겨주세요 :)
         </Text>
         <Stack spacing={10} mb={5}>
-          <Transition mounted={commentInputOpened} transition="fade" duration={500} timingFunction="ease">
+          <Transition
+            mounted={commentInputOpened}
+            transition="fade"
+            duration={500}
+            timingFunction="ease"
+          >
             {(styles) => (
               <Box
                 style={styles}
@@ -830,7 +926,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 sx={{
                   backgroundColor: theme.colors.gray[2],
                   borderRadius: theme.radius.md,
-                  position: 'relative',
+                  position: "relative",
                 }}
               >
                 <form onSubmit={form.onSubmit(commentOnSubmit)}>
@@ -842,7 +938,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         minLength={2}
                         maxLength={10}
                         withAsterisk
-                        {...form.getInputProps('name')}
+                        {...form.getInputProps("name")}
                         sx={{
                           width: 180,
                         }}
@@ -854,11 +950,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         minLength={4}
                         maxLength={12}
                         sx={{ width: 98 }}
-                        {...form.getInputProps('password')}
+                        {...form.getInputProps("password")}
                       />
                       <CloseButton
                         size="lg"
-                        sx={{ position: 'absolute', top: 5, right: 5 }}
+                        sx={{ position: "absolute", top: 5, right: 5 }}
                         onClick={() => setCommentInputOpened(false)}
                       />
                     </Group>
@@ -867,7 +963,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         placeholder="축하 인사말을 작성해주세요."
                         label="인사말"
                         withAsterisk
-                        {...form.getInputProps('contents')}
+                        {...form.getInputProps("contents")}
                         sx={{
                           width: 290,
                         }}
@@ -879,7 +975,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         type="submit"
                         mr={20}
                         sx={{
-                          alignSelf: 'flex-end',
+                          alignSelf: "flex-end",
                           width: 90,
                           height: 35,
                         }}
@@ -893,49 +989,54 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             )}
           </Transition>
 
-          {[...(getCongratulationsInfinityQuery.data?.pages.flat() ?? [])].map((data, i) => (
-            <Box
-              key={i}
-              id="aComment"
-              p={5}
-              style={{
-                height: '100%',
-                position: 'relative',
-                backgroundColor: theme.colors.gray[2],
-                borderRadius: theme.radius.md,
-              }}
-            >
-              <Group noWrap>
-                <Stack spacing={0}>
-                  <Group>
-                    작성자명 :
-                    <Text size="sm" sx={{ fontWeight: 500 }}>
-                      {data.name}
+          {[...(getCongratulationsInfinityQuery.data?.pages.flat() ?? [])].map(
+            (data, i) => (
+              <Box
+                key={i}
+                id="aComment"
+                p={5}
+                style={{
+                  height: "100%",
+                  position: "relative",
+                  backgroundColor: theme.colors.gray[2],
+                  borderRadius: theme.radius.md,
+                }}
+              >
+                <Group noWrap>
+                  <Stack spacing={0}>
+                    <Group>
+                      작성자명 :
+                      <Text size="sm" sx={{ fontWeight: 500 }}>
+                        {data.name}
+                      </Text>
+                      작성일시 :
+                      <Text size={10} color="dimmed">
+                        {new Date(data.createdAt).toLocaleDateString("ko")}
+                      </Text>
+                    </Group>
+                    작성내용
+                    <Text size="sm" mt={5} sx={{ lineBreak: "anywhere" }}>
+                      {data.contents}
                     </Text>
-                    작성일시 :
-                    <Text size={10} color="dimmed">
-                      {new Date(data.createdAt).toLocaleDateString('ko')}
-                    </Text>
-                  </Group>
-                  작성내용
-                  <Text size="sm" mt={5} sx={{ lineBreak: 'anywhere' }}>
-                    {data.contents}
-                  </Text>
-                </Stack>
-              </Group>
-              <Group sx={{ position: 'absolute', top: 5, right: 5 }} spacing="xs">
-                <ActionIcon
-                  color="blue"
-                  onClick={() => {
-                    setSelectedCongratulation(data);
-                    setCommentPwModalOpened(true);
-                  }}
+                  </Stack>
+                </Group>
+                <Group
+                  sx={{ position: "absolute", top: 5, right: 5 }}
+                  spacing="xs"
                 >
-                  <IconEdit size={20} />
-                </ActionIcon>
-              </Group>
-            </Box>
-          ))}
+                  <ActionIcon
+                    color="blue"
+                    onClick={() => {
+                      setSelectedCongratulation(data);
+                      setCommentPwModalOpened(true);
+                    }}
+                  >
+                    <IconEdit size={20} />
+                  </ActionIcon>
+                </Group>
+              </Box>
+            ),
+          )}
         </Stack>
       </Paper>
 
@@ -953,10 +1054,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           close: {
             backgroundColor: theme.fn.rgba(theme.white, 0.5),
             color: theme.colors.dark[4],
-            borderRadius: '50%',
+            borderRadius: "50%",
           },
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
@@ -966,7 +1067,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               src="/kakaomap.png"
               width={50}
               alt="kakaomap"
-              onClick={() => router.push('https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874')}
+              onClick={() =>
+                router.push(
+                  "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874",
+                )
+              }
             />
           </ActionIcon>
           <ActionIcon sx={{ width: 50 }}>
@@ -976,7 +1081,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alt="navermap"
               onClick={() =>
                 router.push(
-                  'nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000'
+                  "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000",
                 )
               }
             />
@@ -993,7 +1098,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         overflow="inside"
         styles={{
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
@@ -1013,16 +1118,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           close: {
             backgroundColor: theme.fn.rgba(theme.white, 0.5),
             color: theme.colors.dark[4],
-            borderRadius: '50%',
+            borderRadius: "50%",
           },
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
         <Group position="center" spacing="xl">
           <ActionIcon sx={{ width: 50 }} onClick={() => kakaoShare()}>
-            <Image src="/kakaotalk.png" width={50} alt="kakaotalk" onClick={() => router.push('/')} />
+            <Image
+              src="/kakaotalk.png"
+              width={50}
+              alt="kakaotalk"
+              onClick={() => router.push("/")}
+            />
           </ActionIcon>
 
           <CopyButton value="https://github.com/changsol/">
@@ -1035,11 +1145,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                       color="teal"
                       sx={{
                         width: 200,
-                        position: 'absolute',
+                        position: "absolute",
                         top: -60,
                         left: 0,
                         right: 0,
-                        margin: '0 auto',
+                        margin: "0 auto",
                         zIndex: 999,
                       }}
                     >
@@ -1065,11 +1175,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                       color="teal"
                       sx={{
                         width: 200,
-                        position: 'absolute',
+                        position: "absolute",
                         top: -60,
                         left: 0,
                         right: 0,
-                        margin: '0 auto',
+                        margin: "0 auto",
                         zIndex: 999,
                       }}
                     >
@@ -1115,7 +1225,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               minLength={4}
               maxLength={8}
               sx={{ width: 160 }}
-              {...editPwForm.getInputProps('password')}
+              {...editPwForm.getInputProps("password")}
             />
             <Button
               type="submit"
@@ -1132,7 +1242,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Modal>
 
       {/* Footer */}
-      <Anchor align="center" href="https://github.com/changsol" mb={30} color="gray">
+      <Anchor
+        align="center"
+        href="https://github.com/changsol"
+        mb={30}
+        color="gray"
+      >
         Made by ChangSol
       </Anchor>
     </Stack>
