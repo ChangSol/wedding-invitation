@@ -22,7 +22,7 @@ import {
   TextInput,
   Transition,
   useMantineTheme,
-} from '@mantine/core';
+} from "@mantine/core";
 import {
   IconAlertCircle,
   IconBrandMessenger,
@@ -36,19 +36,19 @@ import {
   IconPhone,
   IconShare,
   IconWriting,
-} from '@tabler/icons';
-import styled from 'styled-components';
-import type { GetStaticProps, NextPage } from 'next';
-import KakaoMap from '../components/KakaoMap';
-import Fs from 'fs';
-import path from 'path';
-import React, { useRef, useState } from 'react';
-import { useScrollIntoView } from '@mantine/hooks';
-import { useRouter } from 'next/router';
-import LocationModal from '../components/LocationModal';
-import { NextLink } from '@mantine/next';
-import { kakaoShare } from '../lib/KakaoShare';
-import { useForm } from '@mantine/form';
+} from "@tabler/icons";
+import styled from "styled-components";
+import type { GetStaticProps, NextPage } from "next";
+import KakaoMap from "../components/KakaoMap";
+import Fs from "fs";
+import path from "path";
+import React, { useRef, useState } from "react";
+import { useScrollIntoView } from "@mantine/hooks";
+import { useRouter } from "next/router";
+import LocationModal from "../components/LocationModal";
+import { NextLink } from "@mantine/next";
+import { kakaoShare } from "../lib/KakaoShare";
+import { useForm } from "@mantine/form";
 import {
   ICongratulationCreate,
   ICongratulationData,
@@ -59,11 +59,11 @@ import {
 } from "../queries";
 import Countdown from "../components/Countdown";
 import { FaCircleInfo } from "react-icons/fa6";
-import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 export const getStaticProps: GetStaticProps = () => {
-  const images = Fs.readdirSync(path.join(process.cwd(), 'public/pictures'));
+  const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
   return {
     props: { images },
   };
@@ -79,19 +79,23 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const [share, setShare] = useState(false);
   const [commentInputOpened, setCommentInputOpened] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ICongratulationData[] | null>(null);
-  const [selectedCongratulation, setSelectedCongratulation] = useState<ICongratulationData | null>(null);
+  const [commentsArray, setCommentsArray] = useState<
+    ICongratulationData[] | null
+  >(null);
+  const [selectedCongratulation, setSelectedCongratulation] =
+    useState<ICongratulationData | null>(null);
   const [commentPasswordError, setCommentPasswordError] = useState(false);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
   const [commentEditModalOpened, setCommentEditModalOpened] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   // const [imagesArray, setImagesArray] = useState<string[]>(images);
   const [params, setParams] = React.useState<ICongratulationParams>({
-    sortType: 'NEW',
+    sortType: "NEW",
     limit: 10,
   });
 
-  const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params); //[];
+  const getCongratulationsInfinityQuery =
+    useGetCongratulationsInfinityQuery(params); //[];
 
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
@@ -173,41 +177,41 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   const form = useForm<ICongratulationCreate>({
     initialValues: {
-      name: '',
-      password: '',
-      contents: '',
+      name: "",
+      password: "",
+      contents: "",
     },
     validate: {
       name: (value) => {
         if (!value) {
-          return '이름을 입력해주세요.';
+          return "이름을 입력해주세요.";
         }
         if (value.length < 2) {
-          return '이름을 2자 이상 입력해주세요.';
+          return "이름을 2자 이상 입력해주세요.";
         }
         if (value.length > 10) {
-          return '이름은 10자 이하만 가능합니다.';
+          return "이름은 10자 이하만 가능합니다.";
         }
         return null;
       },
       password: (value) => {
         if (!value) {
-          return '비밀번호를 입력해주세요. ';
+          return "비밀번호를 입력해주세요. ";
         }
         if (value.length < 4) {
-          return '비밀번호는 4자 이상 입력해주세요.';
+          return "비밀번호는 4자 이상 입력해주세요.";
         }
         if (value.length > 12) {
-          return '비밀번호는 12자 이하로 입력해주세요.';
+          return "비밀번호는 12자 이하로 입력해주세요.";
         }
         return null;
       },
       contents: (value) => {
         if (!value) {
-          return '축하글을 입력해주세요.';
+          return "축하글을 입력해주세요.";
         }
         if (value.length > 1000) {
-          return '1000자 이하까지 작성 가능합니다.';
+          return "1000자 이하까지 작성 가능합니다.";
         }
         return null;
       },
@@ -220,9 +224,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     setLoading(true);
 
     postCongratulationMutation.mutate(data, {
-      onSuccess: () => alert('등록되었습니다.'),
+      onSuccess: () => alert("등록되었습니다."),
       onError: (error: any) =>
-        alert(error?.response?.data?.message ?? '서버에 문제가 발생헀습니다. 다시 시도해주세요.'),
+        alert(
+          error?.response?.data?.message ??
+            "서버에 문제가 발생헀습니다. 다시 시도해주세요.",
+        ),
     });
 
     setLoading(false);
@@ -231,23 +238,26 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   const editPwForm = useForm({
     initialValues: {
-      password: '',
+      password: "",
     },
   });
 
   const onDeleteComment = async (password: any) => {
     if (!selectedCongratulation) return;
-    const ok = window.confirm('정말 삭제하시겠습니까? ');
+    const ok = window.confirm("정말 삭제하시겠습니까? ");
     if (ok) {
       setLoading(true);
 
       deleteCongratulationMutation.mutate(
         { id: selectedCongratulation.id, password: password },
         {
-          onSuccess: () => alert('삭제되었습니다.'),
+          onSuccess: () => alert("삭제되었습니다."),
           onError: (error: any) =>
-            alert(error?.response?.data?.message ?? '서버에 문제가 발생헀습니다. 다시 시도해주세요.'),
-        }
+            alert(
+              error?.response?.data?.message ??
+                "서버에 문제가 발생헀습니다. 다시 시도해주세요.",
+            ),
+        },
       );
 
       setLoading(false);
@@ -259,14 +269,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   };
 
   React.useEffect(() => {
-    function listener(event: DocumentEventMap['scroll']) {
-      if (Math.ceil(window.scrollY + window.innerHeight + 30) > document.body.offsetHeight) {
+    function listener(event: DocumentEventMap["scroll"]) {
+      if (
+        Math.ceil(window.scrollY + window.innerHeight + 30) >
+        document.body.offsetHeight
+      ) {
         getCongratulationsInfinityQuery.fetchNextPage();
       }
     }
-    document.addEventListener('scroll', listener);
+    document.addEventListener("scroll", listener);
     return () => {
-      document.removeEventListener('scroll', listener);
+      document.removeEventListener("scroll", listener);
     };
   }, [getCongratulationsInfinityQuery]);
 
@@ -485,19 +498,19 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         {process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
                       </Text>
                       <Text
-                          size={theme.fontSizes.xs}
-                          style={{
-                            margin: "2px 9px 0px 0px",
-                          }}
+                        size={theme.fontSizes.xs}
+                        style={{
+                          margin: "2px 9px 0px 0px",
+                        }}
                       >
                         <Image
-                            style={{
-                              float: "left",
-                              margin: "2px 5px 0px 0px",
-                            }}
-                            src="/kakaobank.jpg"
-                            width={15}
-                            alt="kakaobank"
+                          style={{
+                            float: "left",
+                            margin: "2px 5px 0px 0px",
+                          }}
+                          src="/kakaobank.jpg"
+                          width={15}
+                          alt="kakaobank"
                         />
                         {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
                       </Text>
@@ -538,14 +551,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <Navigation>
           <Button
             color="blue.5"
-            sx={{ width: "40%", marginRight: "5%" }}
+            sx={{ width: "40%", marginRight: "10%"}}
             onClick={() => setLocationInfo(true)}
           >
             🚍 오시는길
           </Button>
           <Button
             color="green.5"
-            sx={{ width: "40%", marginRight: "5%" }}
+            sx={{ width: "40%"}}
             onClick={() => setNavigation(true)}
           >
             🚘 네비게이션
@@ -813,76 +826,76 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       )} */}
 
       {/* Bottom */}
-      <Paper
-        mx={5}
-        shadow="sm"
-        p="sm"
-        py="md"
-        mb={10}
-        radius="md"
-        withBorder
-        sx={{
-          backgroundColor: theme.colors.gray[0],
-          color: theme.colors.dark[4],
-        }}
-      >
-        <Stack align="center">
-          <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>
-            2023 . 02 . 24 (토) PM 01 : 00
-          </Text>
-          <Text
-            align="center"
-            id="location"
-            sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}
-          >
-            부천채림웨딩홀
-            <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>
-              (경기 부천시 부천로 3-1)
-            </Text>
-          </Text>
-          <KakaoMap />
-          <Alert
-            icon={<IconAlertCircle size={16} />}
-            px={15}
-            py={7}
-            title="주차 안내"
-            sx={{ width: "90%" }}
-          >
-            <Text
-              sx={(theme) => ({
-                fontSize: theme.fontSizes.xs,
-              })}
-            >
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </Text>
-          </Alert>
-          <Group sx={{ width: "100%" }} position="center">
-            <Button
-              color="blue.5"
-              sx={{ width: "40%" }}
-              onClick={() => setLocationInfo(true)}
-            >
-              🚍 오시는길
-            </Button>
-            <Button
-              color="green.5"
-              sx={{ width: "40%" }}
-              onClick={() => setNavigation(true)}
-            >
-              🚘 네비게이션
-            </Button>
-          </Group>
-          <Button
-            color="yellow.5"
-            sx={{ width: "84%" }}
-            onClick={() => setShare(true)}
-          >
-            <IconShare size={15} /> <Text ml={5}>공유하기</Text>
-          </Button>
-        </Stack>
-      </Paper>
+      {/*<Paper*/}
+      {/*  mx={5}*/}
+      {/*  shadow="sm"*/}
+      {/*  p="sm"*/}
+      {/*  py="md"*/}
+      {/*  mb={10}*/}
+      {/*  radius="md"*/}
+      {/*  withBorder*/}
+      {/*  sx={{*/}
+      {/*    backgroundColor: theme.colors.gray[0],*/}
+      {/*    color: theme.colors.dark[4],*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Stack align="center">*/}
+      {/*    <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>*/}
+      {/*      2023 . 02 . 24 (토) PM 01 : 00*/}
+      {/*    </Text>*/}
+      {/*    <Text*/}
+      {/*      align="center"*/}
+      {/*      id="location"*/}
+      {/*      sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}*/}
+      {/*    >*/}
+      {/*      부천채림웨딩홀*/}
+      {/*      <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>*/}
+      {/*        (경기 부천시 부천로 3-1)*/}
+      {/*      </Text>*/}
+      {/*    </Text>*/}
+      {/*    <KakaoMap />*/}
+      {/*    <Alert*/}
+      {/*      icon={<IconAlertCircle size={16} />}*/}
+      {/*      px={15}*/}
+      {/*      py={7}*/}
+      {/*      title="주차 안내"*/}
+      {/*      sx={{ width: "90%" }}*/}
+      {/*    >*/}
+      {/*      <Text*/}
+      {/*        sx={(theme) => ({*/}
+      {/*          fontSize: theme.fontSizes.xs,*/}
+      {/*        })}*/}
+      {/*      >*/}
+      {/*        전용 주차장에 주차 가능 (무료 3시간) <br />*/}
+      {/*        만차 시 이마트 주차 가능 (5000원 제공) <br />*/}
+      {/*        안내원의 유도에 따라주시면 감사하겠습니다.*/}
+      {/*      </Text>*/}
+      {/*    </Alert>*/}
+      {/*    <Group sx={{ width: "100%" }} position="center">*/}
+      {/*      <Button*/}
+      {/*        color="blue.5"*/}
+      {/*        sx={{ width: "40%" }}*/}
+      {/*        onClick={() => setLocationInfo(true)}*/}
+      {/*      >*/}
+      {/*        🚍 오시는길*/}
+      {/*      </Button>*/}
+      {/*      <Button*/}
+      {/*        color="green.5"*/}
+      {/*        sx={{ width: "40%" }}*/}
+      {/*        onClick={() => setNavigation(true)}*/}
+      {/*      >*/}
+      {/*        🚘 네비게이션*/}
+      {/*      </Button>*/}
+      {/*    </Group>*/}
+      {/*    <Button*/}
+      {/*      color="yellow.5"*/}
+      {/*      sx={{ width: "84%" }}*/}
+      {/*      onClick={() => setShare(true)}*/}
+      {/*    >*/}
+      {/*      <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
+      {/*    </Button>*/}
+      {/*  </Stack>*/}
+      {/*</Paper>*/}
 
       {/* Comment Section*/}
       <Paper
@@ -1045,27 +1058,28 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         opened={navigation}
         onClose={() => setNavigation(false)}
         centered
-        size={200}
         withCloseButton={false}
         styles={{
           modal: {
+            width: "200px",
+            height: "auto",
             background: theme.fn.rgba(theme.white, 0.5),
           },
-          close: {
-            backgroundColor: theme.fn.rgba(theme.white, 0.5),
-            color: theme.colors.dark[4],
-            borderRadius: "50%",
-          },
-          title: {
-            margin: "0 auto",
-          },
+          // close: {
+          //   backgroundColor: theme.fn.rgba(theme.white, 0.5),
+          //   color: theme.colors.dark[4],
+          //   borderRadius: "50%",
+          // },
+          // title: {
+          //   margin: "0 auto",
+          // },
         }}
       >
         <Group position="center" spacing="xl">
-          <ActionIcon sx={{ width: 50 }}>
+          <ActionIcon sx={{ width: 200 }}>
             <Image
               src="/kakaomap.png"
-              width={50}
+              width={20}
               alt="kakaomap"
               onClick={() =>
                 router.push(
@@ -1073,11 +1087,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 )
               }
             />
+            <Text size={theme.fontSizes.xs} >
+              카카오맵
+            </Text>
           </ActionIcon>
-          <ActionIcon sx={{ width: 50 }}>
+          <ActionIcon sx={{ width: 200 }}>
             <Image
               src="/navermap.png"
-              width={50}
+              width={20}
               alt="navermap"
               onClick={() =>
                 router.push(
@@ -1085,7 +1102,27 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 )
               }
             />
+            <Text size={theme.fontSizes.xs}>
+              네이버지도
+            </Text>
           </ActionIcon>
+
+          <ActionIcon sx={{ width: 200 }}>
+            <Image
+                src="/tmap.jpg"
+                width={20}
+                alt="tmap"
+                onClick={() =>
+                    router.push(
+                        "https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=5YthFr8gDz2aQpXivtKab7Fe5IWlxDlW5V2VyPKP&lat=37.484695&lon=126.781874&name=%EB%B6%80%EC%B2%9C%EC%B1%84%EB%A6%BC%EC%9B%A8%EB%94%A9%ED%99%80",
+                    )
+                }
+            />
+            <Text size={theme.fontSizes.xs}>
+              티맵
+            </Text>
+          </ActionIcon>
+
         </Group>
       </Modal>
 
@@ -1094,11 +1131,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         title="채림웨딩홀 오시는 길"
         opened={locationInfo}
         onClose={() => setLocationInfo(false)}
-        size="sm"
+        size="md"
         overflow="inside"
+        centered
         styles={{
           title: {
-            margin: "0 auto",
+            margin: "15px auto 15px 145px",
+          },
+          close: {
+            margin: "0px 15px 0px 0px",
           },
         }}
       >
@@ -1264,7 +1305,7 @@ const Main = styled.div`
   justify-content: center;
 
   &::before {
-    content: 'INVITE YOU TO THE WEDDING';
+    content: "INVITE YOU TO THE WEDDING";
     display: block;
     position: absolute;
     left: -57px;
@@ -1272,7 +1313,7 @@ const Main = styled.div`
     font-size: 12px;
   }
   &::after {
-    content: 'IT’S THE WEDDING DAY';
+    content: "IT’S THE WEDDING DAY";
     display: block;
     position: absolute;
     right: -40px;
@@ -1296,20 +1337,20 @@ const MainWrap = styled.div`
 
 const MainImage = styled.img`
   position: relative;
-  background-image: url('/images/mobilemain.jpg');
+  background-image: url("/images/mobilemain.jpg");
   background-repeat: no-repeat;
   background-size: 150%;
   background-position: center;
   width: 100%;
   height: 380px;
   margin: 0 auto;
-  border: 1px solid transparent
+  border: 1px solid transparent;
   // filter: grayscale(100%);
 `;
 const TextName = styled.p`
   position: relative;
   bottom: 20px;
-  font-family: 'Hankc';
+  font-family: "Hankc";
   display: flex;
   justify-content: center;
   width: 290px;
@@ -1323,7 +1364,7 @@ const TextDay = styled.p``;
 const TextHall = styled.span``;
 
 const CjFace = styled.img`
-  background-image: url('/images/changju.png');
+  background-image: url("/images/changju.png");
   border-image-source: none;
   width: 60px;
   height: 72px;
@@ -1332,7 +1373,7 @@ const CjFace = styled.img`
   margin-top: 12px;
 `;
 const ShFace = styled.img`
-  background-image: url('/images/shinhee.png');
+  background-image: url("/images/shinhee.png");
   border-image-source: none;
   width: 60px;
   height: 72px;
@@ -1398,40 +1439,41 @@ const Location = styled.div`
 `;
 const Navigation = styled.div`
   padding: 1.5rem;
+  text-align: center;
 `;
 const Parking = styled.div`
   display: flex;
   margin: 0 auto;
   padding: 1rem;
-  background-color: #F9F9F7;
+  background-color: #f9f9f7;
 `;
 
 // 주차안내 부분
 const ParkingInfo = styled.div`
-  color: #684E3B;
-`
+  color: #684e3b;
+`;
 
 const ParkingInfoTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-`
+`;
 const ParkingInfoP = styled.p`
   margin-left: 5px;
   font-weight: 600;
-`
+`;
 const ParkingInfoText = styled.p`
   margin-left: 18px;
   margin-top: 8px;
   line-height: 1.2;
-`
+`;
 const FaceWrap = styled.div`
-  display:flex;
+  display: flex;
   justify-content: center;
   & > #avatarWrapper {
     gap: 40px;
   }
-`
+`;
 
 // const Modal = styled.div`
 //   padding: 10px;
@@ -1443,7 +1485,7 @@ const ImageGalleryWrapper = styled.div`
     height: auto;
     overflow: hidden;
   }
-  
+
   .image-gallery-thumbnails {
     background-color: #fffaeb;
     // height: 100%;
