@@ -1128,7 +1128,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         opened={locationInfo}
         onClose={() => setLocationInfo(false)}
         size="md"
-        overflow="outside"
+        overflow="inside"
         withCloseButton={true}
         centered
         styles={{
