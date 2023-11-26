@@ -10,23 +10,23 @@ export function kakaoShare() {
         `${process.env.NEXT_PUBLIC_BRIDE_NAME}` +
         " 우리 결혼합니다!",
       description: "24년 02월 24일 (토) 오후 1시 \n채림웨딩홀 6층 컨벤션홀",
-      imageUrl: "https://github.com/changsol/pictures/a10.jpg",
+      imageUrl: "https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg",
       link: {
-        mobileWebUrl: "https://github.com/changsol/",
-        webUrl: "https://github.com/changsol/",
+        mobileWebUrl: "https://wedding-invitation.chang-ju.shin-hee.com",
+        webUrl: "https://wedding-invitation.chang-ju.shin-hee.com",
       },
     },
-    social: {
-      likeCount: 1112,
-      commentCount: 629,
-      sharedCount: 604,
-    },
+    // social: {
+    //   likeCount: 1112,
+    //   commentCount: 629,
+    //   sharedCount: 604,
+    // },
     buttons: [
       {
         title: "청첩장 보기",
         link: {
-          mobileWebUrl: "https://github.com/changsol/",
-          webUrl: "https://github.com/changsol/",
+          mobileWebUrl: "https://wedding-invitation.chang-ju.shin-hee.com",
+          webUrl: "https://wedding-invitation.chang-ju.shin-hee.com",
         },
       },
     ],
