@@ -746,13 +746,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </div>
         </div>
         <LocationModal />
-        <Button
-          color="yellow.5"
-          sx={{ width: "84%" }}
-          onClick={() => setShare(true)}
-        >
-          <IconShare size={15} /> <Text ml={5}>공유하기</Text>
-        </Button>
+        {/*<Button*/}
+        {/*  color="yellow.5"*/}
+        {/*  sx={{ width: "84%" }}*/}
+        {/*  onClick={() => setShare(true)}*/}
+        {/*>*/}
+        {/*  <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
+        {/*</Button>*/}
         {/*<Navigation>*/}
         {/*  /!*<Button*!/*/}
         {/*  /!*  color="blue.5"*!/*/}
