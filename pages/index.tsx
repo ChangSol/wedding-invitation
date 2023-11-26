@@ -549,7 +549,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         style={{
           fontFamily: "CrimsonText-Regular",
           color: "#132F93",
-          fontSize: "3vw",
+          // fontSize: "3vw",
           textAlign: "center",
           letterSpacing: "2px",
         }}
@@ -568,7 +568,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         style={{
           fontFamily: "MaruBuri-Regular",
           color: "#132F93",
-          fontSize: "4.5vw",
+          // fontSize: "4.5vw",
           textAlign: "center",
         }}
       >
@@ -598,7 +598,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           style={{
             fontFamily: "CrimsonText-Regular",
             color: "#132F93",
-            fontSize: "3vw",
+            // fontSize: "3vw",
             textAlign: "center",
             letterSpacing: "2px",
           }}
@@ -617,7 +617,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           style={{
             fontFamily: "MaruBuri-Regular",
             color: "#132F93",
-            fontSize: "4.5vw",
+            // fontSize: "4.5vw",
             textAlign: "center",
           }}
         >
@@ -746,6 +746,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </div>
         </div>
         <LocationModal />
+        <Button
+          color="yellow.5"
+          sx={{ width: "84%" }}
+          onClick={() => setShare(true)}
+        >
+          <IconShare size={15} /> <Text ml={5}>공유하기</Text>
+        </Button>
         {/*<Navigation>*/}
         {/*  /!*<Button*!/*/}
         {/*  /!*  color="blue.5"*!/*/}

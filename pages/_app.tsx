@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setLoading(false);
   }, []);
-  //flower
+
   useEffect(() => {
     if (typeof window !== "undefined" && !loading) {
       new Sakura("main");
