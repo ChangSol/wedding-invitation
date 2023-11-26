@@ -372,7 +372,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                     <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
                       <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
                       <Text size={theme.fontSizes.xs}>
-                        {process.env.NEXT_PUBLIC_GROOM_BANK_NAME} {process.env.NEXT_PUBLIC_GROOM_NAME}
+                        {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
                       </Text>
                     </Stack>
                     <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
@@ -432,7 +432,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                     <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
                       <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}</Text>
                       <Text size={theme.fontSizes.xs}>
-                        {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME} {process.env.NEXT_PUBLIC_BRIDE_NAME}
+                        {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
                       </Text>
                     </Stack>
                     <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
