@@ -551,17 +551,25 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <Navigation>
           <Button
             color="blue.5"
-            sx={{ width: "40%", marginRight: "10%"}}
+            sx={{ width: "40%", marginRight: "10%" }}
             onClick={() => setLocationInfo(true)}
           >
             🚍 오시는길
           </Button>
           <Button
             color="green.5"
-            sx={{ width: "40%"}}
+            sx={{ width: "40%" }}
             onClick={() => setNavigation(true)}
           >
             🚘 네비게이션
+          </Button>
+
+          <Button
+            color="yellow.5"
+            sx={{ width: "84%" }}
+            onClick={() => setShare(true)}
+          >
+            <IconShare size={15} /> <Text ml={5}>공유하기</Text>
           </Button>
         </Navigation>
         <Parking>
@@ -1076,53 +1084,40 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         }}
       >
         <Group position="center" spacing="xl">
-          <ActionIcon sx={{ width: 200 }}>
-            <Image
-              src="/kakaomap.png"
-              width={20}
-              alt="kakaomap"
-              onClick={() =>
-                router.push(
-                  "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874",
-                )
-              }
-            />
-            <Text size={theme.fontSizes.xs} >
-              카카오맵
-            </Text>
+          <ActionIcon
+            sx={{ width: 200 }}
+            onClick={() =>
+              router.push(
+                "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874",
+              )
+            }
+          >
+            <Image src="/kakaomap.png" width={20} alt="kakaomap" />
+            <Text size={theme.fontSizes.xs}>카카오맵</Text>
           </ActionIcon>
-          <ActionIcon sx={{ width: 200 }}>
-            <Image
-              src="/navermap.png"
-              width={20}
-              alt="navermap"
-              onClick={() =>
-                router.push(
-                  "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000",
-                )
-              }
-            />
-            <Text size={theme.fontSizes.xs}>
-              네이버지도
-            </Text>
+          <ActionIcon
+            sx={{ width: 200 }}
+            onClick={() =>
+              router.push(
+                "nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000",
+              )
+            }
+          >
+            <Image src="/navermap.png" width={20} alt="navermap" />
+            <Text size={theme.fontSizes.xs}>네이버지도</Text>
           </ActionIcon>
 
-          <ActionIcon sx={{ width: 200 }}>
-            <Image
-                src="/tmap.jpg"
-                width={20}
-                alt="tmap"
-                onClick={() =>
-                    router.push(
-                        "https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=5YthFr8gDz2aQpXivtKab7Fe5IWlxDlW5V2VyPKP&lat=37.484695&lon=126.781874&name=%EB%B6%80%EC%B2%9C%EC%B1%84%EB%A6%BC%EC%9B%A8%EB%94%A9%ED%99%80",
-                    )
-                }
-            />
-            <Text size={theme.fontSizes.xs}>
-              티맵
-            </Text>
+          <ActionIcon
+            sx={{ width: 200 }}
+            onClick={() =>
+              router.push(
+                "https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=5YthFr8gDz2aQpXivtKab7Fe5IWlxDlW5V2VyPKP&lat=37.484695&lon=126.781874&name=%EB%B6%80%EC%B2%9C%EC%B1%84%EB%A6%BC%EC%9B%A8%EB%94%A9%ED%99%80",
+              )
+            }
+          >
+            <Image src="/tmap.jpg" width={20} alt="tmap" />
+            <Text size={theme.fontSizes.xs}>티맵</Text>
           </ActionIcon>
-
         </Group>
       </Modal>
 
@@ -1176,7 +1171,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             />
           </ActionIcon>
 
-          <CopyButton value="https://github.com/changsol/">
+          <CopyButton value="https://wedding-invitation.chang-ju.shin-hee.com">
             {({ copied, copy }) => {
               if (copied) {
                 return (
