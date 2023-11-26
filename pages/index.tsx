@@ -545,59 +545,230 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <></>
       </Greetings>
 
+      <div
+        style={{
+          fontFamily: "CrimsonText-Regular",
+          color: "#132F93",
+          fontSize: "3vw",
+          textAlign: "center",
+          letterSpacing: "2px",
+        }}
+      >
+        GALLERY
+      </div>
+      <div
+        style={{
+          background: "#132F93",
+          height: "1px",
+          width: "7vw",
+          margin: "15px auto",
+        }}
+      />
+      <div
+        style={{
+          fontFamily: "MaruBuri-Regular",
+          color: "#132F93",
+          fontSize: "4.5vw",
+          textAlign: "center",
+        }}
+      >
+        사진첩
+      </div>
+      <ImageGalleryWrapper>
+        <ImageGallery
+          items={imageObjects}
+          autoPlay={false}
+          infinite={false}
+          showPlayButton={false}
+          showFullscreenButton={true}
+          showThumbnails={true}
+          showIndex={true}
+          showBullets={false}
+          lazyLoad={true}
+          ref={imageGalleryRef}
+          onClick={onClickHandlerImageGallery}
+        />
+      </ImageGalleryWrapper>
+
+      <div style={{ height: "40px", clear: "both" }}></div>
+
       {/* 지도 */}
       <Location>
+        <div
+          style={{
+            fontFamily: "CrimsonText-Regular",
+            color: "#132F93",
+            fontSize: "3vw",
+            textAlign: "center",
+            letterSpacing: "2px",
+          }}
+        >
+          LOCATION
+        </div>
+        <div
+          style={{
+            background: "#132F93",
+            height: "1px",
+            width: "7vw",
+            margin: "15px auto",
+          }}
+        />
+        <div
+          style={{
+            fontFamily: "MaruBuri-Regular",
+            color: "#132F93",
+            fontSize: "4.5vw",
+            textAlign: "center",
+          }}
+        >
+          오시는길
+        </div>
+        <div style={{ height: "40px", clear: "both" }}></div>
+        <div
+          style={{
+            fontFamily: "MaruBuri-Regular",
+            // fontWeight: "bold",
+            color: "#8D8D8D",
+            // font-size: 4vw;
+            textAlign: "center",
+          }}
+        >
+          경기 부천시 부천로 3-1 <br />
+          (지번) 경기도 부천시 원미구 심곡동 173-1
+        </div>
+        <div
+          style={{
+            fontFamily: "MaruBuri-Regular",
+            // fontWeight: "bold",
+            color: "#333",
+            // font-size: 4vw;
+            textAlign: "center",
+            marginTop: "7px",
+          }}
+        >
+          부천채림웨딩홀 6층 컨벤션홀
+        </div>
+        <div style={{ height: "30px", clear: "both" }}></div>
         <KakaoMap />
-        <Navigation>
-          <Button
-            color="blue.5"
-            sx={{ width: "40%", marginRight: "10%" }}
-            onClick={() => setLocationInfo(true)}
+        <div style={{ height: "20px", clear: "both" }}></div>
+        <div style={{ width: "90%", margin: "0 auto" }}>
+          <div
+            style={{
+              fontFamily: "MaruBuri-Regular",
+              fontSize: "13px",
+              textAlign: "center",
+              borderRadius: "10px",
+              color: "#333333",
+              border: "1px solid #E4E4E4",
+              width: "30%",
+              height: "45px",
+              lineHeight: "45px",
+              float: "left",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
           >
-            🚍 오시는길
-          </Button>
-          <Button
-            color="green.5"
-            sx={{ width: "40%" }}
-            onClick={() => setNavigation(true)}
-          >
-            🚘 네비게이션
-          </Button>
-
-          {/*<Button*/}
-          {/*  color="yellow.5"*/}
-          {/*  sx={{ width: "84%" }}*/}
-          {/*  onClick={() => setShare(true)}*/}
-          {/*>*/}
-          {/*  <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
-          {/*</Button>*/}
-        </Navigation>
-        <Parking>
-          <ParkingInfo>
-            <ParkingInfoTitle>
-              <FaCircleInfo /> <ParkingInfoP>주차안내</ParkingInfoP>
-            </ParkingInfoTitle>
-            <ParkingInfoText>
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </ParkingInfoText>
-          </ParkingInfo>
-          {/* <Alert
-            icon={<IconAlertCircle size={16} />}
-            title="주차 안내ㄴ"
-          >
-            <Text
-              sx={(theme) => ({
-                fontSize: theme.fontSizes.xs,
-              })}
+            <ActionIcon
+              sx={{ width: 130 }}
+              onClick={() =>
+                router.push(
+                  "https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874",
+                )
+              }
             >
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </Text>
-          </Alert> */}
-        </Parking>
+              <Image src="/kakaomap.png" width={20} alt="kakaomap" />
+              <Text size={theme.fontSizes.xs}>카카오맵</Text>
+            </ActionIcon>
+          </div>
+          <div
+            style={{
+              fontFamily: "MaruBuri-Regular",
+              fontSize: "13px",
+              textAlign: "center",
+              borderRadius: "10px",
+              color: "#333333",
+              border: "1px solid #E4E4E4",
+              width: "30%",
+              height: "45px",
+              lineHeight: "45px",
+              float: "left",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              marginLeft: "16px",
+            }}
+          >
+            <ActionIcon
+              sx={{ width: 130 }}
+              onClick={() =>
+                router.push(
+                  "https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh",
+                )
+              }
+            >
+              <Image src="/navermap.png" width={20} alt="navermap" />
+              <Text size={theme.fontSizes.xs}>네이버지도</Text>
+            </ActionIcon>
+          </div>
+          <div
+            style={{
+              fontFamily: "MaruBuri-Regular",
+              fontSize: "13px",
+              textAlign: "center",
+              borderRadius: "10px",
+              color: "#333333",
+              border: "1px solid #E4E4E4",
+              width: "30%",
+              height: "45px",
+              lineHeight: "45px",
+              float: "left",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              marginLeft: "16px",
+            }}
+          >
+            <ActionIcon
+              sx={{ width: 130 }}
+              onClick={() =>
+                router.push(
+                  "https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=5YthFr8gDz2aQpXivtKab7Fe5IWlxDlW5V2VyPKP&lat=37.484695&lon=126.781874&name=%EB%B6%80%EC%B2%9C%EC%B1%84%EB%A6%BC%EC%9B%A8%EB%94%A9%ED%99%80",
+                )
+              }
+            >
+              <Image src="/tmap.jpg" width={20} alt="tmap" />
+              <Text size={theme.fontSizes.xs}>티맵</Text>
+            </ActionIcon>
+          </div>
+        </div>
+        <LocationModal />
+        {/*<Navigation>*/}
+        {/*  /!*<Button*!/*/}
+        {/*  /!*  color="blue.5"*!/*/}
+        {/*  /!*  sx={{ width: "40%", marginRight: "10%" }}*!/*/}
+        {/*  /!*  onClick={() => setLocationInfo(true)}*!/*/}
+        {/*  /!*>*!/*/}
+        {/*  /!*</Button>*!/*/}
+        {/*  <Button*/}
+        {/*    color="green.5"*/}
+        {/*    sx={{ width: "40%" }}*/}
+        {/*    onClick={() => setNavigation(true)}*/}
+        {/*  >*/}
+        {/*    🚘 네비게이션*/}
+        {/*  </Button>*/}
+
+        {/*  /!*<Button*!/*/}
+        {/*  /!*  color="yellow.5"*!/*/}
+        {/*  /!*  sx={{ width: "84%" }}*!/*/}
+        {/*  /!*  onClick={() => setShare(true)}*!/*/}
+        {/*  /!*>*!/*/}
+        {/*  /!*  <IconShare size={15} /> <Text ml={5}>공유하기</Text>*!/*/}
+        {/*  /!*</Button>*!/*/}
+        {/*</Navigation>*/}
       </Location>
       {/* <BackgroundImage src={heroImage.src}>
 
@@ -743,22 +914,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Paper>
 
       <Divider variant="dotted" mx={10} />
-
-      <ImageGalleryWrapper>
-        <ImageGallery
-          items={imageObjects}
-          autoPlay={false}
-          infinite={false}
-          showPlayButton={false}
-          showFullscreenButton={true}
-          showThumbnails={true}
-          showIndex={true}
-          showBullets={false}
-          lazyLoad={true}
-          ref={imageGalleryRef}
-          onClick={onClickHandlerImageGallery}
-        />
-      </ImageGalleryWrapper>
 
       {/* Photo Grid */}
       {/* <Pssaper
@@ -1437,32 +1592,6 @@ const Location = styled.div`
 const Navigation = styled.div`
   padding: 1.5rem;
   text-align: center;
-`;
-const Parking = styled.div`
-  display: flex;
-  margin: 0 auto;
-  padding: 1rem;
-  background-color: #f9f9f7;
-`;
-
-// 주차안내 부분
-const ParkingInfo = styled.div`
-  color: #684e3b;
-`;
-
-const ParkingInfoTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-const ParkingInfoP = styled.p`
-  margin-left: 5px;
-  font-weight: 600;
-`;
-const ParkingInfoText = styled.p`
-  margin-left: 18px;
-  margin-top: 8px;
-  line-height: 1.2;
 `;
 const FaceWrap = styled.div`
   display: flex;
