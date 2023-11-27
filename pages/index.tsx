@@ -84,7 +84,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const [commentPasswordError, setCommentPasswordError] = useState(false);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
   const [commentEditModalOpened, setCommentEditModalOpened] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  // const [isFullScreen, setIsFullScreen] = useState(false);
   // const [imagesArray, setImagesArray] = useState<string[]>(images);
   const [params, setParams] = React.useState<ICongratulationParams>({
     sortType: "NEW",
@@ -111,17 +111,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       thumbnail: `/pictures/${image}`,
     }));
 
-  const imageGalleryRef = useRef<ImageGallery | null>(null);
+  // const imageGalleryRef = useRef<ImageGallery | null>(null);
 
-  const onClickHandlerImageGallery = () => {
-    if (isFullScreen) {
-      imageGalleryRef.current!.exitFullScreen();
-      setIsFullScreen(false);
-    } else {
-      imageGalleryRef.current?.fullScreen();
-      setIsFullScreen(true);
-    }
-  };
+  // const onClickHandlerImageGallery = () => {
+  //   if (isFullScreen) {
+  //     imageGalleryRef.current!.exitFullScreen();
+  //     setIsFullScreen(false);
+  //   } else {
+  //     imageGalleryRef.current?.fullScreen();
+  //     setIsFullScreen(true);
+  //   }
+  // };
 
   // const slides = imagesArray.map((image, i) => (
   //   <Carousel.Slide
@@ -518,15 +518,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <ImageGallery
           items={imageObjects}
           autoPlay={false}
-          infinite={false}
+          infinite={true}
           showPlayButton={false}
-          showFullscreenButton={true}
+          showFullscreenButton={false}
           showThumbnails={true}
           showIndex={true}
           showBullets={false}
           lazyLoad={true}
-          ref={imageGalleryRef}
-          onClick={onClickHandlerImageGallery}
+          // ref={imageGalleryRef}
+          // onClick={onClickHandlerImageGallery}
         />
       </ImageGalleryWrapper>
 
