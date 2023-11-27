@@ -9,7 +9,6 @@ import {
   Divider,
   Grid,
   Group,
-  Image,
   Modal,
   Notification,
   Overlay,
@@ -61,6 +60,7 @@ import Countdown from "../components/Countdown";
 import { FaCircleInfo } from "react-icons/fa6";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import Image from "next/image";
 
 export const getStaticProps: GetStaticProps = () => {
   const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
@@ -74,9 +74,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const router = useRouter();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
   // const [photoModalOpened, setPhotoModalOpened] = useState(false);
-  const [navigation, setNavigation] = useState(false);
-  const [locationInfo, setLocationInfo] = useState(false);
-  const [share, setShare] = useState(false);
+  // const [navigation, setNavigation] = useState(false);
+  // const [locationInfo, setLocationInfo] = useState(false);
+  // const [share, setShare] = useState(false);
   const [commentInputOpened, setCommentInputOpened] = useState(true);
   const [loading, setLoading] = useState(false);
   const [commentsArray, setCommentsArray] = useState<ICongratulationData[] | null>(null);
@@ -294,7 +294,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       <Main>
         <Day>2024 02 24</Day>
         <MainWrap>
-          <MainImage />
+          <MainImage>
+            <Image
+              src="/images/mobilemain.jpg"
+              alt="mobilemain"
+              placeholder="blur"
+              blurDataURL="/images/mobilemain.jpg"
+              layout="fill"
+              objectFit="contain"
+            />
+          </MainImage>
         </MainWrap>
         <TextName>Changju and Shinhee</TextName>
         <TextDay>2024 2 24 SAT 1PM</TextDay>
@@ -371,13 +380,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         }}
                       >
                         <Image
+                          width={15}
+                          height={15}
+                          src="/kakaobank.jpg"
+                          alt="kakaobank"
+                          placeholder="blur"
+                          blurDataURL="/kakaobank.jpg"
                           style={{
                             float: "left",
                             margin: "2px 5px 0px 0px",
                           }}
-                          src="/kakaobank.jpg"
-                          width={15}
-                          alt="kakaobank"
                         />
                         {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
                       </Text>
@@ -444,13 +456,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         }}
                       >
                         <Image
+                          src="/kakaobank.jpg"
+                          alt="kakaobank"
+                          placeholder="blur"
+                          blurDataURL="/kakaobank.jpg"
+                          width={15}
+                          height={15}
                           style={{
                             float: "left",
                             margin: "2px 5px 0px 0px",
                           }}
-                          src="/kakaobank.jpg"
-                          width={15}
-                          alt="kakaobank"
                         />
                         {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
                       </Text>
@@ -614,8 +629,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               sx={{ width: 130 }}
               onClick={() => router.push("https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874")}
             >
-              <Image src="/kakaomap.png" width={20} alt="kakaomap" />
-              <Text size={theme.fontSizes.xs}>카카오맵</Text>
+              <Image
+                src="/kakaomap.png"
+                alt="kakaomap"
+                placeholder="blur"
+                blurDataURL="/kakaomap.png"
+                width={15}
+                height={15}
+              />
+              <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
+                카카오맵
+              </Text>
             </ActionIcon>
           </div>
           <div
@@ -641,8 +665,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               sx={{ width: 130 }}
               onClick={() => router.push("https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh")}
             >
-              <Image src="/navermap.png" width={20} alt="navermap" />
-              <Text size={theme.fontSizes.xs}>네이버지도</Text>
+              <Image
+                src="/navermap.png"
+                width={15}
+                height={15}
+                alt="navermap"
+                placeholder="blur"
+                blurDataURL="/navermap.png"
+              />
+              <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
+                네이버지도
+              </Text>
             </ActionIcon>
           </div>
           <div
@@ -672,8 +705,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 )
               }
             >
-              <Image src="/tmap.jpg" width={20} alt="tmap" />
-              <Text size={theme.fontSizes.xs}>티맵</Text>
+              <Image src="/tmap.jpg" width={15} height={15} alt="tmap" placeholder="blur" blurDataURL="/tmap.jpg" />
+              <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
+                티맵
+              </Text>
             </ActionIcon>
           </div>
         </div>
@@ -1141,7 +1176,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Paper>
 
       {/* Navigation Modal */}
-      <Modal
+      {/* <Modal
         opened={navigation}
         onClose={() => setNavigation(false)}
         centered
@@ -1168,14 +1203,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             sx={{ width: 200 }}
             onClick={() => router.push("https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874")}
           >
-            <Image src="/kakaomap.png" width={20} alt="kakaomap" />
+            <Image src="/kakaomap.png" width={20} alt="kakaomap" placeholder="blur" />
             <Text size={theme.fontSizes.xs}>카카오맵</Text>
           </ActionIcon>
           <ActionIcon
             sx={{ width: 200 }}
             onClick={() => router.push("https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh")}
           >
-            <Image src="/navermap.png" width={20} alt="navermap" />
+            <Image src="/navermap.png" width={20} alt="navermap" placeholder="blur" />
             <Text size={theme.fontSizes.xs}>네이버지도</Text>
           </ActionIcon>
 
@@ -1187,14 +1222,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               )
             }
           >
-            <Image src="/tmap.jpg" width={20} alt="tmap" />
+            <Image src="/tmap.jpg" width={20} alt="tmap" placeholder="blur" />
             <Text size={theme.fontSizes.xs}>티맵</Text>
           </ActionIcon>
         </Group>
-      </Modal>
+      </Modal> */}
 
       {/* 오시는 길 Modal */}
-      <Modal
+      {/* <Modal
         title="채림웨딩홀 오시는 길"
         opened={locationInfo}
         onClose={() => setLocationInfo(false)}
@@ -1212,10 +1247,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         }}
       >
         <LocationModal />
-      </Modal>
+      </Modal> */}
 
       {/* Share Modal */}
-      <Modal
+      {/* <Modal
         opened={share}
         onClose={() => setShare(false)}
         centered
@@ -1236,7 +1271,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       >
         <Group position="center" spacing="xl">
           <ActionIcon sx={{ width: 50 }} onClick={() => kakaoShare()}>
-            <Image src="/kakaotalk.png" width={50} alt="kakaotalk" onClick={() => router.push("/")} />
+            <Image
+              src="/kakaotalk.png"
+              width={50}
+              alt="kakaotalk"
+              placeholder="blur"
+              onClick={() => router.push("/")}
+            />
           </ActionIcon>
 
           <CopyButton value="https://wedding-invitation.chang-ju.shin-hee.com">
@@ -1305,7 +1346,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             }}
           </CopyButton>
         </Group>
-      </Modal>
+      </Modal> */}
 
       {/* Comment PW Modal */}
       <Modal
@@ -1393,12 +1434,12 @@ const MainWrap = styled.div`
   width: 60%;
 `;
 
-const MainImage = styled.img`
+const MainImage = styled.div`
   position: relative;
-  background-image: url("/images/mobilemain.jpg");
-  background-repeat: no-repeat;
-  background-size: 150%;
-  background-position: center;
+  // background-image: url("/images/mobilemain.jpg");
+  // background-repeat: no-repeat;
+  // background-size: 150%;
+  // background-position: center;
   width: 100%;
   height: 380px;
   margin: 0 auto;
