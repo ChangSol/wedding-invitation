@@ -12,6 +12,8 @@ const nextConfig = {
   trailingSlash: true, // 빌드 시 폴더 구조 그대로 생성하도록
   swcMinify: true,
   images: {
+    loader: "imgix",
+    path: "",
     formats: ["image/avif", "image/webp"],
   },
   // env: {
