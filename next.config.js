@@ -12,12 +12,12 @@ const nextConfig = {
   trailingSlash: true, // 빌드 시 폴더 구조 그대로 생성하도록
   swcMinify: true,
   images: {
-    loader: "imgix",
+    loader: 'akamai',
     path: "",
     formats: ["image/avif", "image/webp"],
   },
   // env: {
-  //   BASE_URL: process.env.BASE_URL,
+  //   BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   // },
 };
 
