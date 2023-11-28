@@ -9,7 +9,6 @@ import {
   Divider,
   Grid,
   Group,
-  Image,
   Modal,
   Notification,
   Overlay,
@@ -22,7 +21,7 @@ import {
   TextInput,
   Transition,
   useMantineTheme,
-} from '@mantine/core';
+} from "@mantine/core";
 import {
   IconAlertCircle,
   IconBrandMessenger,
@@ -36,19 +35,19 @@ import {
   IconPhone,
   IconShare,
   IconWriting,
-} from '@tabler/icons';
-import styled from 'styled-components';
-import type { GetStaticProps, NextPage } from 'next';
-import KakaoMap from '../components/KakaoMap';
-import Fs from 'fs';
-import path from 'path';
-import React, { useRef, useState } from 'react';
-import { useScrollIntoView } from '@mantine/hooks';
-import { useRouter } from 'next/router';
-import LocationModal from '../components/LocationModal';
-import { NextLink } from '@mantine/next';
-import { kakaoShare } from '../lib/KakaoShare';
-import { useForm } from '@mantine/form';
+} from "@tabler/icons";
+import styled from "styled-components";
+import type { GetStaticProps, NextPage } from "next";
+import KakaoMap from "../components/KakaoMap";
+import Fs from "fs";
+import path from "path";
+import React, { useRef, useState } from "react";
+import { useScrollIntoView } from "@mantine/hooks";
+import { useRouter } from "next/router";
+import LocationModal from "../components/LocationModal";
+import { NextLink } from "@mantine/next";
+import { kakaoShare } from "../lib/KakaoShare";
+import { useForm } from "@mantine/form";
 import {
   ICongratulationCreate,
   ICongratulationData,
@@ -59,11 +58,12 @@ import {
 } from "../queries";
 import Countdown from "../components/Countdown";
 import { FaCircleInfo } from "react-icons/fa6";
-import ImageGallery from 'react-image-gallery';
-import 'react-image-gallery/styles/css/image-gallery.css';
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import Image from "next/image";
 
 export const getStaticProps: GetStaticProps = () => {
-  const images = Fs.readdirSync(path.join(process.cwd(), 'public/pictures'));
+  const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
   return {
     props: { images },
   };
@@ -74,9 +74,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const router = useRouter();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
   // const [photoModalOpened, setPhotoModalOpened] = useState(false);
-  const [navigation, setNavigation] = useState(false);
-  const [locationInfo, setLocationInfo] = useState(false);
-  const [share, setShare] = useState(false);
+  // const [navigation, setNavigation] = useState(false);
+  // const [locationInfo, setLocationInfo] = useState(false);
+  // const [share, setShare] = useState(false);
   const [commentInputOpened, setCommentInputOpened] = useState(true);
   const [loading, setLoading] = useState(false);
   const [commentsArray, setCommentsArray] = useState<ICongratulationData[] | null>(null);
@@ -84,10 +84,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const [commentPasswordError, setCommentPasswordError] = useState(false);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
   const [commentEditModalOpened, setCommentEditModalOpened] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  // const [isFullScreen, setIsFullScreen] = useState(false);
   // const [imagesArray, setImagesArray] = useState<string[]>(images);
   const [params, setParams] = React.useState<ICongratulationParams>({
-    sortType: 'NEW',
+    sortType: "NEW",
     limit: 10,
   });
 
@@ -104,6 +104,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   //   setPhotoModalOpened(true);
   // };
 
+  const myImageGalleryRenderer = (item: any) => {
+    return (
+      <div>
+        <Image
+          src={item.original}
+          alt={item.original}
+          placeholder="blur"
+          blurDataURL={item.original}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
+    );
+  };
+
   const imageObjects = images
     .sort((a, b) => parseInt(a) - parseInt(b))
     .map((image) => ({
@@ -111,17 +126,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       thumbnail: `/pictures/${image}`,
     }));
 
-  const imageGalleryRef = useRef<ImageGallery | null>(null);
+  // const imageGalleryRef = useRef<ImageGallery | null>(null);
 
-  const onClickHandlerImageGallery = () => {
-    if (isFullScreen) {
-      imageGalleryRef.current!.exitFullScreen();
-      setIsFullScreen(false);
-    } else {
-      imageGalleryRef.current?.fullScreen();
-      setIsFullScreen(true);
-    }
-  };
+  // const onClickHandlerImageGallery = () => {
+  //   if (isFullScreen) {
+  //     imageGalleryRef.current!.exitFullScreen();
+  //     setIsFullScreen(false);
+  //   } else {
+  //     imageGalleryRef.current?.fullScreen();
+  //     setIsFullScreen(true);
+  //   }
+  // };
 
   // const slides = imagesArray.map((image, i) => (
   //   <Carousel.Slide
@@ -173,41 +188,41 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   const form = useForm<ICongratulationCreate>({
     initialValues: {
-      name: '',
-      password: '',
-      contents: '',
+      name: "",
+      password: "",
+      contents: "",
     },
     validate: {
       name: (value) => {
         if (!value) {
-          return '이름을 입력해주세요.';
+          return "이름을 입력해주세요.";
         }
         if (value.length < 2) {
-          return '이름을 2자 이상 입력해주세요.';
+          return "이름을 2자 이상 입력해주세요.";
         }
         if (value.length > 10) {
-          return '이름은 10자 이하만 가능합니다.';
+          return "이름은 10자 이하만 가능합니다.";
         }
         return null;
       },
       password: (value) => {
         if (!value) {
-          return '비밀번호를 입력해주세요. ';
+          return "비밀번호를 입력해주세요. ";
         }
         if (value.length < 4) {
-          return '비밀번호는 4자 이상 입력해주세요.';
+          return "비밀번호는 4자 이상 입력해주세요.";
         }
         if (value.length > 12) {
-          return '비밀번호는 12자 이하로 입력해주세요.';
+          return "비밀번호는 12자 이하로 입력해주세요.";
         }
         return null;
       },
       contents: (value) => {
         if (!value) {
-          return '축하글을 입력해주세요.';
+          return "축하글을 입력해주세요.";
         }
         if (value.length > 1000) {
-          return '1000자 이하까지 작성 가능합니다.';
+          return "1000자 이하까지 작성 가능합니다.";
         }
         return null;
       },
@@ -220,9 +235,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     setLoading(true);
 
     postCongratulationMutation.mutate(data, {
-      onSuccess: () => alert('등록되었습니다.'),
+      onSuccess: () => alert("등록되었습니다."),
       onError: (error: any) =>
-        alert(error?.response?.data?.message ?? '서버에 문제가 발생헀습니다. 다시 시도해주세요.'),
+        alert(error?.response?.data?.message ?? "서버에 문제가 발생헀습니다. 다시 시도해주세요."),
     });
 
     setLoading(false);
@@ -231,22 +246,22 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   const editPwForm = useForm({
     initialValues: {
-      password: '',
+      password: "",
     },
   });
 
   const onDeleteComment = async (password: any) => {
     if (!selectedCongratulation) return;
-    const ok = window.confirm('정말 삭제하시겠습니까? ');
+    const ok = window.confirm("정말 삭제하시겠습니까? ");
     if (ok) {
       setLoading(true);
 
       deleteCongratulationMutation.mutate(
         { id: selectedCongratulation.id, password: password },
         {
-          onSuccess: () => alert('삭제되었습니다.'),
+          onSuccess: () => alert("삭제되었습니다."),
           onError: (error: any) =>
-            alert(error?.response?.data?.message ?? '서버에 문제가 발생헀습니다. 다시 시도해주세요.'),
+            alert(error?.response?.data?.message ?? "서버에 문제가 발생헀습니다. 다시 시도해주세요."),
         }
       );
 
@@ -259,16 +274,31 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   };
 
   React.useEffect(() => {
-    function listener(event: DocumentEventMap['scroll']) {
+    function listener(event: DocumentEventMap["scroll"]) {
       if (Math.ceil(window.scrollY + window.innerHeight + 30) > document.body.offsetHeight) {
         getCongratulationsInfinityQuery.fetchNextPage();
       }
     }
-    document.addEventListener('scroll', listener);
+    document.addEventListener("scroll", listener);
     return () => {
-      document.removeEventListener('scroll', listener);
+      document.removeEventListener("scroll", listener);
     };
   }, [getCongratulationsInfinityQuery]);
+
+  const myGalleryRenderItem = (item: any) => {
+    return (
+      <div className="image-gallery-image">
+        <Image
+          src={item.original}
+          alt={item.original}
+          placeholder="blur"
+          blurDataURL={item.original}
+          width={500}
+          height={500}
+        />
+      </div>
+    );
+  };
 
   return (
     <Stack
@@ -276,16 +306,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       justify="center"
       spacing="sm"
       sx={{
-        margin: '0 auto',
+        margin: "0 auto",
         maxWidth: theme.breakpoints.xs,
-        width: '100%',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
+        width: "100%",
+        overflowY: "scroll",
+        overflowX: "hidden",
       }}
     >
       {/* Hero */}
       <div
-        style={{ zIndex: 5000, position: 'fixed', top: 0, left: 0 }}
+        style={{ zIndex: 5000, position: "fixed", top: 0, left: 0 }}
         onClick={() => {
           getCongratulationsInfinityQuery.fetchNextPage();
         }}
@@ -294,7 +324,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       <Main>
         <Day>2024 02 24</Day>
         <MainWrap>
-          <MainImage />
+          <MainImage>
+            <Image
+              src="/images/mobilemain.webp"
+              alt="mobilemain"
+              placeholder="blur"
+              blurDataURL="/images/mobilemain.webp"
+              layout="fill"
+              objectFit="contain"
+            />
+          </MainImage>
         </MainWrap>
         <TextName>Changju and Shinhee</TextName>
         <TextDay>2024 2 24 SAT 1PM</TextDay>
@@ -334,14 +373,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </TextWrap>
         <Line></Line>
         <FaceWrap>
-          <Group
-            id="avatarWrapper"
-            position="center"
-            spacing={10}
-            sx={{ flexWrap: "nowrap" }}
-          >
-            <Stack align="center" spacing="xs" className='face'>
-
+          <Group id="avatarWrapper" position="center" spacing={10} sx={{ flexWrap: "nowrap" }}>
+            <Stack align="center" spacing="xs" className="face">
               <Stack spacing={0}>
                 <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
                   <Text>
@@ -350,13 +383,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 </Group>
               </Stack>
 
-              <Text>장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b></Text>
-              <CjFace />
+              <Text>
+                장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b>
+              </Text>
+              <Face>
+                <Image
+                  src="/images/changju.webp"
+                  alt="changju"
+                  placeholder="blur"
+                  blurDataURL="/images/changju.webp"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </Face>
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
-                <ActionIcon
-                  component={NextLink}
-                  href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
-                >
+                <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
                   <IconPhone size={20} />
                 </ActionIcon>
                 <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
@@ -369,17 +410,34 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                     </ActionIcon>
                   </Popover.Target>
                   <Popover.Dropdown p={5} px={10}>
-                    <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
+                    <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
                       <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
-                      <Text size={theme.fontSizes.xs}>
-                        {process.env.NEXT_PUBLIC_GROOM_BANK_NAME} {process.env.NEXT_PUBLIC_GROOM_NAME}
+                      <Text
+                        size={theme.fontSizes.xs}
+                        style={{
+                          margin: "2px 9px 0px 0px",
+                        }}
+                      >
+                        <Image
+                          width={15}
+                          height={15}
+                          src="/kakaobank.webp"
+                          alt="kakaobank"
+                          placeholder="blur"
+                          blurDataURL="/kakaobank.webp"
+                          style={{
+                            float: "left",
+                            margin: "2px 5px 0px 0px",
+                          }}
+                        />
+                        {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
                       </Text>
                     </Stack>
-                    <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+                    <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                       <CopyButton
                         value={
                           `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
-                          ' ' +
+                          " " +
                           `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
                         }
                       >
@@ -410,13 +468,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 </Group>
               </Stack>
 
-              <Text>장녀  <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b></Text>
-              <ShFace />
+              <Text>
+                장녀 <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b>
+              </Text>
+              <Face>
+                <Image
+                  src="/images/shinhee.webp"
+                  alt="shinhee"
+                  placeholder="blur"
+                  blurDataURL="/images/shinhee.webp"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </Face>
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
-                <ActionIcon
-                  component={NextLink}
-                  href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
-                >
+                <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}>
                   <IconPhone size={20} />
                 </ActionIcon>
                 <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_BRIDE_KAKAO_QR}`} target="_blank">
@@ -429,17 +495,34 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                     </ActionIcon>
                   </Popover.Target>
                   <Popover.Dropdown p={5} px={10}>
-                    <Stack spacing={2} sx={{ position: 'relative' }} align="flex-end">
+                    <Stack spacing={2} sx={{ position: "relative" }} align="flex-end">
                       <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}</Text>
-                      <Text size={theme.fontSizes.xs}>
-                        {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME} {process.env.NEXT_PUBLIC_BRIDE_NAME}
+                      <Text
+                        size={theme.fontSizes.xs}
+                        style={{
+                          margin: "2px 9px 0px 0px",
+                        }}
+                      >
+                        <Image
+                          src="/kakaobank.webp"
+                          alt="kakaobank"
+                          placeholder="blur"
+                          blurDataURL="/kakaobank.webp"
+                          width={15}
+                          height={15}
+                          style={{
+                            float: "left",
+                            margin: "2px 5px 0px 0px",
+                          }}
+                        />
+                        {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
                       </Text>
                     </Stack>
-                    <Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+                    <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                       <CopyButton
                         value={
                           `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
-                          ' ' +
+                          " " +
                           `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
                         }
                       >
@@ -459,58 +542,256 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   </Popover.Dropdown>
                 </Popover>
               </Group>
-
             </Stack>
           </Group>
         </FaceWrap>
         <></>
       </Greetings>
 
+      <div
+        style={{
+          fontFamily: "CrimsonText-Regular",
+          color: "#132F93",
+          // fontSize: "3vw",
+          textAlign: "center",
+          letterSpacing: "2px",
+        }}
+      >
+        GALLERY
+      </div>
+      <div
+        style={{
+          background: "#132F93",
+          height: "1px",
+          width: "7vw",
+          margin: "15px auto",
+        }}
+      />
+      <div
+        style={{
+          fontFamily: "MaruBuri-Regular",
+          color: "#132F93",
+          // fontSize: "4.5vw",
+          textAlign: "center",
+        }}
+      >
+        사진첩
+      </div>
+      <ImageGalleryWrapper>
+        <ImageGallery
+          items={imageObjects}
+          // renderItem={myGalleryRenderItem}
+          autoPlay={false}
+          infinite={true}
+          showPlayButton={false}
+          showFullscreenButton={false}
+          showThumbnails={true}
+          showIndex={true}
+          showBullets={false}
+          lazyLoad={true}
+          // ref={imageGalleryRef}
+          // onClick={onClickHandlerImageGallery}
+        />
+      </ImageGalleryWrapper>
+
+      <div style={{ height: "40px", clear: "both" }}></div>
+
       {/* 지도 */}
       <Location>
+        <div
+          style={{
+            fontFamily: "CrimsonText-Regular",
+            color: "#132F93",
+            // fontSize: "3vw",
+            textAlign: "center",
+            letterSpacing: "2px",
+          }}
+        >
+          LOCATION
+        </div>
+        <div
+          style={{
+            background: "#132F93",
+            height: "1px",
+            width: "7vw",
+            margin: "15px auto",
+          }}
+        />
+        <div
+          style={{
+            fontFamily: "MaruBuri-Regular",
+            color: "#132F93",
+            // fontSize: "4.5vw",
+            textAlign: "center",
+          }}
+        >
+          오시는길
+        </div>
+        <div style={{ height: "40px", clear: "both" }}></div>
+        <div
+          style={{
+            fontFamily: "MaruBuri-Regular",
+            // fontWeight: "bold",
+            color: "#8D8D8D",
+            // font-size: 4vw;
+            textAlign: "center",
+          }}
+        >
+          경기 부천시 부천로 3-1 <br />
+          (지번) 경기도 부천시 원미구 심곡동 173-1
+        </div>
+        <div
+          style={{
+            fontFamily: "MaruBuri-Regular",
+            // fontWeight: "bold",
+            color: "#333",
+            // font-size: 4vw;
+            textAlign: "center",
+            marginTop: "7px",
+          }}
+        >
+          부천채림웨딩홀 6층 컨벤션홀
+        </div>
+        <div style={{ height: "30px", clear: "both" }}></div>
         <KakaoMap />
-        <Navigation>
-            <Button
-              color="blue.5"
-              sx={{ width: "40%", marginRight: '5%' }}
-              onClick={() => setLocationInfo(true)}
-            >
-              🚍 오시는길
-            </Button>
-          <Button
-            color="green.5"
-            sx={{ width: "40%", marginRight: '5%' }}
-            onClick={() => setNavigation(true)}
+        <div style={{ height: "20px", clear: "both" }}></div>
+        <div style={{ width: "90%", margin: "0 auto" }}>
+          <div
+            style={{
+              fontFamily: "MaruBuri-Regular",
+              fontSize: "13px",
+              textAlign: "center",
+              borderRadius: "10px",
+              color: "#333333",
+              border: "1px solid #E4E4E4",
+              width: "30%",
+              height: "45px",
+              lineHeight: "45px",
+              float: "left",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
           >
-            🚘 네비게이션
-          </Button>
-        </Navigation>
-        <Parking>
-          <ParkingInfo>
-            <ParkingInfoTitle>
-              <FaCircleInfo /> <ParkingInfoP>주차안내</ParkingInfoP>
-            </ParkingInfoTitle>
-            <ParkingInfoText>
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </ParkingInfoText>
-          </ParkingInfo>
-          {/* <Alert
-            icon={<IconAlertCircle size={16} />}
-            title="주차 안내ㄴ"
-          >
-            <Text
-              sx={(theme) => ({
-                fontSize: theme.fontSizes.xs,
-              })}
+            <ActionIcon
+              sx={{ width: 130 }}
+              onClick={() => router.push("https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874")}
             >
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </Text>
-          </Alert> */}
-        </Parking>
+              <Image
+                src="/kakaomap.webp"
+                alt="kakaomap"
+                placeholder="blur"
+                blurDataURL="/kakaomap.webp"
+                width={15}
+                height={15}
+              />
+              <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
+                카카오맵
+              </Text>
+            </ActionIcon>
+          </div>
+          <div
+            style={{
+              fontFamily: "MaruBuri-Regular",
+              fontSize: "13px",
+              textAlign: "center",
+              borderRadius: "10px",
+              color: "#333333",
+              border: "1px solid #E4E4E4",
+              width: "30%",
+              height: "45px",
+              lineHeight: "45px",
+              float: "left",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              marginLeft: "16px",
+            }}
+          >
+            <ActionIcon
+              sx={{ width: 130 }}
+              onClick={() => router.push("https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh")}
+            >
+              <Image
+                src="/navermap.webp"
+                width={15}
+                height={15}
+                alt="navermap"
+                placeholder="blur"
+                blurDataURL="/navermap.webp"
+              />
+              <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
+                네이버지도
+              </Text>
+            </ActionIcon>
+          </div>
+          <div
+            style={{
+              fontFamily: "MaruBuri-Regular",
+              fontSize: "13px",
+              textAlign: "center",
+              borderRadius: "10px",
+              color: "#333333",
+              border: "1px solid #E4E4E4",
+              width: "30%",
+              height: "45px",
+              lineHeight: "45px",
+              float: "left",
+              backgroundColor: "white",
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+              marginLeft: "16px",
+            }}
+          >
+            <ActionIcon
+              sx={{ width: 130 }}
+              onClick={() =>
+                router.push(
+                  "https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=5YthFr8gDz2aQpXivtKab7Fe5IWlxDlW5V2VyPKP&lat=37.484695&lon=126.781874&name=%EB%B6%80%EC%B2%9C%EC%B1%84%EB%A6%BC%EC%9B%A8%EB%94%A9%ED%99%80"
+                )
+              }
+            >
+              <Image src="/tmap.webp" width={15} height={15} alt="tmap" placeholder="blur" blurDataURL="/tmap.webp" />
+              <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
+                티맵
+              </Text>
+            </ActionIcon>
+          </div>
+        </div>
+        <LocationModal />
+        {/*<Button*/}
+        {/*  color="yellow.5"*/}
+        {/*  sx={{ width: "84%" }}*/}
+        {/*  onClick={() => setShare(true)}*/}
+        {/*>*/}
+        {/*  <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
+        {/*</Button>*/}
+        {/*<Navigation>*/}
+        {/*  /!*<Button*!/*/}
+        {/*  /!*  color="blue.5"*!/*/}
+        {/*  /!*  sx={{ width: "40%", marginRight: "10%" }}*!/*/}
+        {/*  /!*  onClick={() => setLocationInfo(true)}*!/*/}
+        {/*  /!*>*!/*/}
+        {/*  /!*</Button>*!/*/}
+        {/*  <Button*/}
+        {/*    color="green.5"*/}
+        {/*    sx={{ width: "40%" }}*/}
+        {/*    onClick={() => setNavigation(true)}*/}
+        {/*  >*/}
+        {/*    🚘 네비게이션*/}
+        {/*  </Button>*/}
+
+        {/*  /!*<Button*!/*/}
+        {/*  /!*  color="yellow.5"*!/*/}
+        {/*  /!*  sx={{ width: "84%" }}*!/*/}
+        {/*  /!*  onClick={() => setShare(true)}*!/*/}
+        {/*  /!*>*!/*/}
+        {/*  /!*  <IconShare size={15} /> <Text ml={5}>공유하기</Text>*!/*/}
+        {/*  /!*</Button>*!/*/}
+        {/*</Navigation>*/}
       </Location>
       {/* <BackgroundImage src={heroImage.src}>
 
@@ -635,20 +916,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         radius="md"
         withBorder
         sx={{
-          height: '100%',
+          height: "100%",
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
         }}
       >
         {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
 
-        <Group
-          id="avatarWrapper"
-          position="center"
-          spacing={8}
-          sx={{ flexWrap: "nowrap" }}
-        >
-
+        <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: "nowrap" }}>
           <Box>
             <IconHeart size={25} opacity={0.3} />
           </Box>
@@ -657,22 +932,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Paper>
 
       <Divider variant="dotted" mx={10} />
-
-      <ImageGalleryWrapper>
-        <ImageGallery
-          items={imageObjects}
-          autoPlay={false}
-          infinite={false}
-          showPlayButton={false}
-          showFullscreenButton={true}
-          showThumbnails={true}
-          showIndex={true}
-          showBullets={false}
-          lazyLoad={false}
-          ref={imageGalleryRef}
-          onClick={onClickHandlerImageGallery}
-        />
-      </ImageGalleryWrapper>
 
       {/* Photo Grid */}
       {/* <Pssaper
@@ -748,50 +1007,76 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       )} */}
 
       {/* Bottom */}
-      <Paper
-        mx={5}
-        shadow="sm"
-        p="sm"
-        py="md"
-        mb={10}
-        radius="md"
-        withBorder
-        sx={{
-          backgroundColor: theme.colors.gray[0],
-          color: theme.colors.dark[4],
-        }}
-      >
-        <Stack align="center">
-          <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>2023 . 02 . 24 (토) PM 01 : 00</Text>
-          <Text align="center" id="location" sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>
-            부천채림웨딩홀
-            <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>(경기 부천시 부천로 3-1)</Text>
-          </Text>
-          <KakaoMap />
-          <Alert icon={<IconAlertCircle size={16} />} px={15} py={7} title="주차 안내" sx={{ width: '90%' }}>
-            <Text
-              sx={(theme) => ({
-                fontSize: theme.fontSizes.xs,
-              })}
-            >
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </Text>
-          </Alert>
-          <Group sx={{ width: '100%' }} position="center">
-            <Button color="blue.5" sx={{ width: '40%' }} onClick={() => setLocationInfo(true)}>
-              🚍 오시는길
-            </Button>
-            <Button color="green.5" sx={{ width: '40%' }} onClick={() => setNavigation(true)}>
-              🚘 네비게이션
-            </Button>
-          </Group>
-          <Button color="yellow.5" sx={{ width: '84%' }} onClick={() => setShare(true)}>
-            <IconShare size={15} /> <Text ml={5}>공유하기</Text>
-          </Button>
-        </Stack>
-      </Paper>
+      {/*<Paper*/}
+      {/*  mx={5}*/}
+      {/*  shadow="sm"*/}
+      {/*  p="sm"*/}
+      {/*  py="md"*/}
+      {/*  mb={10}*/}
+      {/*  radius="md"*/}
+      {/*  withBorder*/}
+      {/*  sx={{*/}
+      {/*    backgroundColor: theme.colors.gray[0],*/}
+      {/*    color: theme.colors.dark[4],*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <Stack align="center">*/}
+      {/*    <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>*/}
+      {/*      2023 . 02 . 24 (토) PM 01 : 00*/}
+      {/*    </Text>*/}
+      {/*    <Text*/}
+      {/*      align="center"*/}
+      {/*      id="location"*/}
+      {/*      sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}*/}
+      {/*    >*/}
+      {/*      부천채림웨딩홀*/}
+      {/*      <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>*/}
+      {/*        (경기 부천시 부천로 3-1)*/}
+      {/*      </Text>*/}
+      {/*    </Text>*/}
+      {/*    <KakaoMap />*/}
+      {/*    <Alert*/}
+      {/*      icon={<IconAlertCircle size={16} />}*/}
+      {/*      px={15}*/}
+      {/*      py={7}*/}
+      {/*      title="주차 안내"*/}
+      {/*      sx={{ width: "90%" }}*/}
+      {/*    >*/}
+      {/*      <Text*/}
+      {/*        sx={(theme) => ({*/}
+      {/*          fontSize: theme.fontSizes.xs,*/}
+      {/*        })}*/}
+      {/*      >*/}
+      {/*        전용 주차장에 주차 가능 (무료 3시간) <br />*/}
+      {/*        만차 시 이마트 주차 가능 (5000원 제공) <br />*/}
+      {/*        안내원의 유도에 따라주시면 감사하겠습니다.*/}
+      {/*      </Text>*/}
+      {/*    </Alert>*/}
+      {/*    <Group sx={{ width: "100%" }} position="center">*/}
+      {/*      <Button*/}
+      {/*        color="blue.5"*/}
+      {/*        sx={{ width: "40%" }}*/}
+      {/*        onClick={() => setLocationInfo(true)}*/}
+      {/*      >*/}
+      {/*        🚍 오시는길*/}
+      {/*      </Button>*/}
+      {/*      <Button*/}
+      {/*        color="green.5"*/}
+      {/*        sx={{ width: "40%" }}*/}
+      {/*        onClick={() => setNavigation(true)}*/}
+      {/*      >*/}
+      {/*        🚘 네비게이션*/}
+      {/*      </Button>*/}
+      {/*    </Group>*/}
+      {/*    <Button*/}
+      {/*      color="yellow.5"*/}
+      {/*      sx={{ width: "84%" }}*/}
+      {/*      onClick={() => setShare(true)}*/}
+      {/*    >*/}
+      {/*      <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
+      {/*    </Button>*/}
+      {/*  </Stack>*/}
+      {/*</Paper>*/}
 
       {/* Comment Section*/}
       <Paper
@@ -802,16 +1087,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         radius="md"
         withBorder
         sx={{
-          height: '100%',
+          height: "100%",
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
-          position: 'relative',
+          position: "relative",
         }}
       >
         <ActionIcon
           hidden={commentInputOpened}
           color="blue"
-          sx={{ position: 'absolute', top: 10, right: 20 }}
+          sx={{ position: "absolute", top: 10, right: 20 }}
           onClick={() => setCommentInputOpened(true)}
         >
           <IconWriting size={30} />
@@ -830,7 +1115,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 sx={{
                   backgroundColor: theme.colors.gray[2],
                   borderRadius: theme.radius.md,
-                  position: 'relative',
+                  position: "relative",
                 }}
               >
                 <form onSubmit={form.onSubmit(commentOnSubmit)}>
@@ -842,7 +1127,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         minLength={2}
                         maxLength={10}
                         withAsterisk
-                        {...form.getInputProps('name')}
+                        {...form.getInputProps("name")}
                         sx={{
                           width: 180,
                         }}
@@ -854,11 +1139,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         minLength={4}
                         maxLength={12}
                         sx={{ width: 98 }}
-                        {...form.getInputProps('password')}
+                        {...form.getInputProps("password")}
                       />
                       <CloseButton
                         size="lg"
-                        sx={{ position: 'absolute', top: 5, right: 5 }}
+                        sx={{ position: "absolute", top: 5, right: 5 }}
                         onClick={() => setCommentInputOpened(false)}
                       />
                     </Group>
@@ -867,7 +1152,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         placeholder="축하 인사말을 작성해주세요."
                         label="인사말"
                         withAsterisk
-                        {...form.getInputProps('contents')}
+                        {...form.getInputProps("contents")}
                         sx={{
                           width: 290,
                         }}
@@ -879,7 +1164,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         type="submit"
                         mr={20}
                         sx={{
-                          alignSelf: 'flex-end',
+                          alignSelf: "flex-end",
                           width: 90,
                           height: 35,
                         }}
@@ -899,8 +1184,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               id="aComment"
               p={5}
               style={{
-                height: '100%',
-                position: 'relative',
+                height: "100%",
+                position: "relative",
                 backgroundColor: theme.colors.gray[2],
                 borderRadius: theme.radius.md,
               }}
@@ -914,16 +1199,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                     </Text>
                     작성일시 :
                     <Text size={10} color="dimmed">
-                      {new Date(data.createdAt).toLocaleDateString('ko')}
+                      {new Date(data.createdAt).toLocaleDateString("ko")}
                     </Text>
                   </Group>
                   작성내용
-                  <Text size="sm" mt={5} sx={{ lineBreak: 'anywhere' }}>
+                  <Text size="sm" mt={5} sx={{ lineBreak: "anywhere" }}>
                     {data.contents}
                   </Text>
                 </Stack>
               </Group>
-              <Group sx={{ position: 'absolute', top: 5, right: 5 }} spacing="xs">
+              <Group sx={{ position: "absolute", top: 5, right: 5 }} spacing="xs">
                 <ActionIcon
                   color="blue"
                   onClick={() => {
@@ -940,68 +1225,81 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Paper>
 
       {/* Navigation Modal */}
-      <Modal
+      {/* <Modal
         opened={navigation}
         onClose={() => setNavigation(false)}
         centered
-        size={200}
-        withCloseButton={false}
+        withCloseButton={true}
         styles={{
           modal: {
+            width: "200px",
+            height: "auto",
             background: theme.fn.rgba(theme.white, 0.5),
           },
           close: {
-            backgroundColor: theme.fn.rgba(theme.white, 0.5),
+            margin: "0px 10px 0px 0px",
+            // backgroundColor: theme.fn.rgba(theme.white, 0.5),
             color: theme.colors.dark[4],
-            borderRadius: '50%',
+            // borderRadius: "50%",
           },
-          title: {
-            margin: '0 auto',
-          },
+          // title: {
+          //   margin: "0 auto",
+          // },
         }}
       >
         <Group position="center" spacing="xl">
-          <ActionIcon sx={{ width: 50 }}>
-            <Image
-              src="/kakaomap.png"
-              width={50}
-              alt="kakaomap"
-              onClick={() => router.push('https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874')}
-            />
+          <ActionIcon
+            sx={{ width: 200 }}
+            onClick={() => router.push("https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874")}
+          >
+            <Image src="/kakaomap.png" width={20} alt="kakaomap" placeholder="blur" />
+            <Text size={theme.fontSizes.xs}>카카오맵</Text>
           </ActionIcon>
-          <ActionIcon sx={{ width: 50 }}>
-            <Image
-              src="/navermap.png"
-              width={50}
-              alt="navermap"
-              onClick={() =>
-                router.push(
-                  'nmap://navigation?dlat=37.484695,126.781874&dname=부천채림웨딩홀&appname=http://localhost:3000'
-                )
-              }
-            />
+          <ActionIcon
+            sx={{ width: 200 }}
+            onClick={() => router.push("https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh")}
+          >
+            <Image src="/navermap.png" width={20} alt="navermap" placeholder="blur" />
+            <Text size={theme.fontSizes.xs}>네이버지도</Text>
+          </ActionIcon>
+
+          <ActionIcon
+            sx={{ width: 200 }}
+            onClick={() =>
+              router.push(
+                "https://www.tmap.co.kr/tmap2/mobile/route.jsp?appKey=5YthFr8gDz2aQpXivtKab7Fe5IWlxDlW5V2VyPKP&lat=37.484695&lon=126.781874&name=%EB%B6%80%EC%B2%9C%EC%B1%84%EB%A6%BC%EC%9B%A8%EB%94%A9%ED%99%80"
+              )
+            }
+          >
+            <Image src="/tmap.jpg" width={20} alt="tmap" placeholder="blur" />
+            <Text size={theme.fontSizes.xs}>티맵</Text>
           </ActionIcon>
         </Group>
-      </Modal>
+      </Modal> */}
 
       {/* 오시는 길 Modal */}
-      <Modal
+      {/* <Modal
         title="채림웨딩홀 오시는 길"
         opened={locationInfo}
         onClose={() => setLocationInfo(false)}
-        size="sm"
+        size="md"
         overflow="inside"
+        withCloseButton={true}
+        centered
         styles={{
           title: {
-            margin: '0 auto',
+            margin: "15px auto 15px 145px",
+          },
+          close: {
+            margin: "0px 15px 0px 0px",
           },
         }}
       >
         <LocationModal />
-      </Modal>
+      </Modal> */}
 
       {/* Share Modal */}
-      <Modal
+      {/* <Modal
         opened={share}
         onClose={() => setShare(false)}
         centered
@@ -1013,19 +1311,25 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           close: {
             backgroundColor: theme.fn.rgba(theme.white, 0.5),
             color: theme.colors.dark[4],
-            borderRadius: '50%',
+            borderRadius: "50%",
           },
           title: {
-            margin: '0 auto',
+            margin: "0 auto",
           },
         }}
       >
         <Group position="center" spacing="xl">
           <ActionIcon sx={{ width: 50 }} onClick={() => kakaoShare()}>
-            <Image src="/kakaotalk.png" width={50} alt="kakaotalk" onClick={() => router.push('/')} />
+            <Image
+              src="/kakaotalk.png"
+              width={50}
+              alt="kakaotalk"
+              placeholder="blur"
+              onClick={() => router.push("/")}
+            />
           </ActionIcon>
 
-          <CopyButton value="https://github.com/changsol/">
+          <CopyButton value="https://wedding-invitation.chang-ju.shin-hee.com">
             {({ copied, copy }) => {
               if (copied) {
                 return (
@@ -1035,11 +1339,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                       color="teal"
                       sx={{
                         width: 200,
-                        position: 'absolute',
+                        position: "absolute",
                         top: -60,
                         left: 0,
                         right: 0,
-                        margin: '0 auto',
+                        margin: "0 auto",
                         zIndex: 999,
                       }}
                     >
@@ -1065,11 +1369,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                       color="teal"
                       sx={{
                         width: 200,
-                        position: 'absolute',
+                        position: "absolute",
                         top: -60,
                         left: 0,
                         right: 0,
-                        margin: '0 auto',
+                        margin: "0 auto",
                         zIndex: 999,
                       }}
                     >
@@ -1091,7 +1395,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             }}
           </CopyButton>
         </Group>
-      </Modal>
+      </Modal> */}
 
       {/* Comment PW Modal */}
       <Modal
@@ -1115,7 +1419,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               minLength={4}
               maxLength={8}
               sx={{ width: 160 }}
-              {...editPwForm.getInputProps('password')}
+              {...editPwForm.getInputProps("password")}
             />
             <Button
               type="submit"
@@ -1149,7 +1453,7 @@ const Main = styled.div`
   justify-content: center;
 
   &::before {
-    content: 'INVITE YOU TO THE WEDDING';
+    content: "INVITE YOU TO THE WEDDING";
     display: block;
     position: absolute;
     left: -57px;
@@ -1157,7 +1461,7 @@ const Main = styled.div`
     font-size: 12px;
   }
   &::after {
-    content: 'IT’S THE WEDDING DAY';
+    content: "IT’S THE WEDDING DAY";
     display: block;
     position: absolute;
     right: -40px;
@@ -1176,25 +1480,25 @@ const Day = styled.p`
 `;
 const MainWrap = styled.div`
   position: relative;
-  width: 60%;
+  width: 70%;
 `;
 
-const MainImage = styled.img`
+const MainImage = styled.div`
   position: relative;
-  background-image: url('/images/mobilemain.jpg');
-  background-repeat: no-repeat;
-  background-size: 150%;
-  background-position: center;
+  // background-image: url("/images/mobilemain.jpg");
+  // background-repeat: no-repeat;
+  // background-size: 150%;
+  // background-position: center;
   width: 100%;
   height: 380px;
   margin: 0 auto;
-  border: 1px solid transparent
+  border: 1px solid transparent;
   // filter: grayscale(100%);
 `;
 const TextName = styled.p`
   position: relative;
   bottom: 20px;
-  font-family: 'Hankc';
+  font-family: "Hankc";
   display: flex;
   justify-content: center;
   width: 290px;
@@ -1207,25 +1511,15 @@ const TextName = styled.p`
 const TextDay = styled.p``;
 const TextHall = styled.span``;
 
-const CjFace = styled.img`
-  background-image: url('/images/changju.png');
+const Face = styled.div`
   border-image-source: none;
   width: 60px;
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
   margin-top: 12px;
+  position: relative;
 `;
-const ShFace = styled.img`
-  background-image: url('/images/shinhee.png');
-  border-image-source: none;
-  width: 60px;
-  height: 72px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: 12px;
-`;
-
 const Dday = styled.div`
   width: 100%;
   padding: 2rem 0;
@@ -1283,40 +1577,15 @@ const Location = styled.div`
 `;
 const Navigation = styled.div`
   padding: 1.5rem;
+  text-align: center;
 `;
-const Parking = styled.div`
-  display: flex;
-  margin: 0 auto;
-  padding: 1rem;
-  background-color: #F9F9F7;
-`;
-
-// 주차안내 부분
-const ParkingInfo = styled.div`
-  color: #684E3B;
-`
-
-const ParkingInfoTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-const ParkingInfoP = styled.p`
-  margin-left: 5px;
-  font-weight: 600;
-`
-const ParkingInfoText = styled.p`
-  margin-left: 18px;
-  margin-top: 8px;
-  line-height: 1.2;
-`
 const FaceWrap = styled.div`
-  display:flex;
+  display: flex;
   justify-content: center;
   & > #avatarWrapper {
     gap: 40px;
   }
-`
+`;
 
 // const Modal = styled.div`
 //   padding: 10px;
@@ -1326,6 +1595,7 @@ const ImageGalleryWrapper = styled.div`
   .image-gallery {
     width: 100%;
     height: auto;
+    overflow: hidden;
   }
 
   .image-gallery-thumbnails {
