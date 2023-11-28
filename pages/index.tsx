@@ -104,6 +104,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   //   setPhotoModalOpened(true);
   // };
 
+  const myImageGalleryRenderer = (item: any) => {
+    return (
+      <div>
+        <Image
+          src={item.original}
+          alt={item.original}
+          placeholder="blur"
+          blurDataURL={item.original}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
+    );
+  };
+
   const imageObjects = images
     .sort((a, b) => parseInt(a) - parseInt(b))
     .map((image) => ({
@@ -270,6 +285,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     };
   }, [getCongratulationsInfinityQuery]);
 
+  const myGalleryRenderItem = (item: any) => {
+    return (
+      <div className="image-gallery-image">
+        <Image
+          src={item.original}
+          alt={item.original}
+          placeholder="blur"
+          blurDataURL={item.original}
+          width={500}
+          height={500}
+        />
+      </div>
+    );
+  };
+
   return (
     <Stack
       p={0}
@@ -391,10 +421,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         <Image
                           width={15}
                           height={15}
-                          src="/kakaobank.jpg"
+                          src="/kakaobank.webp"
                           alt="kakaobank"
                           placeholder="blur"
-                          blurDataURL="/kakaobank.jpg"
+                          blurDataURL="/kakaobank.webp"
                           style={{
                             float: "left",
                             margin: "2px 5px 0px 0px",
@@ -474,10 +504,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         }}
                       >
                         <Image
-                          src="/kakaobank.jpg"
+                          src="/kakaobank.webp"
                           alt="kakaobank"
                           placeholder="blur"
-                          blurDataURL="/kakaobank.jpg"
+                          blurDataURL="/kakaobank.webp"
                           width={15}
                           height={15}
                           style={{
@@ -550,6 +580,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       <ImageGalleryWrapper>
         <ImageGallery
           items={imageObjects}
+          // renderItem={myGalleryRenderItem}
           autoPlay={false}
           infinite={true}
           showPlayButton={false}
@@ -648,10 +679,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               onClick={() => router.push("https://map.kakao.com/link/to/부천채림웨딩홀,37.484695,126.781874")}
             >
               <Image
-                src="/kakaomap.png"
+                src="/kakaomap.webp"
                 alt="kakaomap"
                 placeholder="blur"
-                blurDataURL="/kakaomap.png"
+                blurDataURL="/kakaomap.webp"
                 width={15}
                 height={15}
               />
@@ -684,12 +715,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               onClick={() => router.push("https://map.naver.com/p/entry/place/13352022?c=15.00,0,0,0,dh")}
             >
               <Image
-                src="/navermap.png"
+                src="/navermap.webp"
                 width={15}
                 height={15}
                 alt="navermap"
                 placeholder="blur"
-                blurDataURL="/navermap.png"
+                blurDataURL="/navermap.webp"
               />
               <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
                 네이버지도
@@ -723,7 +754,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 )
               }
             >
-              <Image src="/tmap.jpg" width={15} height={15} alt="tmap" placeholder="blur" blurDataURL="/tmap.jpg" />
+              <Image src="/tmap.webp" width={15} height={15} alt="tmap" placeholder="blur" blurDataURL="/tmap.webp" />
               <Text style={{ marginLeft: "5px" }} size={theme.fontSizes.xs}>
                 티맵
               </Text>
