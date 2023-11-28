@@ -296,10 +296,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <MainWrap>
           <MainImage>
             <Image
-              src="/images/mobilemain.jpg"
+              src="/images/mobilemain.webp"
               alt="mobilemain"
               placeholder="blur"
-              blurDataURL="/images/mobilemain.jpg"
+              blurDataURL="/images/mobilemain.webp"
               layout="fill"
               objectFit="contain"
             />
@@ -356,7 +356,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               <Text>
                 장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b>
               </Text>
-              <CjFace />
+              <Face>
+                <Image
+                  src="/images/changju.webp"
+                  alt="changju"
+                  placeholder="blur"
+                  blurDataURL="/images/changju.webp"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </Face>
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
                   <IconPhone size={20} />
@@ -432,7 +441,16 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               <Text>
                 장녀 <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b>
               </Text>
-              <ShFace />
+              <Face>
+                <Image
+                  src="/images/shinhee.webp"
+                  alt="shinhee"
+                  placeholder="blur"
+                  blurDataURL="/images/shinhee.webp"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </Face>
               <Group spacing={7} sx={{ flexWrap: "nowrap" }}>
                 <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}>
                   <IconPhone size={20} />
@@ -1431,7 +1449,7 @@ const Day = styled.p`
 `;
 const MainWrap = styled.div`
   position: relative;
-  width: 60%;
+  width: 70%;
 `;
 
 const MainImage = styled.div`
@@ -1462,25 +1480,15 @@ const TextName = styled.p`
 const TextDay = styled.p``;
 const TextHall = styled.span``;
 
-const CjFace = styled.img`
-  background-image: url("/images/changju.png");
+const Face = styled.div`
   border-image-source: none;
   width: 60px;
   height: 72px;
   background-repeat: no-repeat;
   background-size: cover;
   margin-top: 12px;
+  position: relative;
 `;
-const ShFace = styled.img`
-  background-image: url("/images/shinhee.png");
-  border-image-source: none;
-  width: 60px;
-  height: 72px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: 12px;
-`;
-
 const Dday = styled.div`
   width: 100%;
   padding: 2rem 0;
