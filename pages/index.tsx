@@ -548,10 +548,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <></>
       </Greetings>
 
-      <div
+      {/* <div
         style={{
           fontFamily: "CrimsonText-Regular",
-          color: "#132F93",
+          color: "#f4eee7",
           // fontSize: "3vw",
           textAlign: "center",
           letterSpacing: "2px",
@@ -576,8 +576,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         }}
       >
         사진첩
-      </div>
+      </div> */}
       <ImageGalleryWrapper>
+        <GalleryTitle>Gallery</GalleryTitle>
         <ImageGallery
           items={imageObjects}
           // renderItem={myGalleryRenderItem}
@@ -1596,26 +1597,41 @@ const ImageGalleryWrapper = styled.div`
     width: 100%;
     height: auto;
     overflow: hidden;
+    padding: 20px 5px;
+    background-color: #f4eee7;
   }
 
+  .image-gallery-swipe {
+    position: relative;
+  }
+  
+
+  .image-gallery-index {
+    display: none;
+  }
   .image-gallery-thumbnails {
-    background-color: #fffaeb;
+    background-color: #f4eee7;
     // height: 100%;
   }
 
   .image-gallery-thumbnails img {
-    height: 105px;
     object-fit: contain;
   }
 
   .image-gallery-slide img {
-    background-color: #fffaeb;
+    background-color: #f4eee7;
     width: 100%;
-    height: 300px;
+    height: 500px;
     object-fit: contain;
     overflow: hidden;
     object-position: center center;
   }
+
+  .image-gallery-thumbnail.active, .image-gallery-thumbnail:focus {
+    border: none;
+  }
 `;
+const GalleryTitle = styled.p`
+`
 
 export default Home;
