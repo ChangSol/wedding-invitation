@@ -15,10 +15,7 @@ const client = new QueryClient();
 
 const DEFAULT_SEO = {
   title:
-      `${process.env.NEXT_PUBLIC_GROOM_NAME}` +
-      " ❤️ " +
-      `${process.env.NEXT_PUBLIC_BRIDE_NAME}` +
-      " 우리 결혼합니다!",
+    `${process.env.NEXT_PUBLIC_GROOM_NAME}` + " ❤️ " + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + " 우리 결혼합니다!",
   description: "24.02.24 (토) 오후 1시 채림웨딩홀 6층",
   canonical: "https://wedding-invitation.chang-ju.shin-hee.com",
   openGraph: {
@@ -26,10 +23,7 @@ const DEFAULT_SEO = {
     locale: "ko_KR",
     url: "https://wedding-invitation.chang-ju.shin-hee.com",
     title:
-        `${process.env.NEXT_PUBLIC_GROOM_NAME}` +
-        " ❤️ " +
-        `${process.env.NEXT_PUBLIC_BRIDE_NAME}` +
-        " 우리 결혼합니다!",
+      `${process.env.NEXT_PUBLIC_GROOM_NAME}` + " ❤️ " + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + " 우리 결혼합니다!",
     // site_name: "test site",
     images: [
       {
@@ -73,7 +67,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <DefaultSeo {...DEFAULT_SEO} />
       <QueryClientProvider client={client}>
         <Head>
-          <title>창솔루션❤️시니천사</title>
+          <title>창주❤️신희 청첩장</title>
         </Head>
 
         <MantineProvider
