@@ -47,32 +47,6 @@ export default function LocationModal() {
             <li>서울 외곽순환도로 시흥 IC에서 약 15분 소요</li>
             {/*<li>주차 : 전용주차장 3시간 무료</li>*/}
 
-            <Parking>
-              <ParkingInfo>
-                <ParkingInfoTitle>
-                  <FaCircleInfo /> <ParkingInfoP>주차안내</ParkingInfoP>
-                </ParkingInfoTitle>
-                <ParkingInfoText>
-                  전용 주차장에 주차 가능 (무료 3시간) <br />
-                  만차 시 이마트 주차 가능 (5000원 제공) <br />
-                  안내원의 유도에 따라주시면 감사하겠습니다.
-                </ParkingInfoText>
-              </ParkingInfo>
-              {/* <Alert
-            icon={<IconAlertCircle size={16} />}
-            title="주차 안내ㄴ"
-          >
-            <Text
-              sx={(theme) => ({
-                fontSize: theme.fontSizes.xs,
-              })}
-            >
-              전용 주차장에 주차 가능 (무료 3시간) <br />
-              만차 시 이마트 주차 가능 (5000원 제공) <br />
-              안내원의 유도에 따라주시면 감사하겠습니다.
-            </Text>
-          </Alert> */}
-            </Parking>
           </dd>
         </dl>
       </Box>
@@ -86,16 +60,14 @@ const CenteredBoldText = styled(Text)`
 `;
 
 const LocationTitle = styled(Text)`
-  color: #132F93;
-  //font-size: 1vw;
+  color: #333;
   display: inline-block;
   margin-top: 5px;
   margin-bottom: 5px;
-  background: #F2F4FB;
-  border-radius: 25px;
-  padding: 8px 15px;
-  left: -35px;
+  padding: 14px 14px 0px 8px;
+  left: -15px;
   position: relative;
+  font-weight: bold;
 `;
 
 const Divider = styled.div`
@@ -105,11 +77,11 @@ const Divider = styled.div`
 `;
 
 const LocationModalWrap = styled.div`
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   .mapUse {
     text-align: left;
-    padding: 0 20px;
+    padding: 0 10px;
     dt {
       margin-top: 16px;
       text-decoration: underline;
@@ -137,7 +109,6 @@ const Parking = styled.div`
   margin: 0 auto;
   padding: 1rem;
   background-color: #f9f9f7;
-  border-radius: 10px;
 `;
 
 // 주차안내 부분

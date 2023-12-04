@@ -337,7 +337,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </MainWrap>
         <TextName>Changju and Shinhee</TextName>
         <TextDay>2024 2 24 SAT 1PM</TextDay>
-        <TextHall>부천채림웨딩홀</TextHall>
+        {/* <TextHall>부천채림웨딩홀</TextHall> */}
       </Main>
 
       <Dday>
@@ -548,35 +548,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <></>
       </Greetings>
 
-      {/* <div
-        style={{
-          fontFamily: "CrimsonText-Regular",
-          color: "#f4eee7",
-          // fontSize: "3vw",
-          textAlign: "center",
-          letterSpacing: "2px",
-        }}
-      >
-        GALLERY
-      </div>
-      <div
-        style={{
-          background: "#132F93",
-          height: "1px",
-          width: "7vw",
-          margin: "15px auto",
-        }}
-      />
-      <div
-        style={{
-          fontFamily: "MaruBuri-Regular",
-          color: "#132F93",
-          // fontSize: "4.5vw",
-          textAlign: "center",
-        }}
-      >
-        사진첩
-      </div> */}
       <ImageGalleryWrapper>
         <GalleryTitle>Gallery</GalleryTitle>
         <ImageGallery
@@ -595,46 +566,52 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         />
       </ImageGalleryWrapper>
 
-      <div style={{ height: "40px", clear: "both" }}></div>
+      {/* <div style={{ height: "40px", clear: "both" }}></div> */}
 
-      {/* 지도 */}
+      {/* 지도  여기 오시는 길 부분*/}
       <Location>
         <div
           style={{
             fontFamily: "CrimsonText-Regular",
-            color: "#132F93",
-            // fontSize: "3vw",
+            color: "#05652c",
             textAlign: "center",
-            letterSpacing: "2px",
+            fontSize: "0.6rem",
+            width: "60px",
+            height: "16px",
+            lineHeight: "16px",
+            margin:"0 auto",
+            border: "1px solid #05652c",
+            borderRadius: "20px"
           }}
         >
           LOCATION
         </div>
-        <div
+        {/* <div
           style={{
             background: "#132F93",
             height: "1px",
             width: "7vw",
             margin: "15px auto",
           }}
-        />
-        <div
+        /> */}
+        
+        {/* <div
           style={{
-            fontFamily: "MaruBuri-Regular",
-            color: "#132F93",
-            // fontSize: "4.5vw",
+            // fontFamily: "MaruBuri-Regular",
+            color: "#05652c",
+            fontSize: "1.2rem",
             textAlign: "center",
+            fontWeight: "bold",
           }}
         >
           오시는길
-        </div>
+        </div> */}
         <div style={{ height: "40px", clear: "both" }}></div>
         <div
           style={{
             fontFamily: "MaruBuri-Regular",
             // fontWeight: "bold",
-            color: "#8D8D8D",
-            // font-size: 4vw;
+            color: "#000",
             textAlign: "center",
           }}
         >
@@ -644,7 +621,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <div
           style={{
             fontFamily: "MaruBuri-Regular",
-            // fontWeight: "bold",
+            fontWeight: "600",
             color: "#333",
             // font-size: 4vw;
             textAlign: "center",
@@ -653,10 +630,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         >
           부천채림웨딩홀 6층 컨벤션홀
         </div>
-        <div style={{ height: "30px", clear: "both" }}></div>
+        <div style={{ height: "30px", clear: "both"  }}></div>
         <KakaoMap />
-        <div style={{ height: "20px", clear: "both" }}></div>
-        <div style={{ width: "90%", margin: "0 auto" }}>
+        {/* <div style={{ height: "20px", clear: "both" }}></div> */}
+        <div style={{ width: "100%", margin: "0 auto", padding: "20px",
+              display: "flex", justifyContent: "space-between",
+              backgroundColor: "#F9F9F7"
+              }}>
           <div
             style={{
               fontFamily: "MaruBuri-Regular",
@@ -664,15 +644,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               textAlign: "center",
               borderRadius: "10px",
               color: "#333333",
-              border: "1px solid #E4E4E4",
               width: "30%",
-              height: "45px",
-              lineHeight: "45px",
+              height: "40px",
+              lineHeight: "40px",
               float: "left",
               backgroundColor: "white",
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
+              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)"
             }}
           >
             <ActionIcon
@@ -699,16 +679,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               textAlign: "center",
               borderRadius: "10px",
               color: "#333333",
-              border: "1px solid #E4E4E4",
               width: "30%",
-              height: "45px",
-              lineHeight: "45px",
+              height: "40px",
+              lineHeight: "40px",
               float: "left",
               backgroundColor: "white",
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
-              marginLeft: "16px",
+              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)"
             }}
           >
             <ActionIcon
@@ -735,16 +714,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               textAlign: "center",
               borderRadius: "10px",
               color: "#333333",
-              border: "1px solid #E4E4E4",
               width: "30%",
-              height: "45px",
-              lineHeight: "45px",
+              height: "40px",
+              lineHeight: "40px",
               float: "left",
               backgroundColor: "white",
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
-              marginLeft: "16px",
+              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)"
             }}
           >
             <ActionIcon
@@ -905,11 +883,22 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </Stack>
         </Stack>
       </BackgroundImage> */}
-
-      <Divider variant="dotted" mx={10} ref={targetRef} />
+      
+      <Parking>
+        <ParkingInfo>
+          <ParkingInfoTitle>
+            <FaCircleInfo /> <ParkingInfoP>주차안내</ParkingInfoP>
+          </ParkingInfoTitle>
+          <ParkingInfoText>
+            전용 주차장에 주차 가능 (무료 3시간) <br />
+            만차 시 이마트 주차 가능 (5000원 제공) <br />
+            안내원의 유도에 따라주시면 감사하겠습니다.
+          </ParkingInfoText>
+        </ParkingInfo>
+      </Parking>
 
       {/* Avatar Info */}
-      <Paper
+      {/* <Paper
         shadow="sm"
         px="sm"
         mx={5}
@@ -921,163 +910,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           backgroundColor: theme.colors.gray[0],
           color: theme.colors.dark[4],
         }}
-      >
+      > */}
         {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
 
-        <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: "nowrap" }}>
+        {/* <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: "nowrap" }}>
           <Box>
             <IconHeart size={25} opacity={0.3} />
           </Box>
-        </Group>
+        </Group> */}
         {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
-      </Paper>
-
-      <Divider variant="dotted" mx={10} />
-
-      {/* Photo Grid */}
-      {/* <Pssaper
-        shadow="sm"
-        mx={5}
-        p="sm"
-        py="md"
-        radius="md"
-        withBorder
-        sx={{
-          backgroundColor: theme.colors.gray[0],
-          color: theme.colors.dark[4],
-        }}
-      >
-        <Grid grow gutter={6}>
-          {imagesGrid}
-        </Grid>
-      </Pssaper> */}
-
-      {/* <Divider variant="dotted" mx={10} /> */}
-
-      {/* Photo Modal */}
-      {/* {photoModalOpened && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            zIndex: 990,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <CloseButton
-            size={35}
-            p={5}
-            sx={{
-              position: 'absolute',
-              top: 30,
-              right: 30,
-              zIndex: 999,
-              backgroundColor: theme.fn.rgba(theme.white, 0.5),
-              borderRadius: '50%',
-              cursor: 'pointer',
-            }}
-            onClick={() => setPhotoModalOpened(false)}
-          />
-          <Carousel
-            loop
-            sx={{
-              width: '100%',
-              zIndex: 998,
-            }}
-            styles={{
-              control: {
-                width: 35,
-                height: 35,
-              },
-            }}
-          >
-            {slides}
-          </Carousel>
-          <Overlay
-            color="black"
-            onClick={() => {
-              setPhotoModalOpened(false);
-            }}
-          />
-        </div>
-      )} */}
-
-      {/* Bottom */}
-      {/*<Paper*/}
-      {/*  mx={5}*/}
-      {/*  shadow="sm"*/}
-      {/*  p="sm"*/}
-      {/*  py="md"*/}
-      {/*  mb={10}*/}
-      {/*  radius="md"*/}
-      {/*  withBorder*/}
-      {/*  sx={{*/}
-      {/*    backgroundColor: theme.colors.gray[0],*/}
-      {/*    color: theme.colors.dark[4],*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Stack align="center">*/}
-      {/*    <Text sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}>*/}
-      {/*      2023 . 02 . 24 (토) PM 01 : 00*/}
-      {/*    </Text>*/}
-      {/*    <Text*/}
-      {/*      align="center"*/}
-      {/*      id="location"*/}
-      {/*      sx={{ fontSize: theme.fontSizes.md, fontWeight: 400 }}*/}
-      {/*    >*/}
-      {/*      부천채림웨딩홀*/}
-      {/*      <Text sx={{ fontSize: theme.fontSizes.sm, fontWeight: 300 }}>*/}
-      {/*        (경기 부천시 부천로 3-1)*/}
-      {/*      </Text>*/}
-      {/*    </Text>*/}
-      {/*    <KakaoMap />*/}
-      {/*    <Alert*/}
-      {/*      icon={<IconAlertCircle size={16} />}*/}
-      {/*      px={15}*/}
-      {/*      py={7}*/}
-      {/*      title="주차 안내"*/}
-      {/*      sx={{ width: "90%" }}*/}
-      {/*    >*/}
-      {/*      <Text*/}
-      {/*        sx={(theme) => ({*/}
-      {/*          fontSize: theme.fontSizes.xs,*/}
-      {/*        })}*/}
-      {/*      >*/}
-      {/*        전용 주차장에 주차 가능 (무료 3시간) <br />*/}
-      {/*        만차 시 이마트 주차 가능 (5000원 제공) <br />*/}
-      {/*        안내원의 유도에 따라주시면 감사하겠습니다.*/}
-      {/*      </Text>*/}
-      {/*    </Alert>*/}
-      {/*    <Group sx={{ width: "100%" }} position="center">*/}
-      {/*      <Button*/}
-      {/*        color="blue.5"*/}
-      {/*        sx={{ width: "40%" }}*/}
-      {/*        onClick={() => setLocationInfo(true)}*/}
-      {/*      >*/}
-      {/*        🚍 오시는길*/}
-      {/*      </Button>*/}
-      {/*      <Button*/}
-      {/*        color="green.5"*/}
-      {/*        sx={{ width: "40%" }}*/}
-      {/*        onClick={() => setNavigation(true)}*/}
-      {/*      >*/}
-      {/*        🚘 네비게이션*/}
-      {/*      </Button>*/}
-      {/*    </Group>*/}
-      {/*    <Button*/}
-      {/*      color="yellow.5"*/}
-      {/*      sx={{ width: "84%" }}*/}
-      {/*      onClick={() => setShare(true)}*/}
-      {/*    >*/}
-      {/*      <IconShare size={15} /> <Text ml={5}>공유하기</Text>*/}
-      {/*    </Button>*/}
-      {/*  </Stack>*/}
-      {/*</Paper>*/}
+      {/* </Paper> */}
+      
 
       {/* Comment Section*/}
       <Paper
@@ -1471,7 +1314,7 @@ const Main = styled.div`
   }
 `;
 const Day = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   display: flex;
   justify-content: center;
   border: 1px solid #03652b;
@@ -1554,7 +1397,7 @@ const TextWrap = styled.div`
   align-items: center;
 `;
 const TitleEng = styled.h3`
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   color: #05652c;
 `;
 const TitleKor = styled.p`
@@ -1567,10 +1410,10 @@ const TitleKor = styled.p`
 
 const Line = styled.div`
   width: 1px;
-  height: 40px;
+  height: 30px;
   margin: 40px auto;
   background-color: #05652c;
-  //transform: rotate(45deg);
+  transform: rotateZ(45deg);
 `;
 
 const Location = styled.div`
@@ -1583,6 +1426,7 @@ const Navigation = styled.div`
 const FaceWrap = styled.div`
   display: flex;
   justify-content: center;
+  padding: 20px 0;
   & > #avatarWrapper {
     gap: 40px;
   }
@@ -1593,45 +1437,84 @@ const FaceWrap = styled.div`
 // `
 
 const ImageGalleryWrapper = styled.div`
+background-color: #f4eee7;
+padding: 20px 0 10px 0;
+
+  p {
+    width: 60px;
+    line-height: 16px;
+    color: rgb(5, 101, 44);
+    text-align: center;
+    font-size: 0.6rem;
+    margin: 0px auto;
+    border: 1px solid rgb(5, 101, 44);
+    border-radius: 20px;
+  }
+
   .image-gallery {
     width: 100%;
     height: auto;
     overflow: hidden;
-    padding: 20px 5px;
-    background-color: #f4eee7;
+    padding: 40px 0 60px 0;
   }
 
   .image-gallery-swipe {
     position: relative;
   }
   
-
   .image-gallery-index {
     display: none;
   }
-  .image-gallery-thumbnails {
-    background-color: #f4eee7;
-    // height: 100%;
-  }
-
-  .image-gallery-thumbnails img {
-    object-fit: contain;
-  }
-
+  
   .image-gallery-slide img {
-    background-color: #f4eee7;
     width: 100%;
     height: 500px;
-    object-fit: contain;
+    object-fit: cover;
     overflow: hidden;
     object-position: center center;
+  }
+
+  .image-gallery-thumbnails-container {
+    width: 100%;
+    margin: 0 auto;
   }
 
   .image-gallery-thumbnail.active, .image-gallery-thumbnail:focus {
     border: none;
   }
+  
+  .image-gallery-left-nav, .image-gallery-right-nav {
+    display: none;
+  }
 `;
 const GalleryTitle = styled.p`
+  
 `
 
+const Parking = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  background-color: #f9f9f7;
+`;
+
+// 주차안내 부분
+const ParkingInfo = styled.div`
+  color: #684e3b;
+`;
+
+const ParkingInfoTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const ParkingInfoP = styled.p`
+  margin-left: 5px;
+  font-weight: 600;
+`;
+const ParkingInfoText = styled.p`
+  margin-left: 10px;
+  margin-top: 8px;
+  line-height: 1.3;
+`;
 export default Home;
