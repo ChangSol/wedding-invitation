@@ -64,10 +64,13 @@ const LocationTitle = styled(Text)`
   display: inline-block;
   margin-top: 5px;
   margin-bottom: 5px;
-  padding: 14px 14px 0px 8px;
+  padding: 14px 4px 0px 4px;
   left: -15px;
   position: relative;
   font-weight: bold;
+  font-style: italic;
+  border-bottom: 1px solid;
+  padding-bottom: 1px;
 `;
 
 const Divider = styled.div`
