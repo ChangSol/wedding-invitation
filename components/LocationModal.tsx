@@ -41,7 +41,7 @@ export default function LocationModal() {
           {/*  <strong>자가용 이용시</strong>*/}
           {/*</dt>*/}
           <dd className="color">
-            <li>📍네비게이션 : 부천채림웨딩홀 </li>
+            📍네비게이션 : 부천채림웨딩홀
             <li>경기 부천시 부천로 3-1</li>
             <li>경인고속도로 부천 IC에서 약 15분 소요</li>
             <li>서울 외곽순환도로 시흥 IC에서 약 15분 소요</li>
@@ -65,7 +65,6 @@ const LocationTitle = styled(Text)`
   margin-top: 5px;
   margin-bottom: 5px;
   padding: 14px 4px 0px 4px;
-  left: -15px;
   position: relative;
   font-weight: bold;
   font-style: italic;
@@ -80,7 +79,6 @@ const Divider = styled.div`
 `;
 
 const LocationModalWrap = styled.div`
-  padding: 10px;
   text-align: center;
   .mapUse {
     text-align: left;
@@ -97,6 +95,7 @@ const LocationModalWrap = styled.div`
       li {
         list-style-type: none;
         margin-top: 0;
+        margin-left: 16px;
         &:first-child {
           margin-top: 5px;
         }

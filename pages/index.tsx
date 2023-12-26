@@ -829,7 +829,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </Stack>
         </Parent>
       </ContactParents>
-
+      <Line></Line>
       <ImageGalleryWrapper>
         <GalleryTitle>Gallery</GalleryTitle>
         <ImageGallery
@@ -1095,15 +1095,15 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
       {/* Comment Section*/}
       <Paper
-        shadow="sm"
         px="sm"
-        mx={5}
+        mx={10}
+        my={20}
         py={5}
         radius="md"
-        withBorder
         sx={{
+          width: "95%",
           height: "100%",
-          backgroundColor: theme.colors.gray[0],
+          backgroundColor: "#f4eee7",
           color: theme.colors.dark[4],
           position: "relative",
         }}
@@ -1128,11 +1128,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 p={5}
                 py={20}
                 sx={{
-                  backgroundColor: theme.colors.gray[2],
+                  backgroundColor: "#f9f9f7",
                   borderRadius: theme.radius.md,
                   position: "relative",
                 }}
-              >
+              >  
                 <form onSubmit={form.onSubmit(commentOnSubmit)}>
                   <Stack spacing={10}>
                     <Group spacing={0} position="center">
@@ -1179,6 +1179,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         type="submit"
                         mr={20}
                         sx={{
+                          backgroundColor: "#05652c",
                           alignSelf: "flex-end",
                           width: 90,
                           height: 35,
@@ -1513,7 +1514,7 @@ const MainImage = styled.div`
 const TextName = styled.p`
   position: relative;
   bottom: 20px;
-  font-family: "Hankc";
+  font-family: "Somi";
   display: flex;
   justify-content: center;
   width: 290px;
@@ -1650,6 +1651,10 @@ padding: 20px 0 10px 0;
     margin: 0 auto;
   }
 
+  .image-gallery-thumbnails {
+    padding: 10px 0;
+    background-color: #f9f9f7;
+  }
   .image-gallery-thumbnail.active, .image-gallery-thumbnail:focus {
     border: none;
   }
@@ -1697,18 +1702,11 @@ text-align: center;
     font-size: 16px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 5px;
   }
   span {
     font-size: 16px;
     margin-left: 3px;
-  }
-  .parents {
-    display: block;
-    width: 100%;
-    padding: 7px 19px;
-    border-radius: 8px;
-  }
+  } 
   .parents_name {
     margin-top: 15px;
   }
@@ -1720,12 +1718,14 @@ text-align: center;
 const ContactParents = styled.div`
   display: flex;
   justify-content: center;
-  gap: 25px;
-  padding: 1.4rem 0;
+  gap: 50px;
+  padding: 2rem 0;
   background-color: #f4eee7;
 `
 const ContactParentsTitle = styled.p`
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 8px;
   padding: 10px 0;
   text-align: center;
   background-color: #05652c;

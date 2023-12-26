@@ -19,6 +19,7 @@ export default function GlobalStyles() {
           ...theme.fn.fontStyles(),
           fontSize: theme.fontSizes.sm,
           lineHeight: theme.lineHeight,
+          backgroundColor: "#f4eee7",
         },
         a: {
           all: "unset",
