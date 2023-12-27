@@ -240,7 +240,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       onError: (error: any) =>
         alert(error?.response?.data?.message ?? "서버에 문제가 발생헀습니다. 다시 시도해주세요."),
     });
-
+    form.reset();
     setLoading(false);
     setCommentInputOpened(false);
   };
@@ -276,15 +276,17 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   React.useEffect(() => {
     function listener(event: DocumentEventMap["scroll"]) {
-      if (Math.ceil(window.scrollY + window.innerHeight + 30) > document.body.offsetHeight) {
+      if (!loading && Math.ceil(window.scrollY + window.innerHeight + 30) > document.body.offsetHeight) {
+        setLoading(true)
         getCongratulationsInfinityQuery.fetchNextPage();
       }
     }
     document.addEventListener("scroll", listener);
     return () => {
       document.removeEventListener("scroll", listener);
+      setLoading(false)
     };
-  }, [getCongratulationsInfinityQuery]);
+  }, [loading]);
 
   const myGalleryRenderItem = (item: any) => {
     return (
@@ -315,13 +317,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       }}
     >
       {/* Hero */}
-      <div
-        style={{ zIndex: 5000, position: "fixed", top: 0, left: 0 }}
-        onClick={() => {
-          getCongratulationsInfinityQuery.fetchNextPage();
-        }}
-      ></div>
-
       <Main>
         <Day>2024 02 24</Day>
         <MainWrap>
@@ -1137,8 +1132,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   <Stack spacing={10}>
                     <Group spacing={0} position="center">
                       <TextInput
-                        placeholder="성함을 입력해주세요."
-                        label="성함"
+                        label="이름"
+                        placeholder="이름을 입력해주세요."
                         minLength={2}
                         maxLength={10}
                         withAsterisk
