@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface CountdownProps {
   targetDate: string; // D-day 날짜를 문자열로 받음
@@ -32,27 +32,27 @@ const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
   const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
   return (
-      <div className="countdown">
-        <h3>WEDDING DAY</h3>
-        <ul>
-          <li>
-            <p>{days}</p>
-            <span>DAYS</span>
-          </li>
-          <li>
-            <p>{hours.toString().padStart(2,'0')} </p>
-            <span>HOURS</span>
-          </li>
-          <li>
-            <p>{minutes.toString().padStart(2,'0')} </p>
-            <span>MINUTES</span>
-          </li>
-          <li>
-            <p>{seconds.toString().padStart(2,'0')}</p>
-            <span>SECONDS</span>
-          </li>
-        </ul>
-      </div>
+    <div className="countdown">
+      <h3>WEDDING D-DAY</h3>
+      <ul>
+        <li>
+          <p>{days}</p>
+          <span>DAYS</span>
+        </li>
+        <li>
+          <p>{hours.toString().padStart(2, "0")} </p>
+          <span>HOURS</span>
+        </li>
+        <li>
+          <p>{minutes.toString().padStart(2, "0")} </p>
+          <span>MINUTES</span>
+        </li>
+        <li>
+          <p>{seconds.toString().padStart(2, "0")}</p>
+          <span>SECONDS</span>
+        </li>
+      </ul>
+    </div>
   );
 };
 

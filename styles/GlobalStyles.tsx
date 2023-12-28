@@ -8,8 +8,7 @@ export default function GlobalStyles() {
         html: {
           overflowX: "hidden",
           /* Prevent font scaling in landscape */
-          WebkitTextSizeAdjust:
-            "none" /*Chrome, Safari, newer versions of Opera*/,
+          WebkitTextSizeAdjust: "none" /*Chrome, Safari, newer versions of Opera*/,
           MozTextSizeAdjust: "none" /*Firefox*/,
           msTextSizeAdjust: "none" /*Ie*/,
           OTextSizeAdjust: "none" /*old versions of Opera*/,
@@ -20,14 +19,15 @@ export default function GlobalStyles() {
           fontSize: theme.fontSizes.sm,
           lineHeight: theme.lineHeight,
           backgroundColor: "#f4eee7",
+          margin: "0",
         },
         a: {
           all: "unset",
         },
         p: {
           margin: 0,
-          padding: 0
-        }
+          padding: 0,
+        },
       })}
     />
   );

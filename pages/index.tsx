@@ -1,17 +1,12 @@
 import {
   ActionIcon,
-  Alert,
   Anchor,
   Box,
   Button,
   CloseButton,
   CopyButton,
-  Divider,
-  Grid,
   Group,
   Modal,
-  Notification,
-  Overlay,
   Paper,
   PasswordInput,
   Popover,
@@ -22,32 +17,30 @@ import {
   Transition,
   useMantineTheme,
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { NextLink } from "@mantine/next";
 import {
-  IconAlertCircle,
   IconBrandMessenger,
-  IconCheck,
   IconClipboard,
   IconClipboardCheck,
   IconCurrencyWon,
   IconEdit,
-  IconHeart,
-  IconLink,
   IconPhone,
-  IconShare,
   IconWriting,
 } from "@tabler/icons";
-import styled from "styled-components";
-import type { GetStaticProps, NextPage } from "next";
-import KakaoMap from "../components/KakaoMap";
 import Fs from "fs";
-import path from "path";
-import React, { useRef, useState } from "react";
-import { useScrollIntoView } from "@mantine/hooks";
+import type { GetStaticProps, NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import path from "path";
+import React, { useState } from "react";
+import { FaCircleInfo } from "react-icons/fa6";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import styled from "styled-components";
+import Countdown from "../components/Countdown";
+import KakaoMap from "../components/KakaoMap";
 import LocationModal from "../components/LocationModal";
-import { NextLink } from "@mantine/next";
-import { kakaoShare } from "../lib/KakaoShare";
-import { useForm } from "@mantine/form";
 import {
   ICongratulationCreate,
   ICongratulationData,
@@ -56,12 +49,6 @@ import {
   useGetCongratulationsInfinityQuery,
   usePostCongratulationMutation,
 } from "../queries";
-import Countdown from "../components/Countdown";
-import { FaCircleInfo } from "react-icons/fa6";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
-import Image from "next/image";
-import { sizes } from '@mantine/core/lib/ActionIcon/ActionIcon.styles';
 
 export const getStaticProps: GetStaticProps = () => {
   const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
@@ -73,52 +60,16 @@ export const getStaticProps: GetStaticProps = () => {
 const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const theme = useMantineTheme();
   const router = useRouter();
-  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
-  // const [photoModalOpened, setPhotoModalOpened] = useState(false);
-  // const [navigation, setNavigation] = useState(false);
-  // const [locationInfo, setLocationInfo] = useState(false);
-  // const [share, setShare] = useState(false);
   const [commentInputOpened, setCommentInputOpened] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [commentsArray, setCommentsArray] = useState<ICongratulationData[] | null>(null);
   const [selectedCongratulation, setSelectedCongratulation] = useState<ICongratulationData | null>(null);
-  const [commentPasswordError, setCommentPasswordError] = useState(false);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
-  const [commentEditModalOpened, setCommentEditModalOpened] = useState(false);
-  // const [isFullScreen, setIsFullScreen] = useState(false);
-  // const [imagesArray, setImagesArray] = useState<string[]>(images);
   const [params, setParams] = React.useState<ICongratulationParams>({
     sortType: "NEW",
     limit: 10,
   });
 
-  const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params); //[];
-
-  // const queryClient = useQueryClient();
-  // queryClient.invalidateQueries([CONGRATULATION_QUERY_KEY]);
-  // const selectImage = (image: string) => {
-  //   const copiedImages = [...images];
-  //   const index = copiedImages.findIndex((item) => item === image);
-  //   const previousImages = copiedImages.splice(0, index);
-  //   const sortedImages = [...copiedImages, ...previousImages];
-  //   setImagesArray(sortedImages);
-  //   setPhotoModalOpened(true);
-  // };
-
-  const myImageGalleryRenderer = (item: any) => {
-    return (
-      <div>
-        <Image
-          src={item.original}
-          alt={item.original}
-          placeholder="blur"
-          blurDataURL={item.original}
-          layout="fill"
-          objectFit="contain"
-        />
-      </div>
-    );
-  };
+  const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params);
 
   const imageObjects = images
     .sort((a, b) => parseInt(a) - parseInt(b))
@@ -126,66 +77,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       original: `/pictures/${image}`,
       thumbnail: `/pictures/${image}`,
     }));
-
-  // const imageGalleryRef = useRef<ImageGallery | null>(null);
-
-  // const onClickHandlerImageGallery = () => {
-  //   if (isFullScreen) {
-  //     imageGalleryRef.current!.exitFullScreen();
-  //     setIsFullScreen(false);
-  //   } else {
-  //     imageGalleryRef.current?.fullScreen();
-  //     setIsFullScreen(true);
-  //   }
-  // };
-
-  // const slides = imagesArray.map((image, i) => (
-  //   <Carousel.Slide
-  //     key={i}
-  //     sx={{
-  //       display: 'flex',
-  //       alignItems: 'center',
-  //       justifyContent: 'center',
-  //     }}
-  //   >
-  //     <Image src={`/pictures/${image}`} alt="wedding" width={600} sx={{ objectFit: 'cover' }} />
-  //   </Carousel.Slide>
-  // ));
-
-  // const imagesGrid = images.map((image, i) => {
-  //   const IMAGE = (
-  //     <Image
-  //       src={`/pictures/${image}`}
-  //       alt="wedding"
-  //       sx={{ width: '100%', cursor: 'pointer' }}
-  //       radius="sm"
-  //       onClick={() => {
-  //         selectImage(image);
-  //       }}
-  //     />
-  //   );
-  //   if (i === 0) {
-  //     return (
-  //       <Grid.Col key={i} span={12}>
-  //         {IMAGE}
-  //       </Grid.Col>
-  //     );
-  //   }
-
-  //   if (image.includes('wide')) {
-  //     return (
-  //       <Grid.Col key={i} span={6} sx={{ display: 'flex', alignItems: 'center' }}>
-  //         {IMAGE}
-  //       </Grid.Col>
-  //     );
-  //   }
-
-  //   return (
-  //     <Grid.Col key={i} span={4}>
-  //       {IMAGE}
-  //     </Grid.Col>
-  //   );
-  // });
 
   const form = useForm<ICongratulationCreate>({
     initialValues: {
@@ -229,9 +120,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       },
     },
   });
+  const editPwForm = useForm({
+    initialValues: {
+      password: "",
+    },
+  });
 
   const postCongratulationMutation = usePostCongratulationMutation();
-  const deleteCongratulationMutation = useDeleteCongratulationMutation();
   const commentOnSubmit = async (data: ICongratulationCreate) => {
     setLoading(true);
 
@@ -245,12 +140,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     setCommentInputOpened(false);
   };
 
-  const editPwForm = useForm({
-    initialValues: {
-      password: "",
-    },
-  });
-
+  const deleteCongratulationMutation = useDeleteCongratulationMutation();
   const onDeleteComment = async (password: any) => {
     if (!selectedCongratulation) return;
     const ok = window.confirm("정말 삭제하시겠습니까? ");
@@ -277,16 +167,31 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   React.useEffect(() => {
     function listener(event: DocumentEventMap["scroll"]) {
       if (!loading && Math.ceil(window.scrollY + window.innerHeight + 30) > document.body.offsetHeight) {
-        setLoading(true)
+        setLoading(true);
         getCongratulationsInfinityQuery.fetchNextPage();
       }
     }
     document.addEventListener("scroll", listener);
     return () => {
       document.removeEventListener("scroll", listener);
-      setLoading(false)
+      setLoading(false);
     };
-  }, [loading]);
+  }, [getCongratulationsInfinityQuery, loading]);
+
+  const myImageGalleryRenderer = (item: any) => {
+    return (
+      <div>
+        <Image
+          src={item.original}
+          alt={item.original}
+          placeholder="blur"
+          blurDataURL={item.original}
+          layout="fill"
+          objectFit="contain"
+        />
+      </div>
+    );
+  };
 
   const myGalleryRenderItem = (item: any) => {
     return (
@@ -310,13 +215,12 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       spacing="sm"
       sx={{
         margin: "0 auto",
-        maxWidth: theme.breakpoints.xs,
+        // maxWidth: theme.breakpoints.xs,
         width: "100%",
         overflowY: "scroll",
         overflowX: "hidden",
       }}
     >
-      {/* Hero */}
       <Main>
         <Day>2024 02 24</Day>
         <MainWrap>
@@ -332,7 +236,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           </MainImage>
         </MainWrap>
         <TextName>Changju and Shinhee</TextName>
-        <TextDay>2024 2 24 SAT 1PM</TextDay>
+        <TextDay>2024 02 24 SAT 1PM</TextDay>
         {/* <TextHall>부천채림웨딩홀</TextHall> */}
       </Main>
 
@@ -363,19 +267,24 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             손을 맞잡은 이 순간부터 <br />
             아름답고 소중한 기쁨으로 채워나갈 <br /> 저희의 여정을 지켜봐주세요. <br />
             <br />
-            여기 문구 바꾸거나 다른거 추가하면 좋을거같아요<br />
-            ㅁ이ㅏㅓ로미ㅏ얼<br />
-            ㅎㅁㄹㅇㅎㅁㅇㄹㅎㅁ아ㅓㄴ리ㅏ더주<br />
-            ㅁㄴㄹㅈㄷㄹㄷㄹㄷ<br />
+            여기 문구 바꾸거나 다른거 추가하면 좋을거같아요
+            <br />
+            ㅁ이ㅏㅓ로미ㅏ얼
+            <br />
+            ㅎㅁㄹㅇㅎㅁㅇㄹㅎㅁ아ㅓㄴ리ㅏ더주
+            <br />
+            ㅁㄴㄹㅈㄷㄹㄷㄹㄷ
+            <br />
             미ㅏㄴㅇ뢰ㅏ멍
-
           </Text>
         </TextWrap>
         <Line></Line>
         <FaceWrap>
           <Group id="avatarWrapper" position="center" spacing={10} sx={{ flexWrap: "nowrap" }}>
             <Stack align="center" spacing="xs" className="face">
-              <Text style={{ marginBottom: '10px'}}>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME} • {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</Text>
+              <Text style={{ marginBottom: "10px" }}>
+                {process.env.NEXT_PUBLIC_GROOM_DAD_NAME} • {process.env.NEXT_PUBLIC_GROOM_MOM_NAME}
+              </Text>
               <Text size={15}>
                 장남 <b>{process.env.NEXT_PUBLIC_GROOM_NAME}</b>
               </Text>
@@ -452,8 +361,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               </Group>
             </Stack>
 
-            <Stack align="center" spacing="xs">  
-              <Text style={{ marginBottom: '10px'}}>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME} • {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</Text>
+            <Stack align="center" spacing="xs">
+              <Text style={{ marginBottom: "10px" }}>
+                {process.env.NEXT_PUBLIC_BRIDE_DAD_NAME} • {process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}
+              </Text>
               <Text size={15}>
                 장녀 <b>{process.env.NEXT_PUBLIC_BRIDE_NAME}</b>
               </Text>
@@ -504,7 +415,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                         {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
                       </Text>
                     </Stack>
-                    
+
                     <Box sx={{ position: "absolute", top: 10, left: 5 }}>
                       <CopyButton
                         value={
@@ -535,146 +446,144 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Greetings>
 
       {/* 혼주에게 연락하기 */}
-      <ContactParentsTitle>
-        혼주에게 연락하기
-      </ContactParentsTitle>
+      <ContactParentsTitle>혼주에게 연락하기</ContactParentsTitle>
       <ContactParents>
         <Parent>
           <Stack spacing={0}>
             <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
               <ParentsWrap>
-                <div className='parent'>
+                <div className="parent">
                   <p>신랑 측 혼주</p>
                 </div>
                 {/* 부모님 연락처 추가 : 신랑 */}
-                <div className='parents'>
-                  <div className='parents_name'>
+                <div className="parents">
+                  <div className="parents_name">
                     아버지 <span>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</span>
-                      <div className='parents_send'>
-                        <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
-                          <IconPhone size={20} />
-                        </ActionIcon>
-                        <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
+                    <div className="parents_send">
+                      <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
+                        <IconPhone size={20} />
+                      </ActionIcon>
+                      <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
                         <IconBrandMessenger size={20} />
-                        </ActionIcon>
-                        <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-                          <Popover.Target>
-                            <ActionIcon>
-                              <IconCurrencyWon size={20} />
-                            </ActionIcon>
-                          </Popover.Target>
-                          <Popover.Dropdown p={5} px={10}>
-                            <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
-                              <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
-                              <Text
-                                size={theme.fontSizes.xs}
+                      </ActionIcon>
+                      <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+                        <Popover.Target>
+                          <ActionIcon>
+                            <IconCurrencyWon size={20} />
+                          </ActionIcon>
+                        </Popover.Target>
+                        <Popover.Dropdown p={5} px={10}>
+                          <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
+                            <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
+                            <Text
+                              size={theme.fontSizes.xs}
+                              style={{
+                                margin: "2px 9px 0px 0px",
+                              }}
+                            >
+                              <Image
+                                width={15}
+                                height={15}
+                                src="/kakaobank.webp"
+                                alt="kakaobank"
+                                placeholder="blur"
+                                blurDataURL="/kakaobank.webp"
                                 style={{
-                                  margin: "2px 9px 0px 0px",
+                                  float: "left",
+                                  margin: "2px 5px 0px 0px",
                                 }}
-                              >
-                                <Image
-                                  width={15}
-                                  height={15}
-                                  src="/kakaobank.webp"
-                                  alt="kakaobank"
-                                  placeholder="blur"
-                                  blurDataURL="/kakaobank.webp"
-                                  style={{
-                                    float: "left",
-                                    margin: "2px 5px 0px 0px",
-                                  }}
-                                />
-                                {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
-                              </Text>
-                            </Stack>
-                            <Box sx={{ position: "absolute", top: 10, left: 5 }}>
-                              <CopyButton
-                                value={
-                                  `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
-                                  " " +
-                                  `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
-                                }
-                              >
-                                {({ copied, copy }) =>
-                                  copied ? (
-                                    <ActionIcon onClick={copy} color="teal">
-                                      <IconClipboardCheck size={20} />
-                                    </ActionIcon>
-                                  ) : (
-                                    <ActionIcon onClick={copy} color="blue">
-                                      <IconClipboard size={20} />
-                                    </ActionIcon>
-                                  )
-                                }
-                              </CopyButton>
-                            </Box>
-                          </Popover.Dropdown>
-                        </Popover>
-                      </div>
+                              />
+                              {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
+                            </Text>
+                          </Stack>
+                          <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                            <CopyButton
+                              value={
+                                `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
+                                " " +
+                                `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
+                              }
+                            >
+                              {({ copied, copy }) =>
+                                copied ? (
+                                  <ActionIcon onClick={copy} color="teal">
+                                    <IconClipboardCheck size={20} />
+                                  </ActionIcon>
+                                ) : (
+                                  <ActionIcon onClick={copy} color="blue">
+                                    <IconClipboard size={20} />
+                                  </ActionIcon>
+                                )
+                              }
+                            </CopyButton>
+                          </Box>
+                        </Popover.Dropdown>
+                      </Popover>
+                    </div>
                   </div>
-                  <div className='parents_name'>
+                  <div className="parents_name">
                     어머니 <span>{process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</span>
-                    <div className='parents_send'>
-                        <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
-                          <IconPhone size={20} />
-                        </ActionIcon>
-                        <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
+                    <div className="parents_send">
+                      <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
+                        <IconPhone size={20} />
+                      </ActionIcon>
+                      <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
                         <IconBrandMessenger size={20} />
-                        </ActionIcon>
-                        <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-                          <Popover.Target>
-                            <ActionIcon>
-                              <IconCurrencyWon size={20} />
-                            </ActionIcon>
-                          </Popover.Target>
-                          <Popover.Dropdown p={5} px={10}>
-                            <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
-                              <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
-                              <Text
-                                size={theme.fontSizes.xs}
+                      </ActionIcon>
+                      <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+                        <Popover.Target>
+                          <ActionIcon>
+                            <IconCurrencyWon size={20} />
+                          </ActionIcon>
+                        </Popover.Target>
+                        <Popover.Dropdown p={5} px={10}>
+                          <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
+                            <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
+                            <Text
+                              size={theme.fontSizes.xs}
+                              style={{
+                                margin: "2px 9px 0px 0px",
+                              }}
+                            >
+                              <Image
+                                width={15}
+                                height={15}
+                                src="/kakaobank.webp"
+                                alt="kakaobank"
+                                placeholder="blur"
+                                blurDataURL="/kakaobank.webp"
                                 style={{
-                                  margin: "2px 9px 0px 0px",
+                                  float: "left",
+                                  margin: "2px 5px 0px 0px",
                                 }}
-                              >
-                                <Image
-                                  width={15}
-                                  height={15}
-                                  src="/kakaobank.webp"
-                                  alt="kakaobank"
-                                  placeholder="blur"
-                                  blurDataURL="/kakaobank.webp"
-                                  style={{
-                                    float: "left",
-                                    margin: "2px 5px 0px 0px",
-                                  }}
-                                />
-                                {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
-                              </Text>
-                            </Stack>
-                            <Box sx={{ position: "absolute", top: 10, left: 5 }}>
-                              <CopyButton
-                                value={
-                                  `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
-                                  " " +
-                                  `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
-                                }
-                              >
-                                {({ copied, copy }) =>
-                                  copied ? (
-                                    <ActionIcon onClick={copy} color="teal">
-                                      <IconClipboardCheck size={20} />
-                                    </ActionIcon>
-                                  ) : (
-                                    <ActionIcon onClick={copy} color="blue">
-                                      <IconClipboard size={20} />
-                                    </ActionIcon>
-                                  )
-                                }
-                              </CopyButton>
-                            </Box>
-                          </Popover.Dropdown>
-                        </Popover>
-                      </div>
+                              />
+                              {process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
+                            </Text>
+                          </Stack>
+                          <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                            <CopyButton
+                              value={
+                                `${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
+                                " " +
+                                `${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
+                              }
+                            >
+                              {({ copied, copy }) =>
+                                copied ? (
+                                  <ActionIcon onClick={copy} color="teal">
+                                    <IconClipboardCheck size={20} />
+                                  </ActionIcon>
+                                ) : (
+                                  <ActionIcon onClick={copy} color="blue">
+                                    <IconClipboard size={20} />
+                                  </ActionIcon>
+                                )
+                              }
+                            </CopyButton>
+                          </Box>
+                        </Popover.Dropdown>
+                      </Popover>
+                    </div>
                   </div>
                 </div>
               </ParentsWrap>
@@ -685,138 +594,139 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           <Stack spacing={0}>
             <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
               <ParentsWrap>
-                <div className='parent'>
+                <div className="parent">
                   <p>신부 측 혼주</p>
                 </div>
                 {/* 부모님 연락처 추가 : 신부*/}
-                <div className='parents'>
-                  <div className='parents_name'>
+                <div className="parents">
+                  <div className="parents_name">
                     아버지 <span>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</span>
-                      <div className='parents_send'>
-                        <ActionIcon component={NextLink} href={"tel:" + `${process.env.         NEXT_PUBLIC_GROOM_PHONE}`}>
-                          <IconPhone size={20} />
-                        </ActionIcon>
-                        <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC__KAKAO_QR}`} target="_blank">
+                    <div className="parents_send">
+                      <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
+                        <IconPhone size={20} />
+                      </ActionIcon>
+                      <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC__KAKAO_QR}`} target="_blank">
                         <IconBrandMessenger size={20} />
-                        </ActionIcon>
-                        <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-                          <Popover.Target>
-                            <ActionIcon>
-                              <IconCurrencyWon size={20} />
-                            </ActionIcon>
-                          </Popover.Target>
-                          <Popover.Dropdown p={5} px={10}>
-                            <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
-                              <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
-                              <Text
-                                size={theme.fontSizes.xs}
+                      </ActionIcon>
+                      <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+                        <Popover.Target>
+                          <ActionIcon>
+                            <IconCurrencyWon size={20} />
+                          </ActionIcon>
+                        </Popover.Target>
+                        <Popover.Dropdown p={5} px={10}>
+                          <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
+                            <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
+                            <Text
+                              size={theme.fontSizes.xs}
+                              style={{
+                                margin: "2px 9px 0px 0px",
+                              }}
+                            >
+                              <Image
+                                width={15}
+                                height={15}
+                                src="/kakaobank.webp"
+                                alt="kakaobank"
+                                placeholder="blur"
+                                blurDataURL="/kakaobank.webp"
                                 style={{
-                                  margin: "2px 9px 0px 0px",
+                                  float: "left",
+                                  margin: "2px 5px 0px 0px",
                                 }}
-                              >
-                                <Image
-                                  width={15}
-                                  height={15}
-                                  src="/kakaobank.webp"
-                                  alt="kakaobank"
-                                  placeholder="blur"
-                                  blurDataURL="/kakaobank.webp"
-                                  style={{
-                                    float: "left",
-                                    margin: "2px 5px 0px 0px",
-                                  }}
-                                /><b>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</b>
-                                {process.env.NEXT_PUBLIC_GROOM_BRIDE_NAME}
-                              </Text>
-                            </Stack>
-                            <Box sx={{ position: "absolute", top: 10, left: 5 }}>
-                              <CopyButton
-                                value={
-                                  `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
-                                  " " +
-                                  `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
-                                }
-                              >
-                                {({ copied, copy }) =>
-                                  copied ? (
-                                    <ActionIcon onClick={copy} color="teal">
-                                      <IconClipboardCheck size={20} />
-                                    </ActionIcon>
-                                  ) : (
-                                    <ActionIcon onClick={copy} color="blue">
-                                      <IconClipboard size={20} />
-                                    </ActionIcon>
-                                  )
-                                }
-                              </CopyButton>
-                            </Box>
-                          </Popover.Dropdown>
-                        </Popover>
-                      </div>
+                              />
+                              <b>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</b>
+                              {process.env.NEXT_PUBLIC_GROOM_BRIDE_NAME}
+                            </Text>
+                          </Stack>
+                          <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                            <CopyButton
+                              value={
+                                `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
+                                " " +
+                                `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
+                              }
+                            >
+                              {({ copied, copy }) =>
+                                copied ? (
+                                  <ActionIcon onClick={copy} color="teal">
+                                    <IconClipboardCheck size={20} />
+                                  </ActionIcon>
+                                ) : (
+                                  <ActionIcon onClick={copy} color="blue">
+                                    <IconClipboard size={20} />
+                                  </ActionIcon>
+                                )
+                              }
+                            </CopyButton>
+                          </Box>
+                        </Popover.Dropdown>
+                      </Popover>
+                    </div>
                   </div>
-                  <div className='parents_name'>
+                  <div className="parents_name">
                     어머니 <span>{process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</span>
-                    <div className='parents_send'>
-                        <ActionIcon component={NextLink} href={"tel:" + `${process.env.         NEXT_PUBLIC_GROOM_PHONE}`}>
-                          <IconPhone size={20} />
-                        </ActionIcon>
-                        <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
+                    <div className="parents_send">
+                      <ActionIcon component={NextLink} href={"tel:" + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
+                        <IconPhone size={20} />
+                      </ActionIcon>
+                      <ActionIcon component="a" href={`${process.env.NEXT_PUBLIC_GROOM_KAKAO_QR}`} target="_blank">
                         <IconBrandMessenger size={20} />
-                        </ActionIcon>
-                        <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-                          <Popover.Target>
-                            <ActionIcon>
-                              <IconCurrencyWon size={20} />
-                            </ActionIcon>
-                          </Popover.Target>
-                          <Popover.Dropdown p={5} px={10}>
-                            <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
-                              <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
-                              <Text
-                                size={theme.fontSizes.xs}
+                      </ActionIcon>
+                      <Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+                        <Popover.Target>
+                          <ActionIcon>
+                            <IconCurrencyWon size={20} />
+                          </ActionIcon>
+                        </Popover.Target>
+                        <Popover.Dropdown p={5} px={10}>
+                          <Stack spacing={3} sx={{ position: "relative" }} align="flex-end">
+                            <Text size={theme.fontSizes.xs}>{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}</Text>
+                            <Text
+                              size={theme.fontSizes.xs}
+                              style={{
+                                margin: "2px 9px 0px 0px",
+                              }}
+                            >
+                              <Image
+                                width={15}
+                                height={15}
+                                src="/kakaobank.webp"
+                                alt="kakaobank"
+                                placeholder="blur"
+                                blurDataURL="/kakaobank.webp"
                                 style={{
-                                  margin: "2px 9px 0px 0px",
+                                  float: "left",
+                                  margin: "2px 5px 0px 0px",
                                 }}
-                              >
-                                <Image
-                                  width={15}
-                                  height={15}
-                                  src="/kakaobank.webp"
-                                  alt="kakaobank"
-                                  placeholder="blur"
-                                  blurDataURL="/kakaobank.webp"
-                                  style={{
-                                    float: "left",
-                                    margin: "2px 5px 0px 0px",
-                                  }}
-                                />
-                                {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
-                              </Text>
-                            </Stack>
-                            <Box sx={{ position: "absolute", top: 10, left: 5 }}>
-                              <CopyButton
-                                value={
-                                  `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
-                                  " " +
-                                  `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
-                                }
-                              >
-                                {({ copied, copy }) =>
-                                  copied ? (
-                                    <ActionIcon onClick={copy} color="teal">
-                                      <IconClipboardCheck size={20} />
-                                    </ActionIcon>
-                                  ) : (
-                                    <ActionIcon onClick={copy} color="blue">
-                                      <IconClipboard size={20} />
-                                    </ActionIcon>
-                                  )
-                                }
-                              </CopyButton>
-                            </Box>
-                          </Popover.Dropdown>
-                        </Popover>
-                      </div>
+                              />
+                              {process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
+                            </Text>
+                          </Stack>
+                          <Box sx={{ position: "absolute", top: 10, left: 5 }}>
+                            <CopyButton
+                              value={
+                                `${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
+                                " " +
+                                `${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
+                              }
+                            >
+                              {({ copied, copy }) =>
+                                copied ? (
+                                  <ActionIcon onClick={copy} color="teal">
+                                    <IconClipboardCheck size={20} />
+                                  </ActionIcon>
+                                ) : (
+                                  <ActionIcon onClick={copy} color="blue">
+                                    <IconClipboard size={20} />
+                                  </ActionIcon>
+                                )
+                              }
+                            </CopyButton>
+                          </Box>
+                        </Popover.Dropdown>
+                      </Popover>
+                    </div>
                   </div>
                 </div>
               </ParentsWrap>
@@ -844,6 +754,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </ImageGalleryWrapper>
 
       {/* <div style={{ height: "40px", clear: "both" }}></div> */}
+      <Line />
 
       {/* 지도  여기 오시는 길 부분*/}
       <Location>
@@ -856,9 +767,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             width: "60px",
             height: "16px",
             lineHeight: "16px",
-            margin:"0 auto",
+            margin: "0 auto",
             border: "1px solid #05652c",
-            borderRadius: "20px"
+            borderRadius: "20px",
           }}
         >
           Location
@@ -871,7 +782,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             margin: "15px auto",
           }}
         /> */}
-        
+
         {/* <div
           style={{
             // fontFamily: "MaruBuri-Regular",
@@ -907,13 +818,19 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         >
           부천채림웨딩홀 6층 컨벤션홀
         </div>
-        <div style={{ height: "30px", clear: "both"  }}></div>
+        <div style={{ height: "30px", clear: "both" }}></div>
         <KakaoMap />
         {/* <div style={{ height: "20px", clear: "both" }}></div> */}
-        <div style={{ width: "100%", margin: "0 auto", padding: "20px",
-              display: "flex", justifyContent: "space-between",
-              backgroundColor: "#F9F9F7"
-              }}>
+        <div
+          style={{
+            width: "100%",
+            margin: "0 auto",
+            padding: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+            backgroundColor: "#f4eee7",
+          }}
+        >
           <div
             style={{
               fontFamily: "MaruBuri-Regular",
@@ -929,7 +846,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
-              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)"
+              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)",
             }}
           >
             <ActionIcon
@@ -964,7 +881,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
-              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)"
+              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)",
             }}
           >
             <ActionIcon
@@ -999,7 +916,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alignItems: "center",
               justifyContent: "center",
               display: "flex",
-              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)"
+              boxShadow: "3px 3px 4px rgba(0,0,0,0.1)",
             }}
           >
             <ActionIcon
@@ -1049,7 +966,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         {/*  /!*</Button>*!/*/}
         {/*</Navigation>*/}
       </Location>
-      
+
       <Parking>
         <ParkingInfo>
           <ParkingInfoTitle>
@@ -1077,26 +994,25 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           color: theme.colors.dark[4],
         }}
       > */}
-        {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
+      {/* <Image src="/flower.svg" alt="flower" width={250} mx="auto" mb="xl" /> */}
 
-        {/* <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: "nowrap" }}>
+      {/* <Group id="avatarWrapper" position="center" spacing={8} sx={{ flexWrap: "nowrap" }}>
           <Box>
             <IconHeart size={25} opacity={0.3} />
           </Box>
         </Group> */}
-        {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
+      {/* <Image src="/flower2.svg" alt="flower" width={250} mx="auto" mt={9} /> */}
       {/* </Paper> */}
-      
 
       {/* Comment Section*/}
       <Paper
         px="sm"
         mx={10}
-        my={20}
+        my={10}
         py={5}
         radius="md"
         sx={{
-          width: "95%",
+          width: "100%",
           height: "100%",
           backgroundColor: "#f4eee7",
           color: theme.colors.dark[4],
@@ -1127,7 +1043,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   borderRadius: theme.radius.md,
                   position: "relative",
                 }}
-              >  
+              >
                 <form onSubmit={form.onSubmit(commentOnSubmit)}>
                   <Stack spacing={10}>
                     <Group spacing={0} position="center">
@@ -1481,14 +1397,23 @@ const Main = styled.div`
   }
 `;
 const Day = styled.p`
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   display: flex;
   justify-content: center;
-  border: 1px solid #03652b;
+  border: 1px solid #05652c;
   margin-bottom: 20px;
   padding: 0 5px;
   border-radius: 25px;
 `;
+
+const Dday = styled.div`
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  background-color: #05652c;
+`;
+
 const MainWrap = styled.div`
   position: relative;
   width: 70%;
@@ -1506,6 +1431,7 @@ const MainImage = styled.div`
   border: 1px solid transparent;
   // filter: grayscale(100%);
 `;
+
 const TextName = styled.p`
   position: relative;
   bottom: 20px;
@@ -1519,8 +1445,8 @@ const TextName = styled.p`
   letter-spacing: 1px;
   color: #03652b;
 `;
+
 const TextDay = styled.p``;
-const TextHall = styled.span``;
 
 const Face = styled.div`
   border-image-source: none;
@@ -1531,13 +1457,7 @@ const Face = styled.div`
   margin-top: 12px;
   position: relative;
 `;
-const Dday = styled.div`
-  width: 100%;
-  padding: 2rem 0;
-  display: flex;
-  justify-content: center;
-  background-color: #05652c;
-`;
+
 const DdayWrap = styled.div`
   border-radius: 0.3rem;
 `;
@@ -1545,26 +1465,18 @@ const DdayWrap = styled.div`
 const Greetings = styled.div`
   padding: 2.6rem 1rem;
   background-color: #f4eee7;
-  //background-image: url('/images/main.jpg');
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
-  // &::before {
-  //   position: absolute;
-  //   content: "";
-  //   top:0px;
-  //   left:0px;
-  //   width: 100%;
-  //   height: 100%;
-  //   background-color: rgba(0,0,0,0.4);
 `;
+
 const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 const TitleEng = styled.h3`
-  font-size: 0.6rem;
+  font-size: 1rem;
   color: #05652c;
 `;
 const TitleKor = styled.p`
@@ -1576,11 +1488,12 @@ const TitleKor = styled.p`
 `;
 
 const Line = styled.div`
-  width: 1px;
-  height: 30px;
-  margin: 40px auto;
-  background-color: #05652c;
-  transform: rotateZ(45deg);
+  width: 100%;
+  height: 2px;
+  margin: 40px auto 40px auto;
+  background-color: #b2c8ba;
+  opacity: 0.3;
+  /* transform: rotateZ(90deg); */
 `;
 
 const Location = styled.div`
@@ -1604,7 +1517,7 @@ const FaceWrap = styled.div`
 // `
 
 const ImageGalleryWrapper = styled.div`
-background-color: #f4eee7;
+  background-color: #f4eee7;
 padding: 20px 0 10px 0;
 
   p {
@@ -1628,11 +1541,11 @@ padding: 20px 0 10px 0;
   .image-gallery-swipe {
     position: relative;
   }
-  
+
   .image-gallery-index {
     display: none;
   }
-  
+
   .image-gallery-slide img {
     width: 100%;
     height: 570px;
@@ -1650,23 +1563,23 @@ padding: 20px 0 10px 0;
     padding: 10px 0;
     background-color: #f9f9f7;
   }
-  .image-gallery-thumbnail.active, .image-gallery-thumbnail:focus {
+  .image-gallery-thumbnail.active,
+  .image-gallery-thumbnail:focus {
     border: none;
   }
-  
-  .image-gallery-left-nav, .image-gallery-right-nav {
+
+  .image-gallery-left-nav,
+  .image-gallery-right-nav {
     display: none;
   }
 `;
-const GalleryTitle = styled.p`
-  
-`
+const GalleryTitle = styled.p``;
 
 const Parking = styled.div`
   display: flex;
   width: 100%;
   padding: 1rem;
-  background-color: #f9f9f7;
+  background-color: #c7f9cc;
 `;
 
 // 주차안내 부분
@@ -1691,8 +1604,8 @@ const ParkingInfoText = styled.p`
 
 // 부모님 연락처 추가
 const ParentsWrap = styled.div`
-margin-top: 18px;
-text-align: center;
+  margin-top: 18px;
+  text-align: center;
   .parent {
     font-size: 16px;
     font-weight: 600;
@@ -1701,14 +1614,14 @@ text-align: center;
   span {
     font-size: 16px;
     margin-left: 3px;
-  } 
+  }
   .parents_name {
     margin-top: 15px;
   }
   .parents_send {
     display: flex;
   }
-`
+`;
 // 혼주에게 연락하기
 const ContactParents = styled.div`
   display: flex;
@@ -1716,7 +1629,7 @@ const ContactParents = styled.div`
   gap: 50px;
   padding: 2rem 0;
   background-color: #f4eee7;
-`
+`;
 const ContactParentsTitle = styled.p`
   width: 70%;
   margin: 0 auto;
@@ -1724,10 +1637,8 @@ const ContactParentsTitle = styled.p`
   padding: 10px 0;
   text-align: center;
   background-color: #05652c;
-  color: #FFF;
-`
-const Parent = styled.div`
-
-`
+  color: #fff;
+`;
+const Parent = styled.div``;
 
 export default Home;
