@@ -49,6 +49,7 @@ import {
   useGetCongratulationsInfinityQuery,
   usePostCongratulationMutation,
 } from "../queries";
+import Contact from "./contact";
 
 export const getStaticProps: GetStaticProps = () => {
   const images = Fs.readdirSync(path.join(process.cwd(), "public/pictures"));
@@ -64,10 +65,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const [loading, setLoading] = useState(false);
   const [selectedCongratulation, setSelectedCongratulation] = useState<ICongratulationData | null>(null);
   const [commentPwModalOpened, setCommentPwModalOpened] = useState(false);
+  const [showModalContact, setShowModalContact] = useState(false);
   const [params, setParams] = React.useState<ICongratulationParams>({
     sortType: "NEW",
     limit: 10,
   });
+
+  const clickModalContact = () => setShowModalContact(!showModalContact);
 
   const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params);
 
@@ -446,8 +450,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       </Greetings>
 
       {/* 혼주에게 연락하기 */}
-      <ContactParentsTitle>혼주에게 연락하기</ContactParentsTitle>
-      <ContactParents>
+      <ContactParentsTitle onClick={clickModalContact}>혼주에게 연락하기</ContactParentsTitle>
+      {showModalContact && <Contact clickModal={clickModalContact} />}
+      {/* <ContactParents>
         <Parent>
           <Stack spacing={0}>
             <Group spacing={5} sx={{ flexWrap: "nowrap" }}>
@@ -455,7 +460,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 <div className="parent">
                   <p>신랑 측 혼주</p>
                 </div>
-                {/* 부모님 연락처 추가 : 신랑 */}
                 <div className="parents">
                   <div className="parents_name">
                     아버지 <span>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</span>
@@ -597,7 +601,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                 <div className="parent">
                   <p>신부 측 혼주</p>
                 </div>
-                {/* 부모님 연락처 추가 : 신부*/}
                 <div className="parents">
                   <div className="parents_name">
                     아버지 <span>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</span>
@@ -733,7 +736,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Group>
           </Stack>
         </Parent>
-      </ContactParents>
+      </ContactParents> */}
       <Line></Line>
       <ImageGalleryWrapper>
         <GalleryTitle>Gallery</GalleryTitle>
@@ -1518,7 +1521,7 @@ const FaceWrap = styled.div`
 
 const ImageGalleryWrapper = styled.div`
   background-color: #f4eee7;
-padding: 20px 0 10px 0;
+  padding: 20px 0 10px 0;
 
   p {
     width: 60px;
