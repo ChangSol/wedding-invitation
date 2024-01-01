@@ -20,7 +20,7 @@ export default function LocationModal() {
 				{/*  my={20}*/}
 				{/*/>*/}
 				<dl className="mapUse">
-					<LocationTitle>🚈 지하철로 오시는 길</LocationTitle>
+					<LocationTitle className="subway">🚈 지하철로 오시는 길</LocationTitle>
 					<dd className="color">
 						📍지하철 1호선 부천역 (북부역광장 방면)
 						<li>3번, 4번, 7번출구 이용</li>
@@ -60,14 +60,17 @@ const CenteredBoldText = styled(Text)`
 const LocationTitle = styled(Text)`
 	color: #333;
 	display: inline-block;
-	margin-top: 5px;
+	margin-top: 20px;
 	margin-bottom: 5px;
-	padding: 14px 4px 0px 4px;
+	padding: 0 0 20px 0;
 	position: relative;
 	font-weight: bold;
 	font-family: GowunDodum-Regular;
 	border-bottom: 1px solid;
 	padding-bottom: 1px;
+	&.subway {
+		margin-top: 0;
+	}
 `;
 
 const Divider = styled.div`
@@ -77,10 +80,15 @@ const Divider = styled.div`
 `;
 
 const LocationModalWrap = styled.div`
+	width: 90%;
+	margin: 0 auto;
 	text-align: center;
+	background-color: #fdfdfd;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.1) 3px 3px 4px;
 	.mapUse {
 		text-align: left;
-		padding: 0 10px;
+		padding: 20px 10px;
 		dt {
 			margin-top: 16px;
 			text-decoration: underline;

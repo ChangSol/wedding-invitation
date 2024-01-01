@@ -262,14 +262,14 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 					<Text
 						align="center"
 						sx={(theme) => ({
-							fontSize: theme.fontSizes.sm,
+							fontSize: '16px',
 							fontFamily: 'GowunDodum-Regular',
-							lineHeight: 2.2,
+							lineHeight: 2.4,
 							marginTop: '20px',
 							marginBottom: '20px',
 						})}
 					>
-						{/* <h3 className=''>소중한 분들을 초대합니다.</h3> */}
+						<GreetingTitle>소중한 분들을 초대합니다.</GreetingTitle>
 						평생을 함께 할 사람을 만났습니다. <br />
 						지금까지 살아온 모습도 걸어온 길도 달랐지만 <br /> 이제 같은 곳을 바라보며 함께 걸어가고
 						싶습니다. <br />
@@ -738,7 +738,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         >
           오시는길
         </div> */}
-				<div style={{ height: '40px', clear: 'both' }}></div>
+				<div style={{ height: '50px', clear: 'both' }}></div>
 				<div
 					style={{
 						fontFamily: 'GowunDodum-Regular',
@@ -767,9 +767,9 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 				{/* <div style={{ height: "20px", clear: "both" }}></div> */}
 				<div
 					style={{
-						width: '100%',
+						width: '90%',
 						margin: '0 auto',
-						padding: '20px',
+						padding: '18px 0',
 						display: 'flex',
 						justifyContent: 'space-between',
 						backgroundColor: '#F7F5EF',
@@ -1440,12 +1440,19 @@ const Greetings = styled.div`
 	position: relative;
 	background-repeat: no-repeat;
 	background-size: cover;
+	font-size: 16px;
+`;
+const GreetingTitle = styled.h3`
+	font-size: 21px;
+	margin-bottom: 30px;
+	color: #1f2520;
 `;
 
 const TextWrap = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	font-size: 16px;
 `;
 const TitleEng = styled.h3`
 	font-size: 1rem;
@@ -1469,7 +1476,7 @@ const Line = styled.div`
 `;
 
 const Location = styled.div`
-	padding-top: 60px;
+	padding-top: 80px;
 	background-color: #f7f5ef;
 `;
 const Navigation = styled.div`
@@ -1480,7 +1487,7 @@ const FaceWrap = styled.div`
 	display: flex;
 	justify-content: center;
 	padding: 20px 0;
-	margin: 50px 0;
+	margin: 40px 0 30px 0;
 	& > #avatarWrapper {
 		gap: 40px;
 	}
@@ -1552,10 +1559,14 @@ const GalleryTitle = styled.p``;
 
 const Parking = styled.div`
 	display: flex;
-	width: 100%;
+	width: 90%;
+	margin: 0 auto;
 	padding: 1rem;
 	background-color: #fdfdfd;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
+	margin-top: 20px;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.1) 3px 3px 4px;
 `;
 
 // 주차안내 부분

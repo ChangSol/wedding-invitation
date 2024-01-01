@@ -37,9 +37,9 @@ export default function GlobalStyles() {
 					body: {
 						overflowX: 'hidden',
 						...theme.fn.fontStyles(),
-						fontSize: theme.fontSizes.sm,
+						fontSize: '16px',
 						lineHeight: theme.lineHeight,
-						backgroundColor: '#f4eee7',
+						backgroundColor: '#f7f5ef',
 						margin: '0',
 						fontFamily: 'GowunDodum-Regular',
 					},
