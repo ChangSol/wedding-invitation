@@ -41,7 +41,7 @@ export default function KakaoMap() {
     <>
       <div
         id="map"
-        style={{ width: "100%", height: 300, backgroundColor: "gray" }}
+        style={{ width: "100%", height: 250, backgroundColor: "gray" }}
       />
       <Modal
         title="채림웨딩홀 오시는 길"

@@ -74,7 +74,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           withGlobalStyles
           withNormalizeCSS
           theme={{
-            spacing: 0,
+            spacing: {
+              xs: 0,
+              sm: 0,
+              md: 0,
+              lg: 0,
+              xl: 0,
+            },
             breakpoints: {
               xs: 400,
               sm: 500,
@@ -82,7 +88,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               lg: 1000,
               xl: 1200,
             },
-            fontFamily: "Noto Sans KR",
+            fontFamily: "BMEULJIRO",
           }}
         >
           <GlobalStyles />
