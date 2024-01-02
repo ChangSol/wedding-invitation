@@ -25,481 +25,481 @@ const Contact = (props: any) => {
 	}, []);
 
 	return (
-		<ContactContainer>
-			<CloseBtn onClick={clickModal}>
-				<IoClose />
-			</CloseBtn>
-			<ContactTile>
-				<p>CONTACT</p>
-				<h3>연락하기</h3>
-			</ContactTile>
+		<>
+			<ContactContainer>
+				<CloseBtn onClick={clickModal}>
+					<IoClose />
+				</CloseBtn>
+				<ContactTile>
+					<p>CONTACT</p>
+					<h3>연락하기</h3>
+				</ContactTile>
 
-			<ContactContents>
-				<GroomWrap>
-					<GroomTitle>
-						신랑측
-						<GroomEng>GROOM</GroomEng>
-					</GroomTitle>
-					<ContactLine></ContactLine>
-					<GroomContact>
-						<ContactTitle>
-							<li>신랑</li>
-							<li>신랑 아버지</li>
-							<li>신랑 어머니</li>
-						</ContactTitle>
-						<ContactName>
-							<li>{process.env.NEXT_PUBLIC_GROOM_NAME}</li>
-							<li>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</li>
-							<li>{process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</li>
-						</ContactName>
-						<ConatactTel>
-							<div>
-								<div style={{ float: 'left' }}>
-									<ActionIcon
-										component={NextLink}
-										href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
-									>
-										<IconPhoneCall size={20} color="white" />
-										<li></li>
-									</ActionIcon>
-								</div>
-								<div style={{ float: 'left' }}>
-									<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-										<Popover.Target>
-											<ActionIcon>
-												<IconCurrencyWon size={20} color="white" />
-												<li></li>
-											</ActionIcon>
-										</Popover.Target>
-										<Popover.Dropdown p={5} px={10}>
-											<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
-												<Text color="black" size={theme.fontSizes.xs}>
-													{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
-												</Text>
-												<Text
-													color="black"
-													size={theme.fontSizes.xs}
-													style={{
-														margin: '2px 9px 0px 0px',
-													}}
-												>
-													<Image
-														width={15}
-														height={15}
-														src="/kakaobank.webp"
-														alt="kakaobank"
-														placeholder="blur"
-														blurDataURL="/kakaobank.webp"
+				<ContactContents>
+					<GroomWrap>
+						<GroomTitle>
+							신랑측
+							<GroomEng>GROOM</GroomEng>
+						</GroomTitle>
+						<ContactLine></ContactLine>
+						<GroomContact>
+							<ContactTitle>
+								<li>신랑</li>
+								<li>신랑 아버지</li>
+								<li>신랑 어머니</li>
+							</ContactTitle>
+							<ContactName>
+								<li>{process.env.NEXT_PUBLIC_GROOM_NAME}</li>
+								<li>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</li>
+								<li>{process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</li>
+							</ContactName>
+							<ConatactTel>
+								<div>
+									<div style={{ float: 'left' }}>
+										<ActionIcon
+											component={NextLink}
+											href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
+										>
+											<IconPhoneCall size={20} color="white" />
+										</ActionIcon>
+									</div>
+									<div style={{ float: 'left' }}>
+										<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+											<Popover.Target>
+												<ActionIcon>
+													<IconCurrencyWon size={20} color="white" />
+												</ActionIcon>
+											</Popover.Target>
+											<Popover.Dropdown p={5} px={10}>
+												<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
+													<Text color="black" size={theme.fontSizes.xs}>
+														{process.env.NEXT_PUBLIC_GROOM_ACCOUNT}
+													</Text>
+													<Text
+														color="black"
+														size={theme.fontSizes.xs}
 														style={{
-															float: 'left',
-															margin: '2px 5px 0px 0px',
+															margin: '2px 9px 0px 0px',
 														}}
-													/>
-													{process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
-												</Text>
-											</Stack>
-											<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
-												<CopyButton
-													value={
-														`${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
-														' ' +
-														`${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
-													}
-												>
-													{({ copied, copy }) =>
-														copied ? (
-															<ActionIcon onClick={copy} color="teal">
-																<IconClipboardCheck size={20} />
-															</ActionIcon>
-														) : (
-															<ActionIcon onClick={copy} color="blue">
-																<IconClipboard size={20} />
-															</ActionIcon>
-														)
-													}
-												</CopyButton>
-											</Box>
-										</Popover.Dropdown>
-									</Popover>
+													>
+														<Image
+															width={15}
+															height={15}
+															src="/kakaobank.webp"
+															alt="kakaobank"
+															placeholder="blur"
+															blurDataURL="/kakaobank.webp"
+															style={{
+																float: 'left',
+																margin: '2px 5px 0px 0px',
+															}}
+														/>
+														{process.env.NEXT_PUBLIC_GROOM_BANK_NAME}
+													</Text>
+												</Stack>
+												<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+													<CopyButton
+														value={
+															`${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}` +
+															' ' +
+															`${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`
+														}
+													>
+														{({ copied, copy }) =>
+															copied ? (
+																<ActionIcon onClick={copy} color="teal">
+																	<IconClipboardCheck size={20} />
+																</ActionIcon>
+															) : (
+																<ActionIcon onClick={copy} color="blue">
+																	<IconClipboard size={20} />
+																</ActionIcon>
+															)
+														}
+													</CopyButton>
+												</Box>
+											</Popover.Dropdown>
+										</Popover>
+									</div>
 								</div>
-							</div>
-							<div>
-								<div style={{ float: 'left' }}>
-									<ActionIcon
-										component={NextLink}
-										href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_DAD_PHONE}`}
-									>
-										<IconPhoneCall size={20} color="white" />
-										<li></li>
-									</ActionIcon>
-								</div>
-								<div style={{ float: 'left' }}>
-									<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-										<Popover.Target>
-											<ActionIcon>
-												<IconCurrencyWon size={20} color="white" />
-												<li></li>
-											</ActionIcon>
-										</Popover.Target>
-										<Popover.Dropdown p={5} px={10}>
-											<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
-												<Text color="black" size={theme.fontSizes.xs}>
-													{process.env.NEXT_PUBLIC_GROOM_DAD_ACCOUNT}
-												</Text>
-												<Text
-													color="black"
-													size={theme.fontSizes.xs}
-													style={{
-														margin: '2px 9px 0px 0px',
-													}}
-												>
-													<Image
-														width={15}
-														height={15}
-														src="/kakaobank.webp"
-														alt="kakaobank"
-														placeholder="blur"
-														blurDataURL="/kakaobank.webp"
+								<div>
+									<div style={{ float: 'left' }}>
+										<ActionIcon
+											component={NextLink}
+											href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_DAD_PHONE}`}
+										>
+											<IconPhoneCall size={20} color="white" />
+											<li></li>
+										</ActionIcon>
+									</div>
+									<div style={{ float: 'left' }}>
+										<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+											<Popover.Target>
+												<ActionIcon>
+													<IconCurrencyWon size={20} color="white" />
+													<li></li>
+												</ActionIcon>
+											</Popover.Target>
+											<Popover.Dropdown p={5} px={10}>
+												<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
+													<Text color="black" size={theme.fontSizes.xs}>
+														{process.env.NEXT_PUBLIC_GROOM_DAD_ACCOUNT}
+													</Text>
+													<Text
+														color="black"
+														size={theme.fontSizes.xs}
 														style={{
-															float: 'left',
-															margin: '2px 5px 0px 0px',
+															margin: '2px 9px 0px 0px',
 														}}
-													/>
-													{process.env.NEXT_PUBLIC_GROOM_DAD_BANK_NAME}
-												</Text>
-											</Stack>
-											<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
-												<CopyButton
-													value={
-														`${process.env.NEXT_PUBLIC_GROOM_DAD_ACCOUNT}` +
-														' ' +
-														`${process.env.NEXT_PUBLIC_GROOM_DAD_BANK_NAME}`
-													}
-												>
-													{({ copied, copy }) =>
-														copied ? (
-															<ActionIcon onClick={copy} color="teal">
-																<IconClipboardCheck size={20} />
-															</ActionIcon>
-														) : (
-															<ActionIcon onClick={copy} color="blue">
-																<IconClipboard size={20} />
-															</ActionIcon>
-														)
-													}
-												</CopyButton>
-											</Box>
-										</Popover.Dropdown>
-									</Popover>
+													>
+														<Image
+															width={15}
+															height={15}
+															src="/kakaobank.webp"
+															alt="kakaobank"
+															placeholder="blur"
+															blurDataURL="/kakaobank.webp"
+															style={{
+																float: 'left',
+																margin: '2px 5px 0px 0px',
+															}}
+														/>
+														{process.env.NEXT_PUBLIC_GROOM_DAD_BANK_NAME}
+													</Text>
+												</Stack>
+												<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+													<CopyButton
+														value={
+															`${process.env.NEXT_PUBLIC_GROOM_DAD_ACCOUNT}` +
+															' ' +
+															`${process.env.NEXT_PUBLIC_GROOM_DAD_BANK_NAME}`
+														}
+													>
+														{({ copied, copy }) =>
+															copied ? (
+																<ActionIcon onClick={copy} color="teal">
+																	<IconClipboardCheck size={20} />
+																</ActionIcon>
+															) : (
+																<ActionIcon onClick={copy} color="blue">
+																	<IconClipboard size={20} />
+																</ActionIcon>
+															)
+														}
+													</CopyButton>
+												</Box>
+											</Popover.Dropdown>
+										</Popover>
+									</div>
 								</div>
-							</div>
-							<div>
-								<div style={{ float: 'left' }}>
-									<ActionIcon
-										component={NextLink}
-										href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_MOM_PHONE}`}
-									>
-										<IconPhoneCall size={20} color="white" />
-										<li></li>
-									</ActionIcon>
-								</div>
-								<div style={{ float: 'left' }}>
-									<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-										<Popover.Target>
-											<ActionIcon>
-												<IconCurrencyWon size={20} color="white" />
-												<li></li>
-											</ActionIcon>
-										</Popover.Target>
-										<Popover.Dropdown p={5} px={10}>
-											<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
-												<Text color="black" size={theme.fontSizes.xs}>
-													{process.env.NEXT_PUBLIC_GROOM_MOM_ACCOUNT}
-												</Text>
-												<Text
-													color="black"
-													size={theme.fontSizes.xs}
-													style={{
-														margin: '2px 9px 0px 0px',
-													}}
-												>
-													<Image
-														width={15}
-														height={15}
-														src="/kakaobank.webp"
-														alt="kakaobank"
-														placeholder="blur"
-														blurDataURL="/kakaobank.webp"
+								<div>
+									<div style={{ float: 'left' }}>
+										<ActionIcon
+											component={NextLink}
+											href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_MOM_PHONE}`}
+										>
+											<IconPhoneCall size={20} color="white" />
+											<li></li>
+										</ActionIcon>
+									</div>
+									<div style={{ float: 'left' }}>
+										<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+											<Popover.Target>
+												<ActionIcon>
+													<IconCurrencyWon size={20} color="white" />
+													<li></li>
+												</ActionIcon>
+											</Popover.Target>
+											<Popover.Dropdown p={5} px={10}>
+												<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
+													<Text color="black" size={theme.fontSizes.xs}>
+														{process.env.NEXT_PUBLIC_GROOM_MOM_ACCOUNT}
+													</Text>
+													<Text
+														color="black"
+														size={theme.fontSizes.xs}
 														style={{
-															float: 'left',
-															margin: '2px 5px 0px 0px',
+															margin: '2px 9px 0px 0px',
 														}}
-													/>
-													{process.env.NEXT_PUBLIC_GROOM_MOM_BANK_NAME}
-												</Text>
-											</Stack>
-											<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
-												<CopyButton
-													value={
-														`${process.env.NEXT_PUBLIC_GROOM_MOM_ACCOUNT}` +
-														' ' +
-														`${process.env.NEXT_PUBLIC_GROOM_MOM_BANK_NAME}`
-													}
-												>
-													{({ copied, copy }) =>
-														copied ? (
-															<ActionIcon onClick={copy} color="teal">
-																<IconClipboardCheck size={20} />
-															</ActionIcon>
-														) : (
-															<ActionIcon onClick={copy} color="blue">
-																<IconClipboard size={20} />
-															</ActionIcon>
-														)
-													}
-												</CopyButton>
-											</Box>
-										</Popover.Dropdown>
-									</Popover>
+													>
+														<Image
+															width={15}
+															height={15}
+															src="/kakaobank.webp"
+															alt="kakaobank"
+															placeholder="blur"
+															blurDataURL="/kakaobank.webp"
+															style={{
+																float: 'left',
+																margin: '2px 5px 0px 0px',
+															}}
+														/>
+														{process.env.NEXT_PUBLIC_GROOM_MOM_BANK_NAME}
+													</Text>
+												</Stack>
+												<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+													<CopyButton
+														value={
+															`${process.env.NEXT_PUBLIC_GROOM_MOM_ACCOUNT}` +
+															' ' +
+															`${process.env.NEXT_PUBLIC_GROOM_MOM_BANK_NAME}`
+														}
+													>
+														{({ copied, copy }) =>
+															copied ? (
+																<ActionIcon onClick={copy} color="teal">
+																	<IconClipboardCheck size={20} />
+																</ActionIcon>
+															) : (
+																<ActionIcon onClick={copy} color="blue">
+																	<IconClipboard size={20} />
+																</ActionIcon>
+															)
+														}
+													</CopyButton>
+												</Box>
+											</Popover.Dropdown>
+										</Popover>
+									</div>
 								</div>
-							</div>
-						</ConatactTel>
-					</GroomContact>
-				</GroomWrap>
+							</ConatactTel>
+						</GroomContact>
+					</GroomWrap>
 
-				<BrideWrap>
-					<BrideTitle>
-						신부측
-						<BrideEng>BRIDE</BrideEng>
-					</BrideTitle>
-					<ContactLine></ContactLine>
-					<BrideContact>
-						<ContactTitle>
-							<li>신랑</li>
-							<li>신랑 아버지</li>
-							<li>신랑 어머니</li>
-						</ContactTitle>
-						<ContactName>
-							<li>{process.env.NEXT_PUBLIC_BRIDE_NAME}</li>
-							<li>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</li>
-							<li>{process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</li>
-						</ContactName>
-						<ConatactTel>
-							<div>
-								<div style={{ float: 'left' }}>
-									<ActionIcon
-										component={NextLink}
-										href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
-									>
-										<IconPhoneCall size={20} color="white" />
-										<li></li>
-									</ActionIcon>
-								</div>
-								<div style={{ float: 'left' }}>
-									<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-										<Popover.Target>
-											<ActionIcon>
-												<IconCurrencyWon size={20} color="white" />
-												<li></li>
-											</ActionIcon>
-										</Popover.Target>
-										<Popover.Dropdown p={5} px={10}>
-											<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
-												<Text color="black" size={theme.fontSizes.xs}>
-													{process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
-												</Text>
-												<Text
-													color="black"
-													size={theme.fontSizes.xs}
-													style={{
-														margin: '2px 9px 0px 0px',
-													}}
-												>
-													<Image
-														width={15}
-														height={15}
-														src="/kakaobank.webp"
-														alt="kakaobank"
-														placeholder="blur"
-														blurDataURL="/kakaobank.webp"
+					<BrideWrap>
+						<BrideTitle>
+							신부측
+							<BrideEng>BRIDE</BrideEng>
+						</BrideTitle>
+						<ContactLine></ContactLine>
+						<BrideContact>
+							<ContactTitle>
+								<li>신랑</li>
+								<li>신랑 아버지</li>
+								<li>신랑 어머니</li>
+							</ContactTitle>
+							<ContactName>
+								<li>{process.env.NEXT_PUBLIC_BRIDE_NAME}</li>
+								<li>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</li>
+								<li>{process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</li>
+							</ContactName>
+							<ConatactTel>
+								<div>
+									<div style={{ float: 'left' }}>
+										<ActionIcon
+											component={NextLink}
+											href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
+										>
+											<IconPhoneCall size={20} color="white" />
+											<li></li>
+										</ActionIcon>
+									</div>
+									<div style={{ float: 'left' }}>
+										<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+											<Popover.Target>
+												<ActionIcon>
+													<IconCurrencyWon size={20} color="white" />
+													<li></li>
+												</ActionIcon>
+											</Popover.Target>
+											<Popover.Dropdown p={5} px={10}>
+												<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
+													<Text color="black" size={theme.fontSizes.xs}>
+														{process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}
+													</Text>
+													<Text
+														color="black"
+														size={theme.fontSizes.xs}
 														style={{
-															float: 'left',
-															margin: '2px 5px 0px 0px',
+															margin: '2px 9px 0px 0px',
 														}}
-													/>
-													{process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
-												</Text>
-											</Stack>
-											<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
-												<CopyButton
-													value={
-														`${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
-														' ' +
-														`${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
-													}
-												>
-													{({ copied, copy }) =>
-														copied ? (
-															<ActionIcon onClick={copy} color="teal">
-																<IconClipboardCheck size={20} />
-															</ActionIcon>
-														) : (
-															<ActionIcon onClick={copy} color="blue">
-																<IconClipboard size={20} />
-															</ActionIcon>
-														)
-													}
-												</CopyButton>
-											</Box>
-										</Popover.Dropdown>
-									</Popover>
+													>
+														<Image
+															width={15}
+															height={15}
+															src="/kakaobank.webp"
+															alt="kakaobank"
+															placeholder="blur"
+															blurDataURL="/kakaobank.webp"
+															style={{
+																float: 'left',
+																margin: '2px 5px 0px 0px',
+															}}
+														/>
+														{process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}
+													</Text>
+												</Stack>
+												<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+													<CopyButton
+														value={
+															`${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}` +
+															' ' +
+															`${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`
+														}
+													>
+														{({ copied, copy }) =>
+															copied ? (
+																<ActionIcon onClick={copy} color="teal">
+																	<IconClipboardCheck size={20} />
+																</ActionIcon>
+															) : (
+																<ActionIcon onClick={copy} color="blue">
+																	<IconClipboard size={20} />
+																</ActionIcon>
+															)
+														}
+													</CopyButton>
+												</Box>
+											</Popover.Dropdown>
+										</Popover>
+									</div>
 								</div>
-							</div>
-							<div>
-								<div style={{ float: 'left' }}>
-									<ActionIcon
-										component={NextLink}
-										href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_DAD_PHONE}`}
-									>
-										<IconPhoneCall size={20} color="white" />
-										<li></li>
-									</ActionIcon>
-								</div>
-								<div style={{ float: 'left' }}>
-									<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-										<Popover.Target>
-											<ActionIcon>
-												<IconCurrencyWon size={20} color="white" />
-												<li></li>
-											</ActionIcon>
-										</Popover.Target>
-										<Popover.Dropdown p={5} px={10}>
-											<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
-												<Text color="black" size={theme.fontSizes.xs}>
-													{process.env.NEXT_PUBLIC_BRIDE_DAD_ACCOUNT}
-												</Text>
-												<Text
-													color="black"
-													size={theme.fontSizes.xs}
-													style={{
-														margin: '2px 9px 0px 0px',
-													}}
-												>
-													<Image
-														width={15}
-														height={15}
-														src="/kakaobank.webp"
-														alt="kakaobank"
-														placeholder="blur"
-														blurDataURL="/kakaobank.webp"
+								<div>
+									<div style={{ float: 'left' }}>
+										<ActionIcon
+											component={NextLink}
+											href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_DAD_PHONE}`}
+										>
+											<IconPhoneCall size={20} color="white" />
+											<li></li>
+										</ActionIcon>
+									</div>
+									<div style={{ float: 'left' }}>
+										<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+											<Popover.Target>
+												<ActionIcon>
+													<IconCurrencyWon size={20} color="white" />
+													<li></li>
+												</ActionIcon>
+											</Popover.Target>
+											<Popover.Dropdown p={5} px={10}>
+												<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
+													<Text color="black" size={theme.fontSizes.xs}>
+														{process.env.NEXT_PUBLIC_BRIDE_DAD_ACCOUNT}
+													</Text>
+													<Text
+														color="black"
+														size={theme.fontSizes.xs}
 														style={{
-															float: 'left',
-															margin: '2px 5px 0px 0px',
+															margin: '2px 9px 0px 0px',
 														}}
-													/>
-													{process.env.NEXT_PUBLIC_BRIDE_DAD_BANK_NAME}
-												</Text>
-											</Stack>
-											<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
-												<CopyButton
-													value={
-														`${process.env.NEXT_PUBLIC_BRIDE_DAD_ACCOUNT}` +
-														' ' +
-														`${process.env.NEXT_PUBLIC_BRIDE_DAD_BANK_NAME}`
-													}
-												>
-													{({ copied, copy }) =>
-														copied ? (
-															<ActionIcon onClick={copy} color="teal">
-																<IconClipboardCheck size={20} />
-															</ActionIcon>
-														) : (
-															<ActionIcon onClick={copy} color="blue">
-																<IconClipboard size={20} />
-															</ActionIcon>
-														)
-													}
-												</CopyButton>
-											</Box>
-										</Popover.Dropdown>
-									</Popover>
+													>
+														<Image
+															width={15}
+															height={15}
+															src="/kakaobank.webp"
+															alt="kakaobank"
+															placeholder="blur"
+															blurDataURL="/kakaobank.webp"
+															style={{
+																float: 'left',
+																margin: '2px 5px 0px 0px',
+															}}
+														/>
+														{process.env.NEXT_PUBLIC_BRIDE_DAD_BANK_NAME}
+													</Text>
+												</Stack>
+												<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+													<CopyButton
+														value={
+															`${process.env.NEXT_PUBLIC_BRIDE_DAD_ACCOUNT}` +
+															' ' +
+															`${process.env.NEXT_PUBLIC_BRIDE_DAD_BANK_NAME}`
+														}
+													>
+														{({ copied, copy }) =>
+															copied ? (
+																<ActionIcon onClick={copy} color="teal">
+																	<IconClipboardCheck size={20} />
+																</ActionIcon>
+															) : (
+																<ActionIcon onClick={copy} color="blue">
+																	<IconClipboard size={20} />
+																</ActionIcon>
+															)
+														}
+													</CopyButton>
+												</Box>
+											</Popover.Dropdown>
+										</Popover>
+									</div>
 								</div>
-							</div>
-							<div>
-								<div style={{ float: 'left' }}>
-									<ActionIcon
-										component={NextLink}
-										href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_MOM_PHONE}`}
-									>
-										<IconPhoneCall size={20} color="white" />
-										<li></li>
-									</ActionIcon>
-								</div>
-								<div style={{ float: 'left' }}>
-									<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
-										<Popover.Target>
-											<ActionIcon>
-												<IconCurrencyWon size={20} color="white" />
-												<li></li>
-											</ActionIcon>
-										</Popover.Target>
-										<Popover.Dropdown p={5} px={10}>
-											<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
-												<Text color="black" size={theme.fontSizes.xs}>
-													{process.env.NEXT_PUBLIC_BRIDE_MOM_ACCOUNT}
-												</Text>
-												<Text
-													color="black"
-													size={theme.fontSizes.xs}
-													style={{
-														margin: '2px 9px 0px 0px',
-													}}
-												>
-													<Image
-														width={15}
-														height={15}
-														src="/kakaobank.webp"
-														alt="kakaobank"
-														placeholder="blur"
-														blurDataURL="/kakaobank.webp"
+								<div>
+									<div style={{ float: 'left' }}>
+										<ActionIcon
+											component={NextLink}
+											href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_MOM_PHONE}`}
+										>
+											<IconPhoneCall size={20} color="white" />
+											<li></li>
+										</ActionIcon>
+									</div>
+									<div style={{ float: 'left' }}>
+										<Popover width={140} position="bottom" withArrow shadow="md" radius="md">
+											<Popover.Target>
+												<ActionIcon>
+													<IconCurrencyWon size={20} color="white" />
+													<li></li>
+												</ActionIcon>
+											</Popover.Target>
+											<Popover.Dropdown p={5} px={10}>
+												<Stack spacing={3} sx={{ position: 'relative' }} align="flex-end">
+													<Text color="black" size={theme.fontSizes.xs}>
+														{process.env.NEXT_PUBLIC_BRIDE_MOM_ACCOUNT}
+													</Text>
+													<Text
+														color="black"
+														size={theme.fontSizes.xs}
 														style={{
-															float: 'left',
-															margin: '2px 5px 0px 0px',
+															margin: '2px 9px 0px 0px',
 														}}
-													/>
-													{process.env.NEXT_PUBLIC_BRIDE_MOM_BANK_NAME}
-												</Text>
-											</Stack>
-											<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
-												<CopyButton
-													value={
-														`${process.env.NEXT_PUBLIC_BRIDE_MOM_ACCOUNT}` +
-														' ' +
-														`${process.env.NEXT_PUBLIC_BRIDE_MOM_BANK_NAME}`
-													}
-												>
-													{({ copied, copy }) =>
-														copied ? (
-															<ActionIcon onClick={copy} color="teal">
-																<IconClipboardCheck size={20} />
-															</ActionIcon>
-														) : (
-															<ActionIcon onClick={copy} color="blue">
-																<IconClipboard size={20} />
-															</ActionIcon>
-														)
-													}
-												</CopyButton>
-											</Box>
-										</Popover.Dropdown>
-									</Popover>
+													>
+														<Image
+															width={15}
+															height={15}
+															src="/kakaobank.webp"
+															alt="kakaobank"
+															placeholder="blur"
+															blurDataURL="/kakaobank.webp"
+															style={{
+																float: 'left',
+																margin: '2px 5px 0px 0px',
+															}}
+														/>
+														{process.env.NEXT_PUBLIC_BRIDE_MOM_BANK_NAME}
+													</Text>
+												</Stack>
+												<Box sx={{ position: 'absolute', top: 10, left: 5 }}>
+													<CopyButton
+														value={
+															`${process.env.NEXT_PUBLIC_BRIDE_MOM_ACCOUNT}` +
+															' ' +
+															`${process.env.NEXT_PUBLIC_BRIDE_MOM_BANK_NAME}`
+														}
+													>
+														{({ copied, copy }) =>
+															copied ? (
+																<ActionIcon onClick={copy} color="teal">
+																	<IconClipboardCheck size={20} />
+																</ActionIcon>
+															) : (
+																<ActionIcon onClick={copy} color="blue">
+																	<IconClipboard size={20} />
+																</ActionIcon>
+															)
+														}
+													</CopyButton>
+												</Box>
+											</Popover.Dropdown>
+										</Popover>
+									</div>
 								</div>
-							</div>
-						</ConatactTel>
-					</BrideContact>
-				</BrideWrap>
-			</ContactContents>
-		</ContactContainer>
+							</ConatactTel>
+						</BrideContact>
+					</BrideWrap>
+				</ContactContents>
+			</ContactContainer>
+		</>
 	);
 };
 
