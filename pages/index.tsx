@@ -844,7 +844,7 @@ const TextName = styled.p`
   display: flex;
   justify-content: center;
   width: 340px;
-  font-size: 30px;
+  font-size: 28px;
   font-style: italic;
   font-weight: 600;
   letter-spacing: 1px;
