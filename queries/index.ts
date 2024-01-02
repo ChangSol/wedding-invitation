@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation, useQuery } from 'react-query';
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import { api } from '../apis';
 
 export const CONGRATULATION_QUERY_KEY = 'congratulation';
@@ -37,17 +37,6 @@ export interface IFirebaseConfigCount {
   apiKey: string;
 }
 
-// export const usePostCongratulationMutation = () => {
-//   return useMutation(
-//       ({
-//          requestBody
-//        }: {
-//         requestBody: ICongratulationCreate;
-//       }) =>
-//           api.post(`/v1/congratulation`, requestBody),
-//   );
-// };
-
 // 축하글 등록
 export const usePostCongratulationMutation = () => {
   return useMutation((requestBody: ICongratulationCreate) => api.post(`/v1/congratulation`, requestBody));
@@ -81,30 +70,4 @@ export const useGetCongratulationsInfinityQuery = (params: Omit<ICongratulationP
       },
     }
   );
-};
-
-// 이벤트 참여 검증
-export const useGetEventRegistrationCheckQuery = (phone: string) => {
-  return useQuery(
-    [EVENT_QUERY_KEY, 'EventRegistrationCheck'],
-    () =>
-      api
-        .get<boolean>(`/v1/event/registration/check`, { params: phone })
-        .then(({ data: responseData }) => responseData),
-    {
-      enabled: !!phone,
-    }
-  );
-};
-
-// 파이어베이스 환경 가져오기
-export const useGetFirebaseConfigQuery = () => {
-  return useQuery([FIREBASE_QUERY_KEY, 'config'], () => {
-    return api.get<IFirebaseConfig>(`/v1/firebase/config`).then(({ data: responseData }) => responseData);
-  });
-};
-
-// 파이어베이스 환경 Count
-export const usePostFirebaseConfigCountMutation = () => {
-  return useMutation((requestBody: IFirebaseConfigCount) => api.post(`/v1/firebase/config/count`, requestBody));
 };
