@@ -227,11 +227,11 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         {/* <TextHall>부천채림웨딩홀</TextHall> */}
       </Main>
 
-			<Dday>
-				<DdayWrap>
-					<Countdown targetDate="2024-02-24T13:00:00" />
-				</DdayWrap>
-			</Dday>
+      <Dday>
+        <DdayWrap>
+          <Countdown targetDate="2024-02-24T13:00:00" />
+        </DdayWrap>
+      </Dday>
 
       {/* 인사문구, 연락처 */}
       <Greetings>
@@ -755,7 +755,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
             </Box>
           </Stack>
         </form>
-      </Modal> */}
+      </Modal>
 
       {/* Footer */}
       <Anchor
@@ -820,21 +820,21 @@ const Dday = styled.div`
 `;
 
 const MainWrap = styled.div`
-	position: relative;
-	width: 70%;
+  position: relative;
+  width: 70%;
 `;
 
 const MainImage = styled.div`
-	position: relative;
-	// background-image: url("/images/mobilemain.jpg");
-	// background-repeat: no-repeat;
-	// background-size: 150%;
-	// background-position: center;
-	width: 100%;
-	height: 380px;
-	margin: 0 auto;
-	border: 1px solid transparent;
-	// filter: grayscale(100%);
+  position: relative;
+  // background-image: url("/images/mobilemain.jpg");
+  // background-repeat: no-repeat;
+  // background-size: 150%;
+  // background-position: center;
+  width: 100%;
+  height: 380px;
+  margin: 0 auto;
+  border: 1px solid transparent;
+  // filter: grayscale(100%);
 `;
 
 const TextName = styled.p`
@@ -856,17 +856,17 @@ const TextDay = styled.p`
 `;
 
 const Face = styled.div`
-	border-image-source: none;
-	width: 60px;
-	height: 72px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	margin-top: 12px;
-	position: relative;
+  border-image-source: none;
+  width: 60px;
+  height: 72px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 12px;
+  position: relative;
 `;
 
 const DdayWrap = styled.div`
-	border-radius: 0.3rem;
+  border-radius: 0.3rem;
 `;
 
 const Greetings = styled.div`
@@ -894,11 +894,11 @@ const TitleEng = styled.h3`
   color: #05652c;
 `;
 const TitleKor = styled.p`
-	font-size: 1.2rem;
-	line-height: 1;
-	margin: 5px 0 40px 0;
-	font-weight: bold;
-	color: #05652c;
+  font-size: 1.2rem;
+  line-height: 1;
+  margin: 5px 0 40px 0;
+  font-weight: bold;
+  color: #05652c;
 `;
 
 const Line = styled.div`
@@ -921,8 +921,8 @@ const Location = styled.div`
   background-color: #f7f5ef;
 `;
 const Navigation = styled.div`
-	padding: 1.5rem;
-	text-align: center;
+  padding: 1.5rem;
+  text-align: center;
 `;
 const FaceWrap = styled.div`
   display: flex;
@@ -977,10 +977,10 @@ const ImageGalleryWrapper = styled.div`
     object-position: center center;
   }
 
-	.image-gallery-thumbnails-container {
-		width: 100%;
-		margin: 0 auto;
-	}
+  .image-gallery-thumbnails-container {
+    width: 100%;
+    margin: 0 auto;
+  }
 
   .image-gallery-thumbnails {
     padding: 10px 0;
@@ -1012,22 +1012,22 @@ const Parking = styled.div`
 
 // 주차안내 부분
 const ParkingInfo = styled.div`
-	color: #684e3b;
+  color: #684e3b;
 `;
 
 const ParkingInfoTitle = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 const ParkingInfoP = styled.p`
-	margin-left: 5px;
-	font-weight: 600;
+  margin-left: 5px;
+  font-weight: 600;
 `;
 const ParkingInfoText = styled.p`
-	margin-left: 10px;
-	margin-top: 8px;
-	line-height: 1.3;
+  margin-left: 10px;
+  margin-top: 8px;
+  line-height: 1.3;
 `;
 
 // 부모님 연락처 추가
