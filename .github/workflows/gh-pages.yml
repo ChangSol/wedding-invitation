@@ -35,7 +35,7 @@ jobs:
       NEXT_PUBLIC_BRIDE_MOM_PHONE: ${{ secrets.BRIDE_MOM_PHONE }}
       NEXT_PUBLIC_BRIDE_MOM_ACCOUNT: ${{ secrets.BRIDE_MOM_ACCOUNT }}
       NEXT_PUBLIC_BRIDE_MOM_BANK_NAME: ${{ secrets.BRIDE_MOM_BANK_NAME }}
-      
+
     steps:
       - name: 🛎️ Checkout 🛎️
         uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
       - name: setup node 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
+          node-version: '18.x'
 
       - run: npm ci
 
@@ -74,10 +74,10 @@ jobs:
 
             Commit message: ${{ github.event.commits[0].message }}
 
-            [See changes](https://github.com/${{ github.repository }}/commit/${{github.sha}}) 
+            [See changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
 
       # 빌드 실패 메세지 발송
-      - name: Send Build Success Message
+      - name: Send Build Fail Message
         uses: appleboy/telegram-action@master
         if: failure()
         with:
