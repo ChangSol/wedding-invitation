@@ -1,43 +1,43 @@
-import "../styles/sakura.css";
-import "../styles/Countdown.css";
-import type { AppProps } from "next/app";
-import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
-import Sakura from "../lib/sakura";
-import { useEffect, useState } from "react";
-import GlobalStyles from "../styles/GlobalStyles";
-import dotenv from "dotenv";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { DefaultSeo } from "next-seo";
-require("dotenv").config();
+import '../styles/sakura.css';
+import '../styles/Countdown.css';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { MantineProvider } from '@mantine/core';
+import Sakura from '../lib/sakura';
+import { useEffect, useState } from 'react';
+import GlobalStyles from '../styles/GlobalStyles';
+import dotenv from 'dotenv';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { DefaultSeo } from 'next-seo';
+require('dotenv').config();
 
 const client = new QueryClient();
 
 const DEFAULT_SEO = {
   title:
-    `${process.env.NEXT_PUBLIC_GROOM_NAME}` + " ❤️ " + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + " 우리 결혼합니다!",
-  description: "24.02.24 (토) 오후 1시 채림웨딩홀 6층",
-  canonical: "https://wedding-invitation.chang-ju.shin-hee.com",
+    `${process.env.NEXT_PUBLIC_GROOM_NAME}` + ' ❤️ ' + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + ' 우리 결혼합니다!',
+  description: '24.02.24 (토) 오후 1시 채림웨딩홀 6층',
+  canonical: 'https://wedding-invitation.chang-ju.shin-hee.com',
   openGraph: {
-    type: "website",
-    locale: "ko_KR",
-    url: "https://wedding-invitation.chang-ju.shin-hee.com",
+    type: 'website',
+    locale: 'ko_KR',
+    url: 'https://wedding-invitation.chang-ju.shin-hee.com',
     title:
-      `${process.env.NEXT_PUBLIC_GROOM_NAME}` + " ❤️ " + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + " 우리 결혼합니다!",
+      `${process.env.NEXT_PUBLIC_GROOM_NAME}` + ' ❤️ ' + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + ' 우리 결혼합니다!',
     // site_name: "test site",
     images: [
       {
-        url: "https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg",
+        url: 'https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg',
         // width: 285,
         // height: 167,
-        alt: "img",
+        alt: 'img',
       },
     ],
   },
   twitter: {
-    handle: "@handle",
-    site: "@site",
-    cardType: "summary_large_image",
+    handle: '@handle',
+    site: '@site',
+    cardType: 'summary_large_image',
   },
 };
 
@@ -50,8 +50,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && !loading) {
-      new Sakura("main");
+    if (typeof window !== 'undefined' && !loading) {
+      new Sakura('main');
     }
   }, [loading]);
 
@@ -88,7 +88,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               lg: 1000,
               xl: 1200,
             },
-            fontFamily: "BMEULJIRO",
+            fontFamily: 'GowunDodum-Regular',
           }}
         >
           <GlobalStyles />
@@ -96,8 +96,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <div
             id="main"
             style={{
-              overflow: "hidden",
-              position: "relative",
+              overflow: 'hidden',
+              position: 'relative',
             }}
           >
             {loading ? <>Loading...</> : <Component {...pageProps} />}
