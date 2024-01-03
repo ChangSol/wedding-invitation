@@ -77,7 +77,7 @@ const Contact = (props: any) => {
       <BottomSheet
         style={{ zIndex: 99999, position: 'fixed' }}
         open={bottomPopupOpen}
-        snapPoints={({}) => [140, 160]}
+        snapPoints={({}) => [110, 120]}
         onDismiss={handleDismiss}
       >
         <Stack spacing={10} ml={20} mt={20} mr={20}>
@@ -89,11 +89,10 @@ const Contact = (props: any) => {
               alt={`${bankImageName}`}
               placeholder="blur"
               blurDataURL={`/${bankImageName}.webp`}
-              style={{ marginTop: '6px' }}
             />
           </div>
           <div style={{ position: 'absolute', display: 'inline-block', marginLeft: '20px' }}>
-            <Text sx={{ fontWeight: 600 }} ml={10} mt={6}>
+            <Text sx={{ fontWeight: 600 }} ml={10}>
               {bankName}
             </Text>
             {/* <Text sx={{ position: 'absolute', display: 'inline-block', fontWeight: 500 }} ml={10}>
@@ -125,11 +124,11 @@ const Contact = (props: any) => {
             </Text> */}
           </div>
           <div style={{ position: 'absolute', display: 'inline-block', marginLeft: '85px' }}>
-            <Text sx={{ fontWeight: 600 }} ml={10} mt={6}>
+            <Text sx={{ fontWeight: 600 }} ml={10}>
               {accountNumber}
             </Text>
           </div>
-          <div style={{ position: 'absolute', display: 'inline-block', right: 15 }}>
+          <div style={{ position: 'absolute', display: 'inline-block', top: 33, right: 20 }}>
             <CopyButton value={`${accountNumber}` + ' ' + `${bankName}`}>
               {({ copied, copy }) =>
                 copied ? (
