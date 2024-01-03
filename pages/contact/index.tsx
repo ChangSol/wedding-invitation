@@ -49,6 +49,29 @@ const Contact = (props: any) => {
     }
   }, [bankName]);
 
+  const copyStyle = {
+    display: 'inline-block',
+    outline: 0,
+    appearance: 'none',
+    padding: '0px 12px',
+    borderRadius: '4px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    backgroundColor: 'rgb(249, 251, 250)',
+    border: '1px solid rgb(137, 151, 155)',
+    boxShadow: 'rgb(6 22 33 / 30%) 0px 1px 2px',
+    color: 'rgb(61, 79, 88)',
+    fontSize: '14px',
+    fontWeight: 400,
+    height: '36px',
+    transition: 'all 150ms ease-in-out 0s',
+    ':hover': {
+      color: 'rgb(61, 79, 88)',
+      backgroundColor: 'rgb(255, 255, 255)',
+      border: '1px solid rgb(93, 108, 116)',
+      boxShadow: 'rgb(0 0 0 / 30%) 0px 4px 4px, rgb(231 238 236) 0px 0px 0px 3px',
+    },
+  };
   return (
     <>
       <BottomSheet
@@ -66,10 +89,11 @@ const Contact = (props: any) => {
               alt={`${bankImageName}`}
               placeholder="blur"
               blurDataURL={`/${bankImageName}.webp`}
+              style={{ marginTop: '6px' }}
             />
           </div>
           <div style={{ position: 'absolute', display: 'inline-block', marginLeft: '20px' }}>
-            <Text sx={{ fontWeight: 600 }} ml={10}>
+            <Text sx={{ fontWeight: 600 }} ml={10} mt={6}>
               {bankName}
             </Text>
             {/* <Text sx={{ position: 'absolute', display: 'inline-block', fontWeight: 500 }} ml={10}>
@@ -101,47 +125,55 @@ const Contact = (props: any) => {
             </Text> */}
           </div>
           <div style={{ position: 'absolute', display: 'inline-block', marginLeft: '85px' }}>
-            <Text sx={{ fontWeight: 600 }} ml={10}>
+            <Text sx={{ fontWeight: 600 }} ml={10} mt={6}>
               {accountNumber}
             </Text>
           </div>
-          <div>
+          <div style={{ position: 'absolute', display: 'inline-block', right: 15 }}>
             <CopyButton value={`${accountNumber}` + ' ' + `${bankName}`}>
               {({ copied, copy }) =>
                 copied ? (
-                  <ActionIcon
-                    sx={{
-                      width: '100%',
-                    }}
-                    onClick={copy}
-                    color="teal"
-                  >
-                    <IconClipboardCheck size={25} style={{ float: 'left' }} />
-                    <Text
-                      style={{
-                        fontWeight: 700,
+                  <CopyButton2>
+                    <ActionIcon
+                      sx={{
+                        width: '100%',
+                        padding: '2px',
                       }}
+                      onClick={copy}
+                      color="teal"
                     >
-                      복사완료
-                    </Text>
-                  </ActionIcon>
+                      <IconClipboardCheck size={22} style={{ float: 'left' }} />
+                      <Text
+                        ml={5}
+                        style={{
+                          fontWeight: 600,
+                        }}
+                      >
+                        복사완료
+                      </Text>
+                    </ActionIcon>
+                  </CopyButton2>
                 ) : (
-                  <ActionIcon
-                    sx={{
-                      width: '100%',
-                    }}
-                    onClick={copy}
-                    color="blue"
-                  >
-                    <IconClipboard size={25} style={{ float: 'left' }} />
-                    <Text
-                      style={{
-                        fontWeight: 700,
+                  <CopyButton2>
+                    <ActionIcon
+                      sx={{
+                        width: '100%',
+                        padding: '2px',
                       }}
+                      onClick={copy}
+                      color=""
                     >
-                      복사하기
-                    </Text>
-                  </ActionIcon>
+                      <IconClipboard size={22} style={{ float: 'left' }} />
+                      <Text
+                        ml={5}
+                        style={{
+                          fontWeight: 600,
+                        }}
+                      >
+                        복사하기
+                      </Text>
+                    </ActionIcon>
+                  </CopyButton2>
                 )
               }
             </CopyButton>
@@ -785,5 +817,32 @@ const ConatactTel = styled.ul`
   }
   > div {
     ${CommonMarginBottom}
+  }
+`;
+
+const CopyButton2 = styled.button`
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(249, 251, 250);
+  border: 1px solid rgb(137, 151, 155);
+  box-shadow: rgb(6 22 33 / 30%) 0px 1px 2px;
+  color: rgb(61, 79, 88);
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  transition: all 150ms ease-in-out 0s;
+
+  &:hover {
+    color: rgb(61, 79, 88);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(93, 108, 116);
+    box-shadow:
+      rgb(0 0 0 / 30%) 0px 4px 4px,
+      rgb(231 238 236) 0px 0px 0px 3px;
   }
 `;

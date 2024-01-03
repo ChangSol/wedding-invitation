@@ -982,6 +982,17 @@ const ImageGalleryWrapper = styled.div`
     padding: 10px 0;
     background-color: #f8f9f4;
   }
+
+  .image-gallery-content.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
   /* .image-gallery-thumbnail.active,
 	.image-gallery-thumbnail:focus {
 		border: none;
