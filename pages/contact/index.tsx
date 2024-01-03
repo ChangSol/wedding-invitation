@@ -54,99 +54,93 @@ const Contact = (props: any) => {
       <BottomSheet
         style={{ zIndex: 99999, position: 'fixed' }}
         open={bottomPopupOpen}
-        snapPoints={({}) => [120, 130]}
+        snapPoints={({}) => [140, 160]}
         onDismiss={handleDismiss}
       >
-        <Stack spacing={10} style={{ marginTop: '30px', marginLeft: '25px' }}>
+        <Stack spacing={10} ml={20} mt={20} mr={20}>
           <div>
             <Image
-              width={35}
-              height={35}
+              width={25}
+              height={25}
               src={`/${bankImageName}.webp`}
               alt={`${bankImageName}`}
               placeholder="blur"
               blurDataURL={`/${bankImageName}.webp`}
-              style={{
-                float: 'left',
-                margin: '2px 5px 0px 0px',
-              }}
             />
-            <Text
+          </div>
+          <div style={{ position: 'absolute', display: 'inline-block', marginLeft: '20px' }}>
+            <Text sx={{ fontWeight: 600 }} ml={10}>
+              {bankName}
+            </Text>
+            {/* <Text sx={{ position: 'absolute', display: 'inline-block', fontWeight: 500 }} ml={10}>
+              {accountNumber}
+            </Text> */}
+            {/* <Text
               style={{
                 position: 'absolute',
                 display: 'inline-block',
-                fontSize: '20px',
+                fontSize: '15px',
                 fontWeight: 800,
                 marginTop: '2px',
                 marginLeft: '10px',
               }}
             >
               {bankName}
-            </Text>
-            <Text
+            </Text> */}
+            {/* <Text
               style={{
                 position: 'absolute',
                 display: 'inline-block',
-                fontSize: '20px',
+                fontSize: '15px',
                 fontWeight: 800,
                 marginTop: '2px',
                 marginLeft: '90px',
               }}
             >
               {accountNumber}
+            </Text> */}
+          </div>
+          <div style={{ position: 'absolute', display: 'inline-block', marginLeft: '85px' }}>
+            <Text sx={{ fontWeight: 600 }} ml={10}>
+              {accountNumber}
             </Text>
-
+          </div>
+          <div>
             <CopyButton value={`${accountNumber}` + ' ' + `${bankName}`}>
               {({ copied, copy }) =>
                 copied ? (
                   <ActionIcon
                     sx={{
-                      width: 120,
-                      position: 'absolute',
-                      display: 'inline-block',
-                      marginLeft: '230px',
+                      width: '100%',
                     }}
                     onClick={copy}
                     color="teal"
                   >
+                    <IconClipboardCheck size={25} style={{ float: 'left' }} />
                     <Text
                       style={{
-                        position: 'absolute',
-                        display: 'inline-block',
-                        fontSize: '18px',
-                        fontWeight: 800,
-                        marginLeft: '35px',
-                        marginTop: '2px',
+                        fontWeight: 700,
                       }}
                     >
                       복사완료
                     </Text>
-                    <IconClipboardCheck size={30} style={{ float: 'left' }} />
                   </ActionIcon>
                 ) : (
                   <ActionIcon
                     sx={{
-                      width: 120,
-                      position: 'absolute',
-                      display: 'inline-block',
-                      marginLeft: '230px',
+                      width: '100%',
                     }}
                     onClick={copy}
                     color="blue"
                   >
+                    <IconClipboard size={25} style={{ float: 'left' }} />
                     <Text
                       style={{
-                        position: 'absolute',
-                        display: 'inline-block',
-                        fontSize: '18px',
-                        fontWeight: 800,
-                        marginLeft: '35px',
-                        marginTop: '2px',
+                        fontWeight: 700,
                       }}
                     >
                       복사하기
                     </Text>
-                    <IconClipboard size={30} style={{ float: 'left' }} />
                   </ActionIcon>
                 )
               }
@@ -159,10 +153,10 @@ const Contact = (props: any) => {
         <CloseBtn onClick={clickModal}>
           <IoClose />
         </CloseBtn>
-        <ContactTile>
+        <ContactTitleHeader>
           <p>CONTACT</p>
           <h3>연락하기</h3>
-        </ContactTile>
+        </ContactTitleHeader>
 
         <ContactContents>
           <GroomWrap>
@@ -712,7 +706,7 @@ const ContactContainer = styled.div`
 `;
 // font-family: "omyu_pretty";
 
-const ContactTile = styled.div`
+const ContactTitleHeader = styled.div`
   position: absolute;
   top: 15%;
   text-align: center;
