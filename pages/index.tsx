@@ -305,21 +305,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 				{showModalContact && <Contact clickModal={clickModalContact} />}
 			</Greetings>
 
-			<ImageGalleryWrapper>
-				<GalleryTitle>Gallery</GalleryTitle>
-				<ImageGallery
-					items={imageObjects}
-					autoPlay={false}
-					infinite={false}
-					showPlayButton={false}
-					showFullscreenButton={false}
-					showThumbnails={true}
-					showIndex={true}
-					showBullets={false}
-					showNav={true}
-					lazyLoad={false}
-				/>
-			</ImageGalleryWrapper>
+      {/* <ImageGalleryWrapper>
+        <GalleryTitle>Gallery</GalleryTitle>
+        <ImageGallery
+          items={imageObjects}
+          autoPlay={false}
+          infinite={false}
+          showPlayButton={false}
+          showFullscreenButton={true}
+          showThumbnails={true}
+          showIndex={true}
+          showBullets={false}
+          showNav={true}
+          lazyLoad={false}
+        />
+      </ImageGalleryWrapper> */}
 
 			{/* 지도  여기 오시는 길 부분*/}
 			<Location>
@@ -584,25 +584,44 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 									{...form.getInputProps('password')}
 								/>
 
-								<Textarea
-									placeholder="축하글을 작성해주세요."
-									label="축하글"
-									withAsterisk
-									autosize
-									minRows={4}
-									maxRows={4}
-									{...form.getInputProps('contents')}
-									styles={{
-										label: {
-											// Adjust the margin for the label
-											marginBottom: '5px', // You can adjust the value accordingly
-										},
-									}}
-									sx={{
-										width: '100%',
-										fontFamily: 'GowunDodum-Regular',
-									}}
-								/>
+                <TextInput
+                  label="축하글"
+                  placeholder="축하글을 작성해주세요."
+                  minLength={1}
+                  maxLength={200}
+                  withAsterisk
+                  {...form.getInputProps('contents')}
+                  styles={{
+                    label: {
+                      // Adjust the margin for the label
+                      marginBottom: '5px', // You can adjust the value accordingly
+                    },
+                  }}
+                  sx={{
+                    width: '100%',
+                    fontFamily: 'GowunDodum-Regular',
+                  }}
+                />
+
+                {/* <Textarea
+                  placeholder="축하글을 작성해주세요."
+                  label="축하글"
+                  withAsterisk
+                  autosize
+                  minRows={4}
+                  maxRows={4}
+                  {...form.getInputProps('contents')}
+                  styles={{
+                    label: {
+                      // Adjust the margin for the label
+                      marginBottom: '5px', // You can adjust the value accordingly
+                    },
+                  }}
+                  sx={{
+                    width: '100%',
+                    fontFamily: 'GowunDodum-Regular',
+                  }}
+                /> */}
 
 								<Button
 									disabled={loading}
