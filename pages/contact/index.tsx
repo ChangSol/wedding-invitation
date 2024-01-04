@@ -276,9 +276,9 @@ const Contact = (props: any) => {
 						<ContactLine></ContactLine>
 						<BrideContact>
 							<ContactTitle>
-								<li>신랑</li>
-								<li>신랑 아버지</li>
-								<li>신랑 어머니</li>
+								<li>신부</li>
+								<li>신부 아버지</li>
+								<li>신부 어머니</li>
 							</ContactTitle>
 							<ContactName>
 								<li>{process.env.NEXT_PUBLIC_BRIDE_NAME}</li>
