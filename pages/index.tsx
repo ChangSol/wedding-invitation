@@ -70,6 +70,24 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
       thumbnail: `/pictures/thumbnail/${image}`,
     }));
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  // 모달 오버레이에서 스크롤 방지
+  React.useEffect(() => {
+    console.log('isFullScreen useEffect');
+    if (isFullScreen) {
+      document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    }
+  }, [isFullScreen]);
+
   // 축하글 조회 Query
   const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params);
 
@@ -317,6 +335,10 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
           showBullets={false}
           showNav={true}
           lazyLoad={true}
+          useBrowserFullscreen={false}
+          onScreenChange={(x) => {
+            setIsFullScreen(x);
+          }}
         />
       </ImageGalleryWrapper>
 
@@ -970,7 +992,7 @@ const ImageGalleryWrapper = styled.div`
     background-color: #f8f9f4;
   }
 
-  .image-gallery-content.fullscreen {
+  /* .image-gallery-content.fullscreen {
     position: fixed;
     top: 0;
     left: 0;
@@ -981,7 +1003,7 @@ const ImageGalleryWrapper = styled.div`
     display: flex;
     flex-direction: column;
     z-index: 9999;
-  }
+  } */
 
   /* .image-gallery-thumbnail.active,
 	.image-gallery-thumbnail:focus {
