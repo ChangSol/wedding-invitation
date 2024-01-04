@@ -61,13 +61,13 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 	// 연락하기 모달
 	const clickModalContact = () => setShowModalContact(!showModalContact);
 
-	// gallery image object
-	const imageObjects = images
-		.sort((a, b) => parseInt(a) - parseInt(b))
-		.map((image) => ({
-			original: `/pictures/${image}`,
-			thumbnail: `/pictures/${image}`,
-		}));
+  // gallery image object
+  const imageObjects = images
+    .sort((a, b) => parseInt(a) - parseInt(b))
+    .map((image) => ({
+      original: `/pictures/${image}`,
+      thumbnail: `/pictures/thumbnail/${image}`,
+    }));
 
 	// 축하글 조회 Query
 	const getCongratulationsInfinityQuery = useGetCongratulationsInfinityQuery(params);
@@ -182,36 +182,35 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 		};
 	}, [getCongratulationsInfinityQuery, loading]);
 
-	return (
-		<Stack
-			p={0}
-			justify="center"
-			spacing="sm"
-			sx={{
-				margin: '0 auto',
-				width: '100%',
-				overflowY: 'scroll',
-				overflowX: 'hidden',
-			}}
-		>
-			<Main>
-				<Day>2024 02 24</Day>
-				<MainWrap>
-					<MainImage>
-						<Image
-							src="/images/mobilemain.webp"
-							alt="mobilemain"
-							placeholder="blur"
-							blurDataURL="/images/mobilemain.webp"
-							layout="fill"
-							objectFit="contain"
-						/>
-					</MainImage>
-				</MainWrap>
-				<TextName>Changju and Shinhee</TextName>
-				<TextDay>2024 02 24 SAT 1PM</TextDay>
-				{/* <TextHall>부천채림웨딩홀</TextHall> */}
-			</Main>
+  return (
+    <Stack
+      p={0}
+      justify="center"
+      spacing="sm"
+      sx={{
+        margin: '0 auto',
+        width: '100%',
+        overflowY: 'scroll',
+        overflowX: 'hidden',
+      }}
+    >
+      <Main>
+        <Day>2024 02 24</Day>
+        <MainWrap>
+          <MainImage>
+            <Image
+              src="/images/mobilemain.webp"
+              alt="mobilemain"
+              placeholder="blur"
+              blurDataURL="/images/mobilemain.webp"
+              layout="fill"
+              objectFit="contain"
+            />
+          </MainImage>
+        </MainWrap>
+        <TextName>Changju and Shinhee</TextName>
+        <TextDay>2024 02 24 SAT 1PM</TextDay>
+      </Main>
 
 			<Dday>
 				<DdayWrap>
@@ -305,21 +304,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 				{showModalContact && <Contact clickModal={clickModalContact} />}
 			</Greetings>
 
-			<ImageGalleryWrapper>
-				<GalleryTitle>Gallery</GalleryTitle>
-				<ImageGallery
-					items={imageObjects}
-					autoPlay={false}
-					infinite={false}
-					showPlayButton={false}
-					showFullscreenButton={false}
-					showThumbnails={true}
-					showIndex={true}
-					showBullets={false}
-					showNav={true}
-					lazyLoad={false}
-				/>
-			</ImageGalleryWrapper>
+      <ImageGalleryWrapper>
+        <GalleryTitle>Gallery</GalleryTitle>
+        <ImageGallery
+          items={imageObjects}
+          autoPlay={false}
+          infinite={false}
+          showPlayButton={false}
+          showFullscreenButton={true}
+          showThumbnails={true}
+          showIndex={false}
+          showBullets={false}
+          showNav={true}
+          lazyLoad={true}
+        />
+      </ImageGalleryWrapper>
 
 			{/* 지도  여기 오시는 길 부분*/}
 			<Location>
@@ -513,57 +512,57 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 				</ParkingInfo>
 			</Parking>
 
-			{/* Comment Section*/}
-			<Paper
-				px="sm"
-				mx={0}
-				my={10}
-				py={5}
-				radius="md"
-				sx={{
-					width: '100%',
-					height: '100%',
-					backgroundColor: '#f8f9f4',
-					color: theme.colors.dark[4],
-					position: 'relative',
-				}}
-			>
-				<Text my={10} size="md" align="center" sx={{ fontWeight: 300, fontFamily: 'GowunDodum-Regular' }}>
-					😊 Celebrations 😊 <br />
-					따뜻한 축하글을 남겨주세요 :)
-				</Text>
-				<Line />
-				<Stack spacing={10} mb={5}>
-					<Box
-						p={5}
-						py={10}
-						sx={{
-							backgroundColor: '#f8f9f4',
-							borderRadius: theme.radius.md,
-							fontFamily: 'GowunDodum-Regular',
-							position: 'relative',
-						}}
-					>
-						<form onSubmit={form.onSubmit(onSubmitComment)}>
-							<Stack spacing={10} style={{ marginLeft: '30px', marginRight: '30px' }}>
-								<TextInput
-									label="이름"
-									placeholder="이름을 입력해주세요."
-									minLength={2}
-									maxLength={10}
-									withAsterisk
-									{...form.getInputProps('name')}
-									styles={{
-										label: {
-											// Adjust the margin for the label
-											marginBottom: '5px', // You can adjust the value accordingly
-										},
-									}}
-									sx={{
-										width: '100%',
-										fontFamily: 'GowunDodum-Regular',
-									}}
-								/>
+      {/* Comment Section*/}
+      <Paper
+        px="sm"
+        mx={0}
+        my={10}
+        py={5}
+        radius="md"
+        sx={{
+          width: '100%',
+          height: '100%',
+          backgroundColor: '#f8f9f4',
+          color: theme.colors.dark[4],
+          position: 'relative',
+        }}
+      >
+        <Text my={10} size="md" align="center" sx={{ fontWeight: 300, fontFamily: 'GowunDodum-Regular' }}>
+          😊 Celebrations 😊 <br />
+          따뜻한 축하글을 남겨주세요 :)
+        </Text>
+        <Line />
+        <Stack spacing={10} mb={5}>
+          <Box
+            p={5}
+            py={10}
+            sx={{
+              backgroundColor: '#f8f9f4',
+              borderRadius: theme.radius.md,
+              fontFamily: 'GowunDodum-Regular',
+              position: 'relative',
+            }}
+          >
+            <form onSubmit={form.onSubmit(onSubmitComment)}>
+              <Stack spacing={10} style={{ marginLeft: '30px', marginRight: '30px' }}>
+                <TextInput
+                  label="이름"
+                  placeholder="이름을 입력해주세요."
+                  minLength={2}
+                  maxLength={10}
+                  withAsterisk
+                  {...form.getInputProps('name')}
+                  styles={{
+                    label: {
+                      // Adjust the margin for the label
+                      marginBottom: '5px', // You can adjust the value accordingly
+                    },
+                  }}
+                  sx={{
+                    width: '100%',
+                    fontFamily: 'GowunDodum-Regular',
+                  }}
+                />
 
 								<PasswordInput
 									label="비밀번호"
@@ -584,123 +583,120 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 									{...form.getInputProps('password')}
 								/>
 
-								<Textarea
-									placeholder="축하글을 작성해주세요."
-									label="축하글"
-									withAsterisk
-									autosize
-									minRows={4}
-									maxRows={4}
-									{...form.getInputProps('contents')}
-									styles={{
-										label: {
-											// Adjust the margin for the label
-											marginBottom: '5px', // You can adjust the value accordingly
-										},
-									}}
-									sx={{
-										width: '100%',
-										fontFamily: 'GowunDodum-Regular',
-									}}
-								/>
+                <TextInput
+                  label="축하글"
+                  placeholder="축하글을 작성해주세요."
+                  minLength={1}
+                  maxLength={200}
+                  withAsterisk
+                  {...form.getInputProps('contents')}
+                  styles={{
+                    label: {
+                      // Adjust the margin for the label
+                      marginBottom: '5px', // You can adjust the value accordingly
+                    },
+                  }}
+                  sx={{
+                    width: '100%',
+                    fontFamily: 'GowunDodum-Regular',
+                  }}
+                />
+                <Button
+                  disabled={loading}
+                  type="submit"
+                  sx={{
+                    backgroundColor: '#05652c',
+                    alignSelf: 'flex-end',
+                    width: '100%',
+                    height: 40,
+                    fontFamily: 'GowunDodum-Regular',
+                  }}
+                  mt={5}
+                >
+                  축하글 남기기
+                </Button>
+              </Stack>
+            </form>
+          </Box>
+        </Stack>
 
-								<Button
-									disabled={loading}
-									type="submit"
-									sx={{
-										backgroundColor: '#05652c',
-										alignSelf: 'flex-end',
-										width: '100%',
-										height: 40,
-										fontFamily: 'GowunDodum-Regular',
-									}}
-									mt={5}
-								>
-									축하글 남기기
-								</Button>
-							</Stack>
-						</form>
-					</Box>
-				</Stack>
-
-				{[...(getCongratulationsInfinityQuery.data?.pages.flat() ?? [])].map((data, i) => (
-					<Box
-						key={i}
-						id="aComment"
-						py={5}
-						mt={7}
-						mb={7}
-						sx={{
-							width: '90%',
-							margin: '0 auto',
-							backgroundColor: '#F7F5EF',
-							borderRadius: theme.radius.md,
-							fontFamily: 'GowunDodum-Regular',
-							position: 'relative',
-						}}
-					>
-						{/* <Line2 /> */}
-						<Group noWrap>
-							<Stack>
-								<Group>
-									<Text
-										size="sm"
-										sx={{
-											fontSize: '14px',
-											fontWeight: 700,
-											marginTop: '9px',
-											marginLeft: '10px',
-											fontFamily: 'GowunDodum-Regular',
-										}}
-									>
-										{data.name}
-									</Text>
-									<Text
-										size="sm"
-										color="dimmed"
-										sx={{
-											fontSize: '12px',
-											fontWeight: 400,
-											fontFamily: 'GowunDodum-Regular',
-											position: 'absolute',
-											top: 10,
-											right: 40,
-										}}
-										pt={5}
-									>
-										{moment(new Date(data.createdAt)).format('YYYY-MM-DD')}
-									</Text>
-								</Group>
-								<Text
-									size="sm"
-									sx={{
-										lineBreak: 'anywhere',
-										marginLeft: '10px',
-										marginTop: '10px',
-										marginRight: '10px',
-										fontSize: '13px',
-										fontWeight: 500,
-										fontFamily: 'GowunDodum-Regular',
-									}}
-								>
-									{data.contents}
-								</Text>
-							</Stack>
-						</Group>
-						<Group sx={{ position: 'absolute', top: 10, right: 5 }} spacing="xs">
-							<ActionIcon
-								color="red"
-								onClick={() => {
-									setSelectedCongratulation(data);
-									setCommentPwModalOpened(true);
-								}}
-							>
-								<IconTrashX size={25} />
-							</ActionIcon>
-						</Group>
-					</Box>
-				))}
-			</Paper>
+        {[...(getCongratulationsInfinityQuery.data?.pages.flat() ?? [])].map((data, i) => (
+          <Box
+            key={i}
+            id="aComment"
+            py={5}
+            mt={7}
+            mb={7}
+            sx={{
+              width: '90%',
+              margin: '0 auto',
+              backgroundColor: '#F7F5EF',
+              borderRadius: theme.radius.md,
+              fontFamily: 'GowunDodum-Regular',
+              position: 'relative',
+            }}
+          >
+            <Group noWrap>
+              <Stack>
+                <Group>
+                  <Text
+                    size="sm"
+                    sx={{
+                      fontSize: '14px',
+                      fontWeight: 700,
+                      marginTop: '9px',
+                      marginLeft: '10px',
+                      fontFamily: 'GowunDodum-Regular',
+                    }}
+                  >
+                    {data.name}
+                  </Text>
+                  <Text
+                    size="sm"
+                    color="dimmed"
+                    sx={{
+                      fontSize: '12px',
+                      fontWeight: 400,
+                      fontFamily: 'GowunDodum-Regular',
+                      position: 'absolute',
+                      top: 10,
+                      right: 40,
+                    }}
+                    pt={5}
+                  >
+                    {moment(new Date(data.createdAt)).format('YYYY-MM-DD')}
+                  </Text>
+                </Group>
+                <Text
+                  size="sm"
+                  sx={{
+                    lineBreak: 'anywhere',
+                    marginLeft: '10px',
+                    marginTop: '10px',
+                    marginRight: '10px',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    fontFamily: 'GowunDodum-Regular',
+                  }}
+                >
+                  {data.contents}
+                </Text>
+              </Stack>
+            </Group>
+            <Group sx={{ position: 'absolute', top: 10, right: 5 }} spacing="xs">
+              <ActionIcon
+                color="red"
+                onClick={() => {
+                  setSelectedCongratulation(data);
+                  setCommentPwModalOpened(true);
+                }}
+              >
+                <IconTrashX size={25} />
+              </ActionIcon>
+            </Group>
+          </Box>
+        ))}
+      </Paper>
 
 			{/* Comment PW Modal */}
 			<Modal
@@ -767,21 +763,21 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 				</form>
 			</Modal>
 
-			{/* Footer */}
-			<Anchor
-				align="center"
-				href="https://github.com/changsol"
-				mt={10}
-				mb={30}
-				color="gray"
-				style={{
-					fontFamily: 'GowunDodum-Regular',
-				}}
-			>
-				Copyright 2024. ChangSol all rights reserved.
-			</Anchor>
-		</Stack>
-	);
+      {/* Footer */}
+      <Anchor
+        align="center"
+        href="https://github.com/changsol"
+        mt={10}
+        mb={30}
+        color="gray"
+        style={{
+          fontFamily: 'GowunDodum-Regular',
+        }}
+      >
+        Copyright 2024. ChangSol all rights reserved.
+      </Anchor>
+    </Stack>
+  );
 };
 
 export default Home;
@@ -918,20 +914,12 @@ const TitleKor = styled.p`
 `;
 
 const Line = styled.div`
-	width: 100%;
-	height: 2px;
-	background-color: #f7f5ef;
-	opacity: 0.3;
-	/* transform: rotateZ(90deg); */
+  width: 100%;
+  height: 2px;
+  background-color: #f7f5ef;
+  opacity: 0.3;
 `;
 
-const Line2 = styled.div`
-	width: 100%;
-	height: 5px;
-	background-color: #d3d3d3;
-	opacity: 0.2;
-	/* transform: rotateZ(90deg); */
-`;
 const Location = styled.div`
 	padding-top: 80px;
 	background-color: #f7f5ef;
@@ -950,10 +938,6 @@ const FaceWrap = styled.div`
 	}
 `;
 
-// const Modal = styled.div`
-//   padding: 10px;
-// `
-
 const ImageGalleryWrapper = styled.div`
 	background-color: #f8f9f4;
 	padding: 30px 0 10px 0;
@@ -970,13 +954,13 @@ const ImageGalleryWrapper = styled.div`
 		border-radius: 20px;
 	}
 
-	.image-gallery {
-		width: 100%;
-		height: auto;
-		overflow: hidden;
-		padding: 50px 0 60px 0;
-		background-color: #f8f9f4;
-	}
+  .image-gallery {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 50px 0 60px 0;
+    background-color: #f8f9f4;
+  }
 
 	.image-gallery-swipe {
 		position: relative;
@@ -1004,16 +988,16 @@ const ImageGalleryWrapper = styled.div`
 		background-color: #f8f9f4;
 	}
 
-	// .image-gallery-content.fullscreen {
-	// 	position: fixed;
-	// 	top: 0;
-	// 	left: 0;
-	// 	width: 100%;
-	// 	height: 100%;
-	// 	z-index: 9999;
-	// 	overflow: hidden;
-	//   background-color: #f8f9f4;
-	// }
+  // .image-gallery-content.fullscreen {
+  // 	position: fixed;
+  // 	top: 0;
+  // 	left: 0;
+  // 	width: 100%;
+  // 	height: 100%;
+  // 	z-index: 9999;
+  // 	overflow: hidden;
+  //   background-color: #f8f9f4;
+  // }
 
 	/* .image-gallery-thumbnail.active,
 	.image-gallery-thumbnail:focus {
@@ -1025,10 +1009,10 @@ const ImageGalleryWrapper = styled.div`
 		display: none;
 	} */
 
-	.image-gallery-thumbnail.active,
-	.image-gallery-thumbnail:focus {
-		border: 3px solid #05652c;
-	}
+  .image-gallery-thumbnail.active,
+  .image-gallery-thumbnail:focus {
+    border: 3px solid #05652c;
+  }
 `;
 const GalleryTitle = styled.p``;
 
