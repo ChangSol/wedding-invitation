@@ -40,7 +40,7 @@ import moment from 'moment';
 
 // gallery image props
 export const getStaticProps: GetStaticProps = () => {
-  const images = Fs.readdirSync(path.join(process.cwd(), 'public/tests'));
+  const images = Fs.readdirSync(path.join(process.cwd(), 'public/pictures'));
   return {
     props: { images },
   };
@@ -65,8 +65,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
   const imageObjects = images
     .sort((a, b) => parseInt(a) - parseInt(b))
     .map((image) => ({
-      original: `/tests/${image}`,
-      thumbnail: `/tests/${image}`,
+      original: `/pictures/${image}`,
+      thumbnail: `/pictures/${image}`,
     }));
 
   // 축하글 조회 Query
