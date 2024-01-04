@@ -976,9 +976,11 @@ const ImageGalleryWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 9999;
-    overflow: hidden;
+    overflow: auto;
     background-color: #f8f9f4;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
   }
 
   /* .image-gallery-thumbnail.active,
