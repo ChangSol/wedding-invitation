@@ -63,6 +63,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
 
   // gallery image object
   const imageObjects = images
+    .filter((x) => x !== 'thumbnail')
     .sort((a, b) => parseInt(a) - parseInt(b))
     .map((image) => ({
       original: `/pictures/${image}`,
@@ -308,7 +309,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         <ImageGallery
           items={imageObjects}
           autoPlay={false}
-          infinite={false}
+          infinite={true}
           showPlayButton={false}
           showFullscreenButton={true}
           showThumbnails={true}
@@ -969,16 +970,16 @@ const ImageGalleryWrapper = styled.div`
     background-color: #f8f9f4;
   }
 
-  // .image-gallery-content.fullscreen {
-  // 	position: fixed;
-  // 	top: 0;
-  // 	left: 0;
-  // 	width: 100%;
-  // 	height: 100%;
-  // 	z-index: 9999;
-  // 	overflow: hidden;
-  //   background-color: #f8f9f4;
-  // }
+  .image-gallery-content.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    overflow: hidden;
+    background-color: #f8f9f4;
+  }
 
   /* .image-gallery-thumbnail.active,
 	.image-gallery-thumbnail:focus {
