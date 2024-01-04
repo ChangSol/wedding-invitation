@@ -66,7 +66,7 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
     .sort((a, b) => parseInt(a) - parseInt(b))
     .map((image) => ({
       original: `/pictures/${image}`,
-      thumbnail: `/pictures/${image}`,
+      thumbnail: `/pictures/thumbnail/${image}`,
     }));
 
   // 축하글 조회 Query
@@ -210,7 +210,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
         </MainWrap>
         <TextName>Changju and Shinhee</TextName>
         <TextDay>2024 02 24 SAT 1PM</TextDay>
-        {/* <TextHall>부천채림웨딩홀</TextHall> */}
       </Main>
 
       <Dday>
@@ -583,27 +582,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                     fontFamily: 'GowunDodum-Regular',
                   }}
                 />
-
-                {/* <Textarea
-                  placeholder="축하글을 작성해주세요."
-                  label="축하글"
-                  withAsterisk
-                  autosize
-                  minRows={4}
-                  maxRows={4}
-                  {...form.getInputProps('contents')}
-                  styles={{
-                    label: {
-                      // Adjust the margin for the label
-                      marginBottom: '5px', // You can adjust the value accordingly
-                    },
-                  }}
-                  sx={{
-                    width: '100%',
-                    fontFamily: 'GowunDodum-Regular',
-                  }}
-                /> */}
-
                 <Button
                   disabled={loading}
                   type="submit"
@@ -639,7 +617,6 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               position: 'relative',
             }}
           >
-            {/* <Line2 /> */}
             <Group noWrap>
               <Stack>
                 <Group>
@@ -922,16 +899,8 @@ const Line = styled.div`
   height: 2px;
   background-color: #f7f5ef;
   opacity: 0.3;
-  /* transform: rotateZ(90deg); */
 `;
 
-const Line2 = styled.div`
-  width: 100%;
-  height: 5px;
-  background-color: #d3d3d3;
-  opacity: 0.2;
-  /* transform: rotateZ(90deg); */
-`;
 const Location = styled.div`
   padding-top: 80px;
   background-color: #f7f5ef;
@@ -949,10 +918,6 @@ const FaceWrap = styled.div`
     gap: 40px;
   }
 `;
-
-// const Modal = styled.div`
-//   padding: 10px;
-// `
 
 const ImageGalleryWrapper = styled.div`
   background-color: #f8f9f4;
