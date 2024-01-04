@@ -10,355 +10,339 @@ import { BottomSheet } from 'react-spring-bottom-sheet';
 import 'react-spring-bottom-sheet/dist/style.css';
 
 const Contact = (props: any) => {
-	// 전달받은 state 함수
-	const { clickModal } = props;
-	const theme = useMantineTheme();
+  // 전달받은 state 함수
+  const { clickModal } = props;
+  const theme = useMantineTheme();
 
-	React.useEffect(() => {
-		document.body.style.cssText = `
+  React.useEffect(() => {
+    document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
       overflow-y: scroll;
       width: 100%;`;
-		return () => {
-			const scrollY = document.body.style.top;
-			document.body.style.cssText = '';
-			window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-		};
-	}, []);
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
 
-	const [bottomPopupOpen, setBottomPopupOpen] = useState(false);
+  const [bottomPopupOpen, setBottomPopupOpen] = useState(false);
 
-	const handleDismiss = () => {
-		setBottomPopupOpen(false);
-	};
+  const handleDismiss = () => {
+    setBottomPopupOpen(false);
+  };
 
-	const [bankImageName, setBankImageName] = useState('');
-	const [bankName, setBankName] = useState('');
-	const [accountNumber, setAccountNumber] = useState('');
+  const [bankImageName, setBankImageName] = useState('');
+  const [bankName, setBankName] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
 
-	React.useEffect(() => {
-		if (bankName === '기업은행') {
-			setBankImageName('ibk');
-		} else if (bankName === '신한은행') {
-			setBankImageName('shinhan');
-		} else if (bankName === '지역농협') {
-			setBankImageName('nh');
-		} else if (bankName === '토스뱅크') {
-			setBankImageName('toss');
-		}
-	}, [bankName]);
+  React.useEffect(() => {
+    if (bankName === '기업은행') {
+      setBankImageName('ibk');
+    } else if (bankName === '신한은행') {
+      setBankImageName('shinhan');
+    } else if (bankName === '지역농협') {
+      setBankImageName('nh');
+    } else if (bankName === '토스뱅크') {
+      setBankImageName('toss');
+    } else if (bankName === '우리은행') {
+      setBankImageName('woori');
+    }
+  }, [bankName]);
 
-	const copyStyle = {
-		display: 'inline-block',
-		outline: 0,
-		appearance: 'none',
-		padding: '0px 12px',
-		borderRadius: '4px',
-		textDecoration: 'none',
-		cursor: 'pointer',
-		backgroundColor: 'rgb(249, 251, 250)',
-		border: '1px solid rgb(137, 151, 155)',
-		boxShadow: 'rgb(6 22 33 / 30%) 0px 1px 2px',
-		color: 'rgb(61, 79, 88)',
-		fontSize: '14px',
-		fontWeight: 400,
-		height: '36px',
-		transition: 'all 150ms ease-in-out 0s',
-		':hover': {
-			color: 'rgb(61, 79, 88)',
-			backgroundColor: 'rgb(255, 255, 255)',
-			border: '1px solid rgb(93, 108, 116)',
-			boxShadow: 'rgb(0 0 0 / 30%) 0px 4px 4px, rgb(231 238 236) 0px 0px 0px 3px',
-		},
-	};
-	return (
-		<>
-			<BottomSheet
-				style={{ zIndex: 99999, position: 'fixed' }}
-				open={bottomPopupOpen}
-				snapPoints={({}) => [120, 140]}
-				onDismiss={handleDismiss}
-			>
-				<Stack
-					spacing={10}
-					// ml={20}
-					// mt={20}
-					// mr={20}
-					style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}
-				>
-					<div
-						style={{
-							fontSize: '18px',
-							position: 'relative',
-							display: 'flex',
-							justifyContent: 'center',
-							marginTop: '4px',
-						}}
-					>
-						<div>
-							<Image
-								width={25}
-								height={25}
-								src={`/${bankImageName}.webp`}
-								alt={`${bankImageName}`}
-								placeholder="blur"
-								blurDataURL={`/${bankImageName}.webp`}
-							/>
-						</div>
-						<div style={{ display: '', marginLeft: '5px' }}>
-							<Text sx={{ fontWeight: 600 }} ml={10}>
-								{bankName}
-							</Text>
-						</div>
-						<div style={{ display: 'inline-block' }}>
-							<Text sx={{ fontWeight: 600 }} ml={10}>
-								{accountNumber}
-							</Text>
-						</div>
-					</div>
-					<div style={{ display: 'flex', justifyContent: 'center' }}>
-						<CopyButton value={`${accountNumber}` + ' ' + `${bankName}`}>
-							{({ copied, copy }) =>
-								copied ? (
-									<CopyButton2 style={{ backgroundColor: '#05652c', border: '2px solid #05652c' }}>
-										<ActionIcon
-											sx={{
-												width: '100%',
-												padding: '2px',
-											}}
-											onClick={copy}
-											color="teal"
-										>
-											<IconClipboardCheck size={22} style={{ float: 'left', color: '#fff' }} />
-											<Text
-												ml={5}
-												style={{
-													fontWeight: 600,
-													color: '#fff',
-												}}
-											>
-												복사완료
-											</Text>
-										</ActionIcon>
-									</CopyButton2>
-								) : (
-									<CopyButton2 style={{ backgroundColor: '#fff', border: '2px solid #05652c' }}>
-										<ActionIcon
-											sx={{
-												width: '100%',
-												padding: '2px',
-											}}
-											onClick={copy}
-											color=""
-										>
-											<IconClipboard size={22} style={{ float: 'left', color: '#05652c' }} />
-											<Text
-												ml={5}
-												style={{
-													fontWeight: 600,
-													color: '#05652c',
-												}}
-											>
-												복사하기
-											</Text>
-										</ActionIcon>
-									</CopyButton2>
-								)
-							}
-						</CopyButton>
-					</div>
-				</Stack>
-			</BottomSheet>
+  const copyStyle = {
+    display: 'inline-block',
+    outline: 0,
+    appearance: 'none',
+    padding: '0px 12px',
+    borderRadius: '4px',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    backgroundColor: 'rgb(249, 251, 250)',
+    border: '1px solid rgb(137, 151, 155)',
+    boxShadow: 'rgb(6 22 33 / 30%) 0px 1px 2px',
+    color: 'rgb(61, 79, 88)',
+    fontSize: '14px',
+    fontWeight: 400,
+    height: '36px',
+    transition: 'all 150ms ease-in-out 0s',
+    ':hover': {
+      color: 'rgb(61, 79, 88)',
+      backgroundColor: 'rgb(255, 255, 255)',
+      border: '1px solid rgb(93, 108, 116)',
+      boxShadow: 'rgb(0 0 0 / 30%) 0px 4px 4px, rgb(231 238 236) 0px 0px 0px 3px',
+    },
+  };
+  return (
+    <>
+      <BottomSheet
+        style={{ zIndex: 99999, position: 'fixed' }}
+        open={bottomPopupOpen}
+        snapPoints={({}) => [120, 140]}
+        onDismiss={handleDismiss}
+      >
+        <Stack
+          spacing={10}
+          // ml={20}
+          // mt={20}
+          // mr={20}
+          style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}
+        >
+          <div
+            style={{
+              fontSize: '18px',
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '4px',
+            }}
+          >
+            <div>
+              <Image
+                width={25}
+                height={25}
+                src={`/${bankImageName}.webp`}
+                alt={`${bankImageName}`}
+                placeholder="blur"
+                blurDataURL={`/${bankImageName}.webp`}
+              />
+            </div>
+            <div style={{ display: '', marginLeft: '5px' }}>
+              <Text sx={{ fontWeight: 600 }} ml={10}>
+                {bankName}
+              </Text>
+            </div>
+            <div style={{ display: 'inline-block' }}>
+              <Text sx={{ fontWeight: 600 }} ml={10}>
+                {accountNumber}
+              </Text>
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <CopyButton value={`${accountNumber}` + ' ' + `${bankName}`}>
+              {({ copied, copy }) =>
+                copied ? (
+                  <CopyButton2 style={{ backgroundColor: '#05652c', border: '2px solid #05652c' }}>
+                    <ActionIcon
+                      sx={{
+                        width: '100%',
+                        padding: '2px',
+                      }}
+                      onClick={copy}
+                      color="teal"
+                    >
+                      <IconClipboardCheck size={22} style={{ float: 'left', color: '#fff' }} />
+                      <Text
+                        ml={5}
+                        style={{
+                          fontWeight: 600,
+                          color: '#fff',
+                        }}
+                      >
+                        복사완료
+                      </Text>
+                    </ActionIcon>
+                  </CopyButton2>
+                ) : (
+                  <CopyButton2 style={{ backgroundColor: '#fff', border: '2px solid #05652c' }}>
+                    <ActionIcon
+                      sx={{
+                        width: '100%',
+                        padding: '2px',
+                      }}
+                      onClick={copy}
+                      color=""
+                    >
+                      <IconClipboard size={22} style={{ float: 'left', color: '#05652c' }} />
+                      <Text
+                        ml={5}
+                        style={{
+                          fontWeight: 600,
+                          color: '#05652c',
+                        }}
+                      >
+                        복사하기
+                      </Text>
+                    </ActionIcon>
+                  </CopyButton2>
+                )
+              }
+            </CopyButton>
+          </div>
+        </Stack>
+      </BottomSheet>
 
-			<ContactContainer>
-				<CloseBtn onClick={clickModal}>
-					<IoClose />
-				</CloseBtn>
-				<ContactTitleHeader>
-					<p>CONTACT</p>
-					<h3>연락하기</h3>
-				</ContactTitleHeader>
+      <ContactContainer>
+        <CloseBtn onClick={clickModal}>
+          <IoClose />
+        </CloseBtn>
+        <ContactTitleHeader>
+          <p>CONTACT</p>
+          <h3>연락하기</h3>
+        </ContactTitleHeader>
 
-				<ContactContents>
-					<GroomWrap>
-						<GroomTitle>
-							신랑측
-							<GroomEng>GROOM</GroomEng>
-						</GroomTitle>
-						<ContactLine></ContactLine>
-						<GroomContact>
-							<ContactTitle>
-								<li>신랑</li>
-								<li>신랑 아버지</li>
-								<li>신랑 어머니</li>
-							</ContactTitle>
-							<ContactName>
-								<li>{process.env.NEXT_PUBLIC_GROOM_NAME}</li>
-								<li>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</li>
-								<li>{process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</li>
-							</ContactName>
-							<ConatactTel>
-								<div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											component={NextLink}
-											href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}
-										>
-											<IconPhoneCall size={20} color="white" />
-										</ActionIcon>
-									</div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											onClick={() => {
-												setBankName(`${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`);
-												setAccountNumber(`${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}`);
-												setBottomPopupOpen(true);
-											}}
-										>
-											<IconCurrencyWon size={20} color="white" />
-										</ActionIcon>
-									</div>
-								</div>
-								<div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											component={NextLink}
-											href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_DAD_PHONE}`}
-										>
-											<IconPhoneCall size={20} color="white" />
-											<li></li>
-										</ActionIcon>
-									</div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											onClick={() => {
-												setBankName(`${process.env.NEXT_PUBLIC_GROOM_DAD_BANK_NAME}`);
-												setAccountNumber(`${process.env.NEXT_PUBLIC_GROOM_DAD_ACCOUNT}`);
-												setBottomPopupOpen(true);
-											}}
-										>
-											<IconCurrencyWon size={20} color="white" />
-										</ActionIcon>
-									</div>
-								</div>
-								<div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											component={NextLink}
-											href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_MOM_PHONE}`}
-										>
-											<IconPhoneCall size={20} color="white" />
-											<li></li>
-										</ActionIcon>
-									</div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											onClick={() => {
-												setBankName(`${process.env.NEXT_PUBLIC_GROOM_MOM_BANK_NAME}`);
-												setAccountNumber(`${process.env.NEXT_PUBLIC_GROOM_MOM_ACCOUNT}`);
-												setBottomPopupOpen(true);
-											}}
-										>
-											<IconCurrencyWon size={20} color="white" />
-										</ActionIcon>
-									</div>
-								</div>
-							</ConatactTel>
-						</GroomContact>
-					</GroomWrap>
+        <ContactContents>
+          <GroomWrap>
+            <GroomTitle>
+              신랑측
+              <GroomEng>GROOM</GroomEng>
+            </GroomTitle>
+            <ContactLine></ContactLine>
+            <GroomContact>
+              <ContactTitle>
+                <li>신랑</li>
+                <li>신랑 아버지</li>
+                <li>신랑 어머니</li>
+              </ContactTitle>
+              <ContactName>
+                <li>{process.env.NEXT_PUBLIC_GROOM_NAME}</li>
+                <li>{process.env.NEXT_PUBLIC_GROOM_DAD_NAME}</li>
+                <li>{process.env.NEXT_PUBLIC_GROOM_MOM_NAME}</li>
+              </ContactName>
+              <ConatactTel>
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_PHONE}`}>
+                      <IconPhoneCall size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon
+                      onClick={() => {
+                        setBankName(`${process.env.NEXT_PUBLIC_GROOM_BANK_NAME}`);
+                        setAccountNumber(`${process.env.NEXT_PUBLIC_GROOM_ACCOUNT}`);
+                        setBottomPopupOpen(true);
+                      }}
+                    >
+                      <IconCurrencyWon size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                </div>
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_DAD_PHONE}`}>
+                      <IconPhoneCall size={20} color="white" />
+                      <li></li>
+                    </ActionIcon>
+                  </div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon
+                      onClick={() => {
+                        setBankName(`${process.env.NEXT_PUBLIC_GROOM_DAD_BANK_NAME}`);
+                        setAccountNumber(`${process.env.NEXT_PUBLIC_GROOM_DAD_ACCOUNT}`);
+                        setBottomPopupOpen(true);
+                      }}
+                    >
+                      <IconCurrencyWon size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                </div>
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_GROOM_MOM_PHONE}`}>
+                      <IconPhoneCall size={20} color="white" />
+                      <li></li>
+                    </ActionIcon>
+                  </div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon
+                      onClick={() => {
+                        setBankName(`${process.env.NEXT_PUBLIC_GROOM_MOM_BANK_NAME}`);
+                        setAccountNumber(`${process.env.NEXT_PUBLIC_GROOM_MOM_ACCOUNT}`);
+                        setBottomPopupOpen(true);
+                      }}
+                    >
+                      <IconCurrencyWon size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                </div>
+              </ConatactTel>
+            </GroomContact>
+          </GroomWrap>
 
-					<BrideWrap>
-						<BrideTitle>
-							신부측
-							<BrideEng>BRIDE</BrideEng>
-						</BrideTitle>
-						<ContactLine></ContactLine>
-						<BrideContact>
-							<ContactTitle>
-								<li>신부</li>
-								<li>신부 아버지</li>
-								<li>신부 어머니</li>
-							</ContactTitle>
-							<ContactName>
-								<li>{process.env.NEXT_PUBLIC_BRIDE_NAME}</li>
-								<li>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</li>
-								<li>{process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</li>
-							</ContactName>
-							<ConatactTel>
-								<div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											component={NextLink}
-											href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}
-										>
-											<IconPhoneCall size={20} color="white" />
-											<li></li>
-										</ActionIcon>
-									</div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											onClick={() => {
-												setBankName(`${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`);
-												setAccountNumber(`${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}`);
-												setBottomPopupOpen(true);
-											}}
-										>
-											<IconCurrencyWon size={20} color="white" />
-										</ActionIcon>
-									</div>
-								</div>
-								<div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											component={NextLink}
-											href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_DAD_PHONE}`}
-										>
-											<IconPhoneCall size={20} color="white" />
-											<li></li>
-										</ActionIcon>
-									</div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											onClick={() => {
-												setBankName(`${process.env.NEXT_PUBLIC_BRIDE_DAD_BANK_NAME}`);
-												setAccountNumber(`${process.env.NEXT_PUBLIC_BRIDE_DAD_ACCOUNT}`);
-												setBottomPopupOpen(true);
-											}}
-										>
-											<IconCurrencyWon size={20} color="white" />
-										</ActionIcon>
-									</div>
-								</div>
-								<div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											component={NextLink}
-											href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_MOM_PHONE}`}
-										>
-											<IconPhoneCall size={20} color="white" />
-											<li></li>
-										</ActionIcon>
-									</div>
-									<div style={{ float: 'left' }}>
-										<ActionIcon
-											onClick={() => {
-												setBankName(`${process.env.NEXT_PUBLIC_BRIDE_MOM_BANK_NAME}`);
-												setAccountNumber(`${process.env.NEXT_PUBLIC_BRIDE_MOM_ACCOUNT}`);
-												setBottomPopupOpen(true);
-											}}
-										>
-											<IconCurrencyWon size={20} color="white" />
-										</ActionIcon>
-									</div>
-								</div>
-							</ConatactTel>
-						</BrideContact>
-					</BrideWrap>
-				</ContactContents>
-			</ContactContainer>
-		</>
-	);
+          <BrideWrap>
+            <BrideTitle>
+              신부측
+              <BrideEng>BRIDE</BrideEng>
+            </BrideTitle>
+            <ContactLine></ContactLine>
+            <BrideContact>
+              <ContactTitle>
+                <li>신부</li>
+                <li>신부 아버지</li>
+                <li>신부 어머니</li>
+              </ContactTitle>
+              <ContactName>
+                <li>{process.env.NEXT_PUBLIC_BRIDE_NAME}</li>
+                <li>{process.env.NEXT_PUBLIC_BRIDE_DAD_NAME}</li>
+                <li>{process.env.NEXT_PUBLIC_BRIDE_MOM_NAME}</li>
+              </ContactName>
+              <ConatactTel>
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_PHONE}`}>
+                      <IconPhoneCall size={20} color="white" />
+                      <li></li>
+                    </ActionIcon>
+                  </div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon
+                      onClick={() => {
+                        setBankName(`${process.env.NEXT_PUBLIC_BRIDE_BANK_NAME}`);
+                        setAccountNumber(`${process.env.NEXT_PUBLIC_BRIDE_ACCOUNT}`);
+                        setBottomPopupOpen(true);
+                      }}
+                    >
+                      <IconCurrencyWon size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                </div>
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_DAD_PHONE}`}>
+                      <IconPhoneCall size={20} color="white" />
+                      <li></li>
+                    </ActionIcon>
+                  </div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon
+                      onClick={() => {
+                        setBankName(`${process.env.NEXT_PUBLIC_BRIDE_DAD_BANK_NAME}`);
+                        setAccountNumber(`${process.env.NEXT_PUBLIC_BRIDE_DAD_ACCOUNT}`);
+                        setBottomPopupOpen(true);
+                      }}
+                    >
+                      <IconCurrencyWon size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                </div>
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon component={NextLink} href={'tel:' + `${process.env.NEXT_PUBLIC_BRIDE_MOM_PHONE}`}>
+                      <IconPhoneCall size={20} color="white" />
+                      <li></li>
+                    </ActionIcon>
+                  </div>
+                  <div style={{ float: 'left' }}>
+                    <ActionIcon
+                      onClick={() => {
+                        setBankName(`${process.env.NEXT_PUBLIC_BRIDE_MOM_BANK_NAME}`);
+                        setAccountNumber(`${process.env.NEXT_PUBLIC_BRIDE_MOM_ACCOUNT}`);
+                        setBottomPopupOpen(true);
+                      }}
+                    >
+                      <IconCurrencyWon size={20} color="white" />
+                    </ActionIcon>
+                  </div>
+                </div>
+              </ConatactTel>
+            </BrideContact>
+          </BrideWrap>
+        </ContactContents>
+      </ContactContainer>
+    </>
+  );
 };
 
 export default Contact;
@@ -369,146 +353,146 @@ const CommonMarginBottom = `
 
 //닫기버튼
 const CloseBtn = styled.div`
-	position: absolute;
-	top: 1%;
-	right: 2%;
-	cursor: pointer;
-	font-size: 26px;
-	font-family: 'GowunDodum-Regular';
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  cursor: pointer;
+  font-size: 26px;
+  font-family: 'GowunDodum-Regular';
 `;
 
 const ContactLine = styled.div`
-	width: 100%;
-	height: 1px;
-	background-color: rgba(255, 255, 255, 0.3);
-	margin: 5px 0 20px 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 5px 0 20px 0;
 `;
 
 const ContactContainer = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: #1f2520;
-	color: #fff;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 30px;
-	font-family: 'GowunDodum-Regular';
-	z-index: 9998;
-	font-size: 18px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #1f2520;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  font-family: 'GowunDodum-Regular';
+  z-index: 9998;
+  font-size: 18px;
 `;
 // font-family: "omyu_pretty";
 
 const ContactTitleHeader = styled.div`
-	position: absolute;
-	top: 15%;
-	text-align: center;
-	letter-spacing: 3px;
-	p {
-		font-size: 10px;
-		letter-spacing: 2.5px;
-		color: rgba(255, 255, 255, 0.7);
-	}
+  position: absolute;
+  top: 15%;
+  text-align: center;
+  letter-spacing: 3px;
+  p {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: rgba(255, 255, 255, 0.7);
+  }
 `;
 
 const ContactContents = styled.div`
-	position: absolute;
-	top: 25%;
-	left: 10%;
-	width: 90%;
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  width: 90%;
 `;
 
 const GroomWrap = styled.div`
-	width: 90%;
-	margin: 0 atuo;
-	margin-top: 40px;
+  width: 90%;
+  margin: 0 atuo;
+  margin-top: 40px;
 `;
 const GroomTitle = styled.p`
-	font-size: 18px;
+  font-size: 18px;
 `;
 const GroomEng = styled.span`
-	font-size: 14px;
-	color: #c0c0c0;
-	margin-left: 10px;
-	letter-spacing: 3px;
+  font-size: 14px;
+  color: #c0c0c0;
+  margin-left: 10px;
+  letter-spacing: 3px;
 `;
 const GroomContact = styled.div`
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const BrideWrap = styled.div`
-	width: 90%;
-	margin: 0 atuo;
-	margin-top: 40px;
+  width: 90%;
+  margin: 0 atuo;
+  margin-top: 40px;
 `;
 const BrideTitle = styled.p`
-	font-size: 18px;
+  font-size: 18px;
 `;
 
 const BrideEng = styled.span`
-	font-size: 14px;
-	color: #c0c0c0;
-	margin-left: 10px;
-	letter-spacing: 3px;
+  font-size: 14px;
+  color: #c0c0c0;
+  margin-left: 10px;
+  letter-spacing: 3px;
 `;
 const BrideContact = styled.div`
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 //공통 목록
 const ContactTitle = styled.ul`
-	li {
-		margin-bottom: 10px;
-		color: rgba(255, 255, 255, 0.7);
-	}
+  li {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.7);
+  }
 `;
 const ContactName = styled.ul`
-	li {
-		margin-bottom: 10px;
-		font-weight: 600;
-	}
+  li {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
 `;
 const ConatactTel = styled.ul`
-	display: flex;
-	flex-direction: column;
-	li {
-		margin-bottom: 10px;
-	}
-	> div {
-		${CommonMarginBottom}
-	}
+  display: flex;
+  flex-direction: column;
+  li {
+    margin-bottom: 10px;
+  }
+  > div {
+    ${CommonMarginBottom}
+  }
 `;
 
 const CopyButton2 = styled.button`
-	display: inline-block;
-	outline: 0;
-	appearance: none;
-	padding: 0px 12px;
-	border-radius: 4px;
-	text-decoration: none;
-	cursor: pointer;
-	background-color: rgb(249, 251, 250);
-	border: 1px solid rgb(137, 151, 155);
-	box-shadow: rgb(6 22 33 / 30%) 0px 1px 2px;
-	color: rgb(61, 79, 88);
-	font-size: 14px;
-	font-weight: 400;
-	height: 36px;
-	transition: all 150ms ease-in-out 0s;
+  display: inline-block;
+  outline: 0;
+  appearance: none;
+  padding: 0px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgb(249, 251, 250);
+  border: 1px solid rgb(137, 151, 155);
+  box-shadow: rgb(6 22 33 / 30%) 0px 1px 2px;
+  color: rgb(61, 79, 88);
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  transition: all 150ms ease-in-out 0s;
 
-	&:hover {
-		color: rgb(61, 79, 88);
-		background-color: rgb(255, 255, 255);
-		border: 1px solid rgb(93, 108, 116);
-		box-shadow:
-			rgb(0 0 0 / 30%) 0px 4px 4px,
-			rgb(231 238 236) 0px 0px 0px 3px;
-	}
+  &:hover {
+    color: rgb(61, 79, 88);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(93, 108, 116);
+    box-shadow:
+      rgb(0 0 0 / 30%) 0px 4px 4px,
+      rgb(231 238 236) 0px 0px 0px 3px;
+  }
 `;
