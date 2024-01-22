@@ -27,7 +27,7 @@ const DEFAULT_SEO = {
     // site_name: "test site",
     images: [
       {
-        url: 'https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg',
+        url: 'https://wedding-invitation.chang-ju.shin-hee.com/pictures/thumbnail/gallery06.webp',
         // width: 285,
         // height: 167,
         alt: 'img',
