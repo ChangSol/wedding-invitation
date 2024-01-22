@@ -24,13 +24,12 @@ const DEFAULT_SEO = {
     url: 'https://wedding-invitation.chang-ju.shin-hee.com',
     title:
       `${process.env.NEXT_PUBLIC_GROOM_NAME}` + ' ❤️ ' + `${process.env.NEXT_PUBLIC_BRIDE_NAME}` + ' 우리 결혼합니다!',
-    // site_name: "test site",
     images: [
       {
         url: 'https://wedding-invitation.chang-ju.shin-hee.com/pictures/gallery06.webp',
-        // width: 285,
-        // height: 167,
-        alt: 'img',
+        width: 400,
+        height: 400,
+        alt: 'gallery06.webp',
       },
     ],
   },

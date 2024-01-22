@@ -10,7 +10,7 @@ export function kakaoShare() {
         `${process.env.NEXT_PUBLIC_BRIDE_NAME}` +
         " 우리 결혼합니다!",
       description: "24.02.24 (토) 오후 1시 \n채림웨딩홀 6층 컨벤션홀",
-      imageUrl: "https://wedding-invitation.chang-ju.shin-hee.com/pictures/1.jpg",
+      imageUrl: "https://wedding-invitation.chang-ju.shin-hee.com/pictures/gallery06.webp",
       link: {
         mobileWebUrl: "https://wedding-invitation.chang-ju.shin-hee.com",
         webUrl: "https://wedding-invitation.chang-ju.shin-hee.com",
