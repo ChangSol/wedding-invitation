@@ -1,0 +1,94 @@
+name: Build and Deploy # Github Action 이름
+
+on:
+  push:
+    branches:
+      - main # 빌드할 브랜치
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_HOST: ${{ secrets.API_HOST }}
+      NEXT_PUBLIC_KAKAO_JS_KEY: ${{ secrets.KAKAO_JS_KEY }}
+      NEXT_PUBLIC_GROOM_NAME: ${{ secrets.GROOM_NAME }}
+      NEXT_PUBLIC_GROOM_PHONE: ${{ secrets.GROOM_PHONE }}
+      NEXT_PUBLIC_GROOM_ACCOUNT: ${{ secrets.GROOM_ACCOUNT }}
+      NEXT_PUBLIC_GROOM_BANK_NAME: ${{ secrets.GROOM_BANK_NAME }}
+      NEXT_PUBLIC_GROOM_DAD_NAME: ${{ secrets.GROOM_DAD_NAME }}
+      NEXT_PUBLIC_GROOM_DAD_PHONE: ${{ secrets.GROOM_DAD_PHONE }}
+      NEXT_PUBLIC_GROOM_DAD_ACCOUNT: ${{ secrets.GROOM_DAD_ACCOUNT }}
+      NEXT_PUBLIC_GROOM_DAD_BANK_NAME: ${{ secrets.GROOM_DAD_BANK_NAME }}
+      NEXT_PUBLIC_GROOM_MOM_NAME: ${{ secrets.GROOM_MOM_NAME }}
+      NEXT_PUBLIC_GROOM_MOM_PHONE: ${{ secrets.GROOM_MOM_PHONE }}
+      NEXT_PUBLIC_GROOM_MOM_ACCOUNT: ${{ secrets.GROOM_MOM_ACCOUNT }}
+      NEXT_PUBLIC_GROOM_MOM_BANK_NAME: ${{ secrets.GROOM_MOM_BANK_NAME }}
+      NEXT_PUBLIC_BRIDE_NAME: ${{ secrets.BRIDE_NAME }}
+      NEXT_PUBLIC_BRIDE_PHONE: ${{ secrets.BRIDE_PHONE }}
+      NEXT_PUBLIC_BRIDE_ACCOUNT: ${{ secrets.BRIDE_ACCOUNT }}
+      NEXT_PUBLIC_BRIDE_BANK_NAME: ${{ secrets.BRIDE_BANK_NAME }}
+      NEXT_PUBLIC_BRIDE_DAD_NAME: ${{ secrets.BRIDE_DAD_NAME }}
+      NEXT_PUBLIC_BRIDE_DAD_PHONE: ${{ secrets.BRIDE_DAD_PHONE }}
+      NEXT_PUBLIC_BRIDE_DAD_ACCOUNT: ${{ secrets.BRIDE_DAD_ACCOUNT }}
+      NEXT_PUBLIC_BRIDE_DAD_BANK_NAME: ${{ secrets.BRIDE_DAD_BANK_NAME }}
+      NEXT_PUBLIC_BRIDE_MOM_NAME: ${{ secrets.BRIDE_MOM_NAME }}
+      NEXT_PUBLIC_BRIDE_MOM_PHONE: ${{ secrets.BRIDE_MOM_PHONE }}
+      NEXT_PUBLIC_BRIDE_MOM_ACCOUNT: ${{ secrets.BRIDE_MOM_ACCOUNT }}
+      NEXT_PUBLIC_BRIDE_MOM_BANK_NAME: ${{ secrets.BRIDE_MOM_BANK_NAME }}
+
+    steps:
+      - name: 🛎️ Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: setup node 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - run: npm ci
+
+      - run: npm run build # 빌드 스크립트
+
+      - run: touch out/.nojekyll
+
+      - name: 🚀 Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: out # 이 폴더에 있는 파일을 배포
+          CLEAN: true # 배포 브랜치에 있는 파일들을 자동으로 삭제
+
+      # 빌드 성공 메세지 발송
+      - name: Send Build Success Message
+        uses: appleboy/telegram-action@master
+        if: success()
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            Author: ${{github.actor}}
+
+            Status: 😚 **Success**
+
+            Commit message: ${{ github.event.commits[0].message }}
+
+            [See changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
+
+      # 빌드 실패 메세지 발송
+      - name: Send Build Fail Message
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            Author: ${{github.actor}}
+
+            Status: 😱 **Failure**
+
+            Commit message: ${{ github.event.commits[0].message }}
+
+            [link](https://github.com/${{ github.repository }}/actions)
