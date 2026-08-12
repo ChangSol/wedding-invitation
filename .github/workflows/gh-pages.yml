@@ -58,37 +58,3 @@ jobs:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: out # 이 폴더에 있는 파일을 배포
           CLEAN: true # 배포 브랜치에 있는 파일들을 자동으로 삭제
-
-      # 빌드 성공 메세지 발송
-      - name: Send Build Success Message
-        uses: appleboy/telegram-action@master
-        if: success()
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: markdown
-          message: |
-            Author: ${{github.actor}}
-
-            Status: 😚 **Success**
-
-            Commit message: ${{ github.event.commits[0].message }}
-
-            [See changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
-
-      # 빌드 실패 메세지 발송
-      - name: Send Build Fail Message
-        uses: appleboy/telegram-action@master
-        if: failure()
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: markdown
-          message: |
-            Author: ${{github.actor}}
-
-            Status: 😱 **Failure**
-
-            Commit message: ${{ github.event.commits[0].message }}
-
-            [link](https://github.com/${{ github.repository }}/actions)
