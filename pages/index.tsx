@@ -14,7 +14,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconTrashX } from '@tabler/icons';
+import { IconTrashX } from '@tabler/icons-react';
 import Fs from 'fs';
 import type { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
@@ -222,8 +222,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
               alt="mobilemain"
               placeholder="blur"
               blurDataURL="/images/mobilemain.webp"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain' }}
             />
           </MainImage>
         </MainWrap>
@@ -285,8 +285,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   alt="changju"
                   placeholder="blur"
                   blurDataURL="/images/changju.webp"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                 />
               </Face>
             </Stack>
@@ -309,8 +309,8 @@ const Home: NextPage<{ images: string[] }> = ({ images }) => {
                   alt="shinhee"
                   placeholder="blur"
                   blurDataURL="/images/shinhee.webp"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                 />
               </Face>
             </Stack>

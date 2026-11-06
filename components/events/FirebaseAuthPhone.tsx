@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import firebaseConfig from '../../firebaseConfig.js';
-import Link from 'next/link.js';
+import Link from 'next/link';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -59,14 +59,10 @@ const Sms = () => {
     }
 
     if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        'sign-in-button',
-        {
-          size: 'invisible',
-          callback: (response: any) => {},
-        },
-        auth
-      );
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+        size: 'invisible',
+        callback: (response: any) => {},
+      });
     }
     window.recaptchaVerifier.render();
 

@@ -1,6 +1,6 @@
 import { ActionIcon, Popover, Text, Stack, useMantineTheme, Box, CopyButton, Title } from '@mantine/core';
 import { NextLink } from '@mantine/next';
-import { IconClipboard, IconClipboardCheck, IconCurrencyWon, IconPhoneCall } from '@tabler/icons';
+import { IconClipboard, IconClipboardCheck, IconCurrencyWon, IconPhoneCall } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IoClose } from 'react-icons/io5';

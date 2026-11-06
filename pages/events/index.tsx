@@ -12,7 +12,7 @@ import {
   Transition,
   useMantineTheme,
 } from "@mantine/core";
-import { IconWriting } from "@tabler/icons";
+import { IconWriting } from "@tabler/icons-react";
 import React, { useState } from "react";
 import styled from "styled-components";
 const Event = () => {
